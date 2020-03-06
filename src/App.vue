@@ -1,11 +1,10 @@
 <template>
   <div id="app">
-    <nav-initial />
+    <router-view> </router-view>
   </div>
 </template>
 
 <script>
-import navInitial from './components/initial/NavInitial'
 export default {
   name: 'app',
   data () {
@@ -13,10 +12,6 @@ export default {
 
     }
   },
-
-  components:{
-    "nav-initial": navInitial,
-  }
 };
 </script>
 
