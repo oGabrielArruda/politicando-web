@@ -1,20 +1,27 @@
 <template>
-  <nav-initial />
+  <div>
+    <nav-initial />
+    <Pesquisa id="pesq"/>
+  </div>
 </template>
 
 <script>
-import NavInitial from '../shared/NavInitial'
-export default {
-    name: 'Home',
-    data(){
+import NavInitial from "../shared/NavInitial";
+import Pesquisa from "../shared/Pesquisa.vue";
 
-    },
-    components: {
-      'nav-initial': NavInitial,
-    }
-}
+export default {
+  name: "Home",
+  //data(){return{}},
+  components: {
+    "nav-initial": NavInitial,
+     Pesquisa,
+  }
+};
 </script>
 
 <style>
+  #pesq{
+    margin-top:300px;
+    }
 
 </style>
