@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: "nav-initial",
+  name: "NavInitial",
   data() {
     return {
       logoSrc: "./src/assets/logo2.PNG",

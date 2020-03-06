@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <navInitial />
+    <nav-initial />
   </div>
 </template>
 
 <script>
-import navInitial from './components/initial/nav-initial'
+import navInitial from './components/initial/NavInitial'
 export default {
   name: 'app',
   data () {
@@ -15,7 +15,7 @@ export default {
   },
 
   components:{
-    navInitial,
+    "nav-initial": navInitial,
   }
 };
 </script>
