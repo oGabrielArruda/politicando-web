@@ -7,7 +7,7 @@
 
 <script>
 import NavInitial from "../shared/NavInitial";
-import Pesquisa from "../shared/Pesquisa.vue";
+import Pesquisa from "../shared/pesquisa/Pesquisa.vue";
 
 export default {
   name: "Home",
