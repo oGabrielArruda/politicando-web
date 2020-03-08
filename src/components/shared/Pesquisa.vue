@@ -4,12 +4,10 @@
     <div id="cont">
       <div id="filtros">
         <select>
-          <option v-for="tipo in tiposDePessoas">
-            {{ tipo }}
-          </option>
+          <option v-for="tipo in tiposDePessoas">{{ tipo }}</option>
         </select>
         <select>
-          <option v-for="partido in partidos"> {{ partido.nome }} </option>
+          <option v-for="partido in partidos">{{ partido.sigla }}</option>
         </select>
       </div>
       <div id="exibicao">
@@ -25,21 +23,24 @@ export default {
   name: "Pesquisa",
   data() {
     return {
+      deputados: [],
+      senadores: [],
       tiposDePessoas: ["Deputados e Senadores", "Deputados", "Senadores"],
       partidos: [],
     };
   },
 
-  created: function(){
-     this.$http.get('https://dadosabertos.camara.leg.br/api/v2/partidos?ordem=ASC&ordenarPor=sigla')
-     .then(res => res.json())
-     .then(partidosRetornados => {
-         this.partidos = partidosRetornados.nome;
-         console.log(partidosRetornados+"aaaaa");
-         })
-     .catch(erro => console.log(erro));
+  mounted() {
+    axios
+      .get(
+        "https://dadosabertos.camara.leg.br/api/v2/partidos?ordem=ASC&ordenarPor=sigla"
+      )
+      .then(res => {
+        this.partidos = res.data.dados;
+        console.log(this.partidos);
+      })
+      .catch(erro => console.log(erro));
   },
-
 };
 </script>
 <style>
