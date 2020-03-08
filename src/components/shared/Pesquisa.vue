@@ -3,21 +3,21 @@
     <h1>Pesquise os deputados e senadores</h1>
     <div id="cont">
       <div id="filtros">
-        <select>
-          <option v-for="tipo in tiposDePessoas">{{ tipo }}</option>
+        <select v-model="filtroPessoasSelecionado">
+          <option v-for="tipo in tiposDePessoas" >{{ tipo }}</option>
         </select>
-        <select>
-          <option> Partido </option>
+        <select v-model="filtroPartido">
+          <option selected> Partido </option>
           <option v-for="partido in partidos">{{ partido.sigla }}</option>
         </select>
-        <select>
-          <option>Estatíticas</option>
+        <select v-model="filtroEstatitica">
+          <option selected>Estatíticas</option>
           <option v-for="estatitica in estatiticas">{{ estatitica }}</option>
         </select>
       </div>
       <div id="exibicao">
         <ul>
-          <li></li>
+          
         </ul>
       </div>
     </div>
@@ -33,6 +33,10 @@ export default {
       tiposDePessoas: ["Deputados e Senadores", "Deputados", "Senadores"],
       estatiticas: ['Gastos', 'Propostas', 'Processos', 'Faltas', 'Presenças'],
       partidos: [],
+
+      filtroPessoasSelecionado: 'Deputados e Senadores',
+      filtroEstatitica: '',
+      filtroPartido: '',
     };
   },
 
@@ -67,6 +71,11 @@ export default {
       .catch(erro => console.log(erro));
 
 
+  },
+  methods:{
+    filtrarPessoas: function(){
+      console.log(this.filtroPessoasSelecionado);
+    },
   },
 };
 </script>
