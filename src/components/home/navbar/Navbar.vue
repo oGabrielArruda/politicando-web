@@ -39,7 +39,6 @@ nav .form-group {
   flex-direction: row;
   align-items: center;
   margin-right: 5%;
-
 }
 
 nav .form-group input {
@@ -60,6 +59,25 @@ nav .form-group button {
   padding: 8px 25px;
   border-radius: 4px;
   color: #fff;
-  font-weight: bold;;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+nav .form-group button:hover {
+  background: rgb(14, 180, 89);
+}
+
+@media (max-width: 1000px) {
+  nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  nav > img {
+    margin-bottom: 5px;
+  }
 }
 </style>

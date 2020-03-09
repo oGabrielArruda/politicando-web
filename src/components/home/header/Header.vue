@@ -33,7 +33,7 @@
       </div>
       <img src="../../../assets/initial/map-lupa2.png" />
     </div>
-    <svg
+    <!--<svg
       width="1440"
       height="426"
       viewBox="0 0 1440 426"
@@ -50,7 +50,7 @@
         fill="#13B423"
         fill-opacity="0.71"
       />
-    </svg>
+    </svg>-->
   </header>
 </template>
 
@@ -84,6 +84,11 @@ header .container {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+header .container > img {
+  height: 55%;
+  width: 35%;
 }
 
 header .information .title {
@@ -136,8 +141,5 @@ header .information .list .item > div h3 {
 header .information .list .item > div p {
   color: rgb(107, 107, 107);
   font-weight: bold;
-}
-
-header > img {
 }
 </style>
