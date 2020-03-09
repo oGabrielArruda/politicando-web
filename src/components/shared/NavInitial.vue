@@ -27,7 +27,7 @@ nav {
   height: 60.3px;
   background-color: white;
   width:99.9%;
-  background-color: #f9e0008f;
+  background-color: transparent;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -45,6 +45,7 @@ nav {
     flex-direction: row;
     align-items: center;
     margin-right: 3%;
+    
 }
 
 #btn{
@@ -64,5 +65,6 @@ input{
     height: 27px;
     border-style: none;
     margin-right: 2.7%;
+    background-color: rgb(214, 210, 210);
 }
 </style>
