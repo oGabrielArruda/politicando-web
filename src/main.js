@@ -5,6 +5,7 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import { routes } from './routes';
 
+import './assets/styles.css';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
