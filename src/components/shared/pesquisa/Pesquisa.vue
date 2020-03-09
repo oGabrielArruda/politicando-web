@@ -27,14 +27,8 @@
   </div>
 </template>
 <script>
-import Exibidor from './subcomponents/Exibidor'
-
 export default {
   name: "Pesquisa",
-  components: {
-    Exibidor,
-  },
-
   data() {
     return {
       politicos: [],
@@ -52,26 +46,6 @@ export default {
   },
 
   mounted() {
-    /*axios
-    .get("https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome")
-    .then(res => {
-      this.deputados = res.data.dados;
-      console.log(this.deputados);
-    })
-    .catch(erro => {
-      console.log(erro);
-    });
-
-    axios
-    .get("http://legis.senado.leg.br/dadosabertos/senador/lista/atual")
-    .then(res => {
-      this.senadores = res.data.ListaParlamentarEmExercicio.Parlamentares.Parlamentar;
-      console.log(this.senadores);
-    })
-    .catch(erro => {
-      console.log(erro);
-    });
-
     axios
       .get(
         "https://dadosabertos.camara.leg.br/api/v2/partidos?ordem=ASC&ordenarPor=sigla"      )
@@ -79,9 +53,7 @@ export default {
         this.partidos = res.data.dados;
         console.log(this.partidos);
       })
-      .catch(erro => console.log(erro));*/
-
-
+      .catch(erro => console.log(erro));
   },
   methods:{
   },
