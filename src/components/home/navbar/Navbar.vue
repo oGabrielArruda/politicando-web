@@ -24,9 +24,10 @@ export default {
 nav {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-around;
-  margin: 15px 0;
+  padding: 15px 0;
+  height: 10vh;
+  background: transparent;
 }
 
 nav > img {
