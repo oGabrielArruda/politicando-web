@@ -126,4 +126,14 @@ header .information .list .item > div p {
     align-items: center;
   }
 }
+
+ @media (orientation: landscape) and (max-width : 1024px){
+    header{
+       margin: 80px 0;
+    }  
+    header > img {
+      display: none;
+    }
+  
+ }
 </style>

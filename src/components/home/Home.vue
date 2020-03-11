@@ -23,6 +23,9 @@ export default {
 .container {
   height: 100vh;
   background: url("../../assets/initial/oval.svg") no-repeat;
-  background-position: right top;
+  background-position: right top; 
+}
+
+@media (orientation: landscape) and (max-width : 1024px){
 }
 </style>

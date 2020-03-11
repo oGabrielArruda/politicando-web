@@ -81,4 +81,10 @@ nav .form-group button:hover {
     margin-bottom: 5px;
   }
 }
+ @media (orientation: landscape) and (max-width : 1024px){
+    nav{
+       margin-top: 50px;
+    }  
+    
+ }
 </style>
