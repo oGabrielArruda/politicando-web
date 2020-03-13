@@ -1,21 +1,14 @@
-import Vue from 'vue'
-import App from './App.vue'
-window.axios = require('axios')
-import VueAxios from 'vue-axios'
-import VueRouter from 'vue-router'
-import { routes } from './routes';
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
 
-import './assets/styles.css';
+import './assets/styles.scss';
 
-Vue.use(VueRouter);
-Vue.use(VueAxios, axios);
-
-const router = new VueRouter({
-  routes: routes,
-});
+Vue.config.productionTip = false;
 
 new Vue({
-  el: '#app',
   router,
-  render: h => h(App)
-})
+  store,
+  render: (h) => h(App),
+}).$mount('#app');

@@ -7,14 +7,11 @@
 <script>
 export default {
   name: 'app',
-  data () {
-    return {
-
-    }
+  data() {
+    return {};
   },
 };
 </script>
 
-<style>
-
+<style lang="scss">
 </style>
