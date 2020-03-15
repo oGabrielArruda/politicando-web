@@ -1,7 +1,9 @@
 <template>
-  <div class="container">
-    <Navbar />
-    <Header />
+  <div class="background">
+    <div class="container">
+      <Navbar />
+      <Header />
+    </div>
   </div>
 </template>
 
@@ -19,8 +21,33 @@ export default {
 };
 </script>
 <style lang="scss">
-.container {
+@mixin background-portrait {
+  @media (max-width: 399px) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin background-landscape {
+  @media (max-width: 570px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+.background {
   height: 100vh;
-  background: rgba(39, 197, 91, 0.726);
+  background: #27c55bb9;
+
+  .container {
+    background: url("../../assets/initial/wave2.svg") no-repeat top,
+      url("../../assets/initial/wave.svg") no-repeat bottom;
+
+    @include background-portrait {
+      background: none;
+    }
+
+    @include background-landscape {
+      background: none;
+    }
+  }
 }
 </style>

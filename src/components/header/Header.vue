@@ -50,41 +50,226 @@ export default {
 </script>
 
 <style lang="scss">
+@mixin font-rezisable-0 {
+  @media (min-width: 591px) and (max-width: 600px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin font-resizable-1 {
+  @media (min-width: 511px) and (max-width: 590px) {
+    @content;
+  }
+}
+
+@mixin font-resizable-2 {
+  @media (min-width: 399px) and (max-width: 510px) {
+    @content;
+  }
+}
+
+@mixin font-resizable-3 {
+  @media (min-width: 200px) and (max-width: 398px) {
+    @content;
+  }
+}
+
+/* other responsive */
+@mixin for-phone-only {
+  @media (max-width: 699px) {
+    @content;
+  }
+}
+
+@mixin for-phone-landscape-up {
+  @media (min-width: 568px) and (max-width: 899px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin for-tablet-portrait-up {
+  @media (min-width: 700px) and (max-width: 899px) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) and (max-width: 1199px) {
+    @content;
+  }
+}
+
+@mixin for-desktop-up {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) {
+    @content;
+  }
+}
+
 header {
-  height: 90vh;
-  background: url("../../assets/initial/wave.svg") no-repeat;
-  background-position: bottom;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
+
+  @include for-desktop-up {
+    height: 90vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  @include for-tablet-landscape-up {
+    height: 90vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include for-tablet-portrait-up {
+    height: 90vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include for-phone-only {
+    height: 80vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include font-resizable-2 {
+    height: 75vh;
+  }
+
+  @include for-phone-landscape-up {
+    height: 90vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & > img {
+    width: 26%;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.07);
+    }
+    &:active {
+      transform: scale(0.97);
+    }
+
+    @include for-tablet-landscape-up {
+      display: none;
+    }
+
+    @include for-tablet-portrait-up {
+      display: none;
+    }
+
+    @include for-phone-only {
+      width: 45%;
+    }
+    @include for-phone-landscape-up {
+      display: none;
+    }
+  }
 
   .information {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+
+    @include for-desktop-up {
+      align-items: flex-start;
+    }
+
+    @include for-tablet-landscape-up {
+      align-items: center;
+    }
+
+    @include for-tablet-portrait-up {
+      align-items: center;
+    }
+
+    @include for-phone-only {
+      align-items: center;
+    }
+    @include for-phone-landscape-up {
+      align-items: center;
+    }
 
     .title {
       display: flex;
       flex-direction: column;
       margin-bottom: 40px;
 
+      @include for-phone-only {
+        align-items: center;
+        margin-bottom: 0;
+      }
+      @include for-phone-landscape-up {
+        align-items: center;
+        margin-bottom: 0;
+      }
+
       h2 {
-        font-size: 50px;
         font-weight: bold;
         color: #3e3f4b;
+        font-size: 50px;
+
+        @include font-resizable-1 {
+          font-size: 40px;
+        }
+
+        @include font-resizable-2 {
+          font-size: 30px;
+        }
+
+        @include font-resizable-3 {
+          font-size: 20px;
+        }
       }
 
       h1 {
-        font-size: 60px;
         font-weight: bold;
         color: #444552;
+        font-size: 60px;
+
+        @include font-resizable-1 {
+          font-size: 50px;
+        }
+
+        @include font-resizable-2 {
+          font-size: 40px;
+        }
+
+        @include font-resizable-3 {
+          font-size: 30px;
+        }
       }
 
       h4 {
-        font-size: 40px;
         font-weight: bold;
         color: rgb(255, 255, 255);
+        font-size: 40px;
+
+        @include font-resizable-1 {
+          font-size: 30px;
+        }
+
+        @include font-resizable-2 {
+          font-size: 20px;
+        }
+
+        @include font-resizable-3 {
+          font-size: 10px;
+        }
       }
     }
 
@@ -92,6 +277,13 @@ header {
       display: flex;
       flex-direction: column;
       width: 75%;
+
+      @include for-phone-only {
+        display: none;
+      }
+      @include for-phone-landscape-up {
+        display: none;
+      }
 
       .item {
         display: flex;
@@ -116,32 +308,6 @@ header {
         }
       }
     }
-  }
-}
-
-@mixin for-phone-only {
-  @media (max-width: 599px) {
-    @content;
-  }
-}
-@mixin for-tablet-portrait-up {
-  @media (min-width: 600px) {
-    @content;
-  }
-}
-@mixin for-tablet-landscape-up {
-  @media (min-width: 900px) {
-    @content;
-  }
-}
-@mixin for-desktop-up {
-  @media (min-width: 1200px) {
-    @content;
-  }
-}
-@mixin for-big-desktop-up {
-  @media (min-width: 1800px) {
-    @content;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <img src="../../assets/initial/logo2.png" />
+    <img src="../../assets/initial/logo.png" />
     <div class="form-group">
       <input name="email" type="text" placeholder="Endereço de email" />
       <input name="senha" type="text" placeholder="Senha" />
@@ -20,13 +20,49 @@ export default {
 };
 </script>
 <style lang="scss">
+@mixin for-phone-one {
+  @media (min-width: 511px) and (max-width: 699px) {
+    @content;
+  }
+}
+
+@mixin for-phone-two {
+  @media (max-width: 510px) {
+    @content;
+  }
+}
+
+@mixin default {
+  @media (min-width: 700px) {
+    @content;
+  }
+}
+
 nav {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 15px 0;
-  height: 10vh;
   background: transparent;
+
+  @include default {
+    height: 10vh;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+  }
+
+  @include for-phone-one {
+    height: 20vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  @include for-phone-two {
+    height: 25vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 
   img {
     height: 70px;
@@ -35,24 +71,44 @@ nav {
 
   .form-group {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-right: 5%;
+
+    @include default {
+      flex-direction: row;
+      align-items: center;
+      margin-right: 15px;
+    }
+
+    @include for-phone-two {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
     input {
       border: none;
-      margin-right: 3%;
-      background: #ffffff;
+      background: #e7e7e7;
       padding: 8px 15px;
       border-radius: 4px;
+
+      @include default {
+        margin-right: 3%;
+      }
+
+      @include for-phone-one {
+        margin-right: 3%;
+      }
+
+      @include for-phone-two {
+        margin-bottom: 3%;
+      }
     }
 
     button {
       border: none;
-      background: #ffffff;
+      background: #27c55bb9;
       padding: 8px 25px;
       border-radius: 4px;
-      color: #444552;
+      color: #fff;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.2s;
@@ -67,39 +123,5 @@ nav {
 ::placeholder {
   /* Most modern browsers support this now. */
   color: rgb(99, 99, 99);
-}
-
-/*@media (max-width: 1000px) {
-  nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  nav > img {
-    margin-bottom: 5px;
-  }
-}
-@media (orientation: landscape) and (max-width: 1024px) {
-  nav {
-    align-items: center;
-    padding-top: 50px;
-  }
-}*/
-
-@mixin for-phone-only {
-  @media (max-width: 599px) { @content; }
-}
-@mixin for-tablet-portrait-up {
-  @media (min-width: 600px) { @content; }
-}
-@mixin for-tablet-landscape-up {
-  @media (min-width: 900px) { @content; }
-}
-@mixin for-desktop-up {
-  @media (min-width: 1200px) { @content; }
-}
-@mixin for-big-desktop-up {
-  @media (min-width: 1800px) { @content; }
 }
 </style>
