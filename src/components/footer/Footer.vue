@@ -1,28 +1,53 @@
 <template>
-  <div id="container">
-    <img id="logo" src="../../assets/initial/logo.png" />
+  <div class="container">
+    <div class="division"></div>
+    <div class="content">
+      <img src="../../assets/initial/logo.png" />
+      <div class="informations">
+        <div class="texts">
+          <h2>Links Rápidos</h2>
+          <div>
+            <p>
+              <a href>Sobre nós</a>
+            </p>
+            <p>
+              <a href>Nossa Logo</a>
+            </p>
+            <p>
+              <a href>Contato</a>
+            </p>
+          </div>
+        </div>
 
-    <div id="informacoes">
-      <div class="textos">
-        <h2>Links Rápidos</h2>
-        <p>Sobre Nós</p>
-        <p>Nossa Logo</p>
-        <p>Contato</p>
-      </div>
+        <div class="texts">
+          <h2>Desenvolvedores</h2>
+          <div>
+            <p>
+              <a href="https://github.com/oGabrielArruda">Gabriel Arruda</a>
+            </p>
+            <p>
+              <a href="https://github.com/Nouani">Nouani Sanches</a>
+            </p>
+            <p>
+              <a href="https://github.com/GuilhermeAugustoFT">Guilherme Teixeira</a>
+            </p>
+          </div>
+        </div>
 
-      <div class="textos">
-        <h2>Coisas Legais</h2>
-        <p>Disclaimer</p>
-        <p>Financing</p>
-        <p>Privacy Policy</p>
-        <p>Terms of Service</p>
-      </div>
-
-      <div class="textos">
-        <h2>Redes Sociais</h2>
-        <p>Facebook</p>
-        <p>Twitter</p>
-        <p>Instagram</p>
+        <div class="texts">
+          <h2>Redes Sociais</h2>
+          <div>
+            <p>
+              <a href>Facebook</a>
+            </p>
+            <p>
+              <a href>Twitter</a>
+            </p>
+            <p>
+              <a href>Instagram</a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,27 +63,136 @@ export default {
 </script>
 
 <style lang="scss">
-#container {
-  display: flex;
-  flex-direction: row;
-  margin-top: 100px;
-  background: url("../../assets/initial/footer.svg") no-repeat bottom;
-  height: 47vh;
-  justify-content: space-around;
-  align-items: flex-start;
+@mixin footer-mobile-low {
+  @media (max-width: 590px) {
+    @content;
+  }
+}
 
-  #logo {
-    height: 90px;
+@mixin footer-mobile-medium {
+  @media (min-width: 590px) and (max-width: 899px) {
+    @content;
+  }
+}
+
+@mixin footer-computer {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 80px;
+
+  .division {
+    height: 1px;
+    background: rgb(206, 206, 206);
+    width: 80vw;
+    border-radius: 4px;
   }
 
-  #informacoes {
+  .content {
     display: flex;
     flex-direction: row;
-    width: 60vw;
-    justify-content: space-evenly;
-    p {
-      margin-top: 20px;
-      font-size: 13pt;
+    justify-content: center;
+    align-items: center;
+    margin-top: 35px;
+
+    @include footer-computer {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: flex-start;
+    }
+
+    @include footer-mobile-medium {
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    @include footer-mobile-low {
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    & > img {
+      height: 90px;
+    }
+
+    .informations {
+      display: flex;
+
+      @include footer-computer {
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 60vw;
+      }
+
+      @include footer-mobile-medium {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-around;
+        width: 80vw;
+      }
+
+      @include footer-mobile-low {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+      }
+
+      .texts {
+        @include footer-mobile-low {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+
+        h2 {
+          font-weight: bold;
+          color: rgb(46, 46, 46);
+        }
+
+        div {
+          @include footer-mobile-low {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+
+          p {
+            a {
+              color: rgb(173, 173, 173);
+              transition: color 0.2s;
+              &:link {
+                color: rgb(173, 173, 173);
+              }
+
+              &:visited {
+                color: rgb(173, 173, 173);
+              }
+
+              &:hover {
+                color: rgb(83, 83, 83);
+              }
+            }
+          }
+        }
+      }
+
+      p {
+        margin-top: 20px;
+        font-size: 13pt;
+      }
     }
   }
 }

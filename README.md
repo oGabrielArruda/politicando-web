@@ -41,3 +41,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     }
 ],
 ````
+
+- Rodas fix all
+````bash
+$ npm run eslint --fix src
+````

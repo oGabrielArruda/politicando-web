@@ -1,9 +1,10 @@
 <template>
   <div class="background">
-    <div class="container">
+    <div class="header">
       <Navbar />
       <Header />
     </div>
+    <div class="teste"></div>
     <Footer />
   </div>
 </template>
@@ -24,6 +25,7 @@ export default {
 };
 </script>
 <style lang="scss">
+/* header responsive bg */
 @mixin background-portrait {
   @media (max-width: 399px) and (orientation: portrait) {
     @content;
@@ -36,11 +38,18 @@ export default {
   }
 }
 
+/* footer responsive bg */
+@mixin footer-mobile-low {
+  @media (max-width: 590px) {
+    @content;
+  }
+}
+
 .background {
   height: 100vh;
   background: #27c55bb9;
 
-  .container {
+  .header {
     background: url("../../assets/initial/wave2.svg") no-repeat top,
       url("../../assets/initial/wave.svg") no-repeat bottom;
 
@@ -51,6 +60,12 @@ export default {
     @include background-landscape {
       background: none;
     }
+  }
+
+  .teste {
+    margin-top: -2px;
+    height: 4px;
+    background: #fff;
   }
 }
 </style>
