@@ -4,12 +4,14 @@
       <Navbar />
       <Header />
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from '../../components/navbar/Navbar.vue';
 import Header from '../../components/header/Header.vue';
+import Footer from '../../components/footer/Footer.vue';
 
 export default {
   name: 'Home',
@@ -17,6 +19,7 @@ export default {
   components: {
     Navbar,
     Header,
+    Footer,
   },
 };
 </script>
