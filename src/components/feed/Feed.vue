@@ -1,20 +1,20 @@
 <template>
 <div>
-    <Feed />
+    <Carousel />
 </div>
 </template>
 <script>
-import Feed from '../../components/feed/Feed.vue';
+import Carousel from '../carousel/Carousel.vue';
 
 export default {
-  name: 'Home',
-  components: {
-    Feed,
-  },
+  name: 'Feed',
   data() {
     return {
 
     };
+  },
+  components: {
+    Carousel,
   },
 };
 </script>
