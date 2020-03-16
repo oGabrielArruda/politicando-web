@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    .search-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+  
+      & > input {
+        border: none;
+        background: rgb(231, 231, 231);
+        padding: 18px 15px;
+        width: 450px;
+        border-radius: 6px;
+        font-size: 15px;
+      }
+  
+      & > button {
+        border: none;
+        background: #0557a4;
+        padding: 14px 45px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 6px;
+        margin-left: -20px;
+      }
+    }
+  }

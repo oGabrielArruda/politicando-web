@@ -8,16 +8,15 @@ import Feed from '../../components/feed/Feed.vue';
 
 export default {
   name: 'Home',
-  components: {
-    Feed,
-  },
   data() {
     return {
 
     };
   },
+  components: {
+    Feed,
+  },
 };
 </script>
-<style>
 
-</style>
+<style lang="scss" src="./styles.scss" scoped />

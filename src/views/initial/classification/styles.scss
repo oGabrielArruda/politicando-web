@@ -1,0 +1,14 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+  
+    & > h1 {
+      color: #585858;
+      font-size: 50px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
