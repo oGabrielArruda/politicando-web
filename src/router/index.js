@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Initial from '../views/initial/Initial.vue';
+import Signup from '../views/signup/Signup.vue';
 import Home from '../views/home/Home.vue';
 
 Vue.use(VueRouter);
@@ -15,6 +16,11 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: Signup,
   },
 ];
 
