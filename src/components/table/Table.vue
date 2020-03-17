@@ -4,26 +4,20 @@
       <div class="filter-group">
         <select>
           <option value disabled selected>Tipo de Político</option>
-          <option value="0">Todos</option>
-          <option value="1">Deputados</option>
-          <option value="2">Senadores</option>
+          <option v-bind:key="tipo" v-for="tipo in tiposDePolitico"> {{tipo}} </option>
+        </select>
+        <select>
+          <option value disabled selected> Estado </option>
+          <option v-bind:key="estado" v-for="estado in estados">{{estado}}</option>
         </select>
         <select>
           <option value disabled selected>Partido</option>
           <option value="0">Todos</option>
-          <option value="1">PT</option>
-          <option value="2">PDT</option>
-          <option value="2">PSB</option>
-          <option value="2">PSDB</option>
-          <option value="2">PSL</option>
+          <option v-bind:key="partido" v-for="partido in partidos"> {{partido}} </option>
         </select>
         <select>
           <option value disabled selected>Classificar por</option>
-          <option value="0">Gastos</option>
-          <option value="1">Faltas</option>
-          <option value="2">Presenças</option>
-          <option value="2">Propostas</option>
-          <option value="2">Procesos</option>
+          <option v-bind:key="clasf" v-for="clasf in classificativos"> {{clasf}} </option>
         </select>
       </div>
       <div class="filters">
@@ -157,7 +151,12 @@
 export default {
   name: 'Table',
   data() {
-    return {};
+    return {
+      partidos: ['PT', 'PDT', 'PSB', 'PSDB'],
+      estados: ['SP', 'RJ', 'ES', 'etc'],
+      classificativos: ['Gastos', 'Faltas', 'Presenças', 'Propostas', 'Processos'],
+      tiposDePolitico: ['Todos', 'Deputados', 'Senadores'],
+    };
   },
 };
 </script>
