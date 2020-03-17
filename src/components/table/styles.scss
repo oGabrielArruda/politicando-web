@@ -1,0 +1,278 @@
+/* responsive table */
+@mixin table-mobile {
+  @media (max-width: 1386px) {
+    @content;
+  }
+}
+
+@mixin table-computer {
+  @media (min-width: 1387px) {
+    @content;
+  }
+}
+
+/* responsive filter */
+@mixin filter-mobile {
+  @media (max-width: 645px) {
+    @content;
+  }
+}
+
+@mixin filter-computer {
+  @media (min-width: 646px) {
+    @content;
+  }
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  padding: 20px 15px;
+  margin: 15px 0;
+  border: 1px solid rgba(189, 189, 189, 0.541);
+  border-radius: 5px;
+  //border: 1px solid red;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+
+    .filter-group {
+      display: flex;
+      padding: 10px 0;
+
+      @include filter-computer {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      @include filter-mobile {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      & > select {
+        border: none;
+        background: #f1f1f1;
+        border-radius: 4px;
+        color: rgb(110, 110, 110);
+        font-weight: bold;
+        padding: 5px 15px;
+        margin-left: 10px;
+        width: 150px;
+        cursor: pointer;
+
+        @include filter-mobile {
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    .filters {
+      display: flex;
+      flex-direction: row;
+      margin-top: 20px;
+
+      @include filter-computer {
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      @include filter-mobile {
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      & > h3 {
+        margin-left: 5px;
+        padding: 10px 20px;
+        font-size: 15px;
+        color: rgb(70, 61, 61);
+        border-radius: 4px;
+        cursor: not-allowed;
+      }
+
+      h3.filtro-tipo {
+        background: rgba(238, 255, 0, 0.308);
+      }
+
+      h3.filtro-partido {
+        background: rgba(43, 255, 0, 0.308);
+      }
+
+      h3.filtro-propostas {
+        background: rgba(0, 140, 255, 0.507);
+      }
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    margin-top: 10px;
+    //border: 1px solid red;
+
+    @include table-mobile {
+      display: flex;
+      flex-direction: column;
+    }
+
+    thead {
+      border-bottom: 1px solid rgba(189, 189, 189, 0.541);
+
+      @include table-mobile {
+        display: none;
+      }
+
+      th {
+        color: rgb(148, 148, 148);
+        padding: 8px 10px;
+        text-align: start;
+        font-size: 16px;
+      }
+    }
+
+    tbody {
+      @include table-mobile {
+        display: flex;
+        flex-direction: column;
+      }
+
+      tr {
+        //border-bottom: 1px solid rgba(189, 189, 189, 0.541);
+        transition: background 0.2s;
+
+        @include table-mobile {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 15px;
+          background: rgb(235, 235, 235);
+          border-radius: 10px;
+          padding: 10px 20px;
+        }
+
+        &:hover {
+          background: rgba(53, 157, 255, 0.185);
+        }
+
+        td {
+          color: rgb(53, 53, 53);
+          padding: 15px 10px;
+          font-size: 13px;
+        }
+
+        .label-exists {
+          @include table-mobile {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+          }
+
+          &::before {
+            @include table-mobile {
+              content: attr(data-label);
+              position: absolute;
+              left: 0;
+              width: 50%;
+              padding-left: 15px;
+              font-size: 15px;
+              font-weight: bold;
+              text-align: left;
+            }
+          }
+        }
+
+        .classification-column {
+          font-weight: bold;
+          font-size: 18px;
+
+          @include table-computer {
+            text-align: center;
+          }
+
+          @include table-mobile {
+            text-align: start;
+          }
+        }
+
+        .name-column {
+          display: flex;
+
+          @include table-computer {
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+          }
+
+          @include table-mobile {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+
+          img {
+            border-radius: 50%;
+
+            @include table-computer {
+              width: 35px;
+              height: 35px;
+              margin-right: 10px;
+            }
+
+            @include table-mobile {
+              width: 55px;
+              height: 55px;
+              margin-bottom: 5px;
+            }
+          }
+        }
+
+        .follow-button {
+          text-align: center;
+
+          & > div {
+            text-align: center;
+            button {
+              border: none;
+              
+              background: #0557a4;
+              color: #fff;
+              
+              cursor: pointer;
+              transition: background 0.2s;
+
+              @include table-computer {
+                width: 70px;
+                height: 30px;
+                border-radius: 15px;
+                font-size: 12px;
+              }
+
+              @include table-mobile {
+                width: 100%;
+                height: 40px;
+                border-radius: 8px;
+                font-size: 15px;
+              }
+  
+              &:hover {
+                background: rgba(5, 87, 164, 0.671);
+              }
+            }
+          }
+  
+          .following {
+            button {
+              background: rgba(5, 87, 164, 0.671);
+            }
+          }
+          }
+      }
+    }
+  }
+}
