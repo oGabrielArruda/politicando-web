@@ -80,28 +80,30 @@
         background: #0557a4;
         color: #fff;
         font-weight: bold;
-        
         border-radius: 6px;
-        margin-left: -20px;
         transition: background .3s;
         cursor: pointer;
 
         @include search-computer {
           padding: 14px 45px;
           font-size: 20px;
+          margin-left: -20px;
         }
 
         @include search-mobile-1 {
           padding: 14px 35px;
+          margin-left: -20px;
         }
 
         @include search-mobile-2 {
           padding: 12px 25px;
+          margin-left: -20px;
         }
 
         @include search-mobile-3 {
           padding: 12px 25px;
           margin-top: 5px;
+          margin-left: 0;
         }
 
         &:hover {

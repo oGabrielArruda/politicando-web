@@ -100,7 +100,7 @@
         background: rgba(238, 255, 0, 0.308);
       }
 
-      h3.filtro-estado{
+      h3.filtro-estado {
         background: rgba(38, 0, 255, 0.308);
       }
 
@@ -243,10 +243,10 @@
             text-align: center;
             button {
               border: none;
-              
+
               background: #0557a4;
               color: #fff;
-              
+
               cursor: pointer;
               transition: background 0.2s;
 
@@ -263,19 +263,21 @@
                 border-radius: 8px;
                 font-size: 15px;
               }
-  
+
               &:hover {
                 background: rgba(5, 87, 164, 0.671);
               }
             }
           }
-  
-          .following {
+        }
+
+        .following {
+          & > div {
             button {
               background: rgba(5, 87, 164, 0.671);
             }
           }
-          }
+        }
       }
     }
   }
