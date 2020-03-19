@@ -42,6 +42,7 @@
         <th></th>
       </thead>
       <tbody>
+        <tr></tr>
         <tr>
           <td class="classification-column">1°</td>
           <td data-label="Nome" class="name-column">
@@ -167,8 +168,20 @@ export default {
       partidoEscolhido: '',
       estadoEscolhido: '',
       classfEscolhido: '',
+
+      politicos: '',
     };
   },
+
+  mounted(){
+    axios
+    .get("https://my-json-server.typicode.com/oGabrielArruda/fake-api/politicos")
+    .then(res => {
+      this.politicos = res.data;
+      console.log(res);
+    })
+    .catch(erro => {console.log(erro);})
+  }
 };
 </script>
 
