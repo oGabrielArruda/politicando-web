@@ -1,12 +1,12 @@
 /* responsive table */
 @mixin table-mobile {
-  @media (max-width: 1386px) {
+  @media (max-width: 1240px) {
     @content;
   }
 }
 
 @mixin table-computer {
-  @media (min-width: 1387px) {
+  @media (min-width: 1241px) {
     @content;
   }
 }
@@ -27,7 +27,7 @@
 .table-container {
   display: flex;
   flex-direction: column;
-  width: 70vw;
+  width: 78vw;
   padding: 20px 15px;
   margin: 15px 0;
   border: 1px solid rgba(189, 189, 189, 0.541);
