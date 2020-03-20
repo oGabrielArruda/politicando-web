@@ -15,7 +15,7 @@
         <select @change="changePartido($event)">
           <option value disabled selected>Partido</option>
           <option value="0">Todos</option>
-          <option v-bind:key="partido" v-for="partido in partidos">{{partido}}</option>
+          <option v-bind:key="partido" v-for="partido in partidos">{{partido.sigla}}</option>
         </select>
         <select>
           <option value disabled selected>Classificar por</option>
@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       tiposDePolitico: ['Deputados', 'Senadores'],
-      partidos: ['PT', 'PDT', 'PSB', 'PSDB'],
+      partidos: [],
       estados: ['SP', 'RJ', 'ES', 'etc'],
       classificativos: [
         'Gastos',
@@ -96,11 +96,10 @@ export default {
   },
   async mounted() {
     try {
-      const response = await api.get(this.url);
-      this.politicos = response.data;
+      const response = await api.get('https://dadosabertos.camara.leg.br/api/v2/partidos?ordem=ASC&ordenarPor=sigla');
+      this.partidos = response.data.dados;
     } catch (erro) {
-      // tratar erro
-      console.log('funcionou');
+      console.log(erro);
     }
   },
 
