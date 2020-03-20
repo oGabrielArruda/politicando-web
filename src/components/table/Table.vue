@@ -115,26 +115,16 @@ export default {
             this.filtroTipo = '&tipo=Senador';
             break;
           default:
-            return;
         }
       } else { this.filtroPartido = ''; }
-
-      const url = `${this.url}${this.filtroEstado}${this.filtroPartido}${this.filtroTipo}`;
-      console.log(url);
-      this.updateRoute(url);
     },
     changeEstado(event) {
       if (event.target.value !== '0') this.filtroEstado = `&estado=${event.target.value}`;
       else this.filtroEstado = '';
-
-      const url = `${this.url}${this.filtroEstado}${this.filtroPartido}${this.filtroTipo}`;
-      this.updateRoute(url);
     },
     changePartido(event) {
-      if (event.target.value !== 0) this.filtroPartido = `&partido=${event.target.value}`;
+      if (event.target.value !== '0') this.filtroPartido = `&partido=${event.target.value}`;
       else this.filtroPartido = '';
-      const url = `${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`;
-      this.updateRoute(url);
     },
     async updateRoute(url) {
       try {
