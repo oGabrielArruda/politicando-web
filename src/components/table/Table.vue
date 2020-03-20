@@ -8,9 +8,10 @@
         </select>
         <select @change="changeEstado($event)">
           <option value disabled selected>Estado</option>
+          <option value="0">Todos</option>
           <option v-bind:key="estado" v-for="estado in estados">{{estado}}</option>
         </select>
-        <select>
+        <select @change="changePartido($event)">
           <option value disabled selected>Partido</option>
           <option value="0">Todos</option>
           <option v-bind:key="partido" v-for="partido in partidos">{{partido}}</option>
@@ -89,6 +90,8 @@ export default {
       politicos: '',
       url: '/politicos?',
       filtroEstado: '',
+      filtroPartido: '',
+      filtroTipo: '',
     };
   },
   async mounted() {
@@ -103,7 +106,20 @@ export default {
 
   methods: {
     changeEstado(event) {
-      const url = `${this.url}&estado=${event.target.value}`;
+      if(event.target.value != "0")
+        this.filtroEstado = `&estado=${event.target.value}`;  
+      else  
+        this.filtroEstado = '';   
+
+      const url = `${this.url}${this.filtroEstado}${this.filtroPartido}${this.filtroTipo}`;
+      this.updateRoute(url);
+    },
+    changePartido(event) {
+      if(event.target.value != 0)
+        this.filtroPartido = `&partido=${event.target.value}`;
+      else
+        this.filtroPartido = '';
+      let url = `${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`;
       this.updateRoute(url);
     },
     async updateRoute(url) {
