@@ -2,8 +2,9 @@
   <div class="table-container">
     <div class="header">
       <div class="filter-group">
-        <select>
+        <select @change="changeTipo($event)">
           <option value disabled selected>Tipo de Político</option>
+          <option value="0">Todos</option>
           <option v-bind:key="tipo" v-for="tipo in tiposDePolitico">{{tipo}}</option>
         </select>
         <select @change="changeEstado($event)">
@@ -77,7 +78,7 @@ export default {
   name: 'Table',
   data() {
     return {
-      tiposDePolitico: ['Todos', 'Deputados', 'Senadores'],
+      tiposDePolitico: ['Deputados', 'Senadores'],
       partidos: ['PT', 'PDT', 'PSB', 'PSDB'],
       estados: ['SP', 'RJ', 'ES', 'etc'],
       classificativos: [
@@ -105,21 +106,33 @@ export default {
   },
 
   methods: {
+    changeTipo(event){
+      if(event.target.value != 0)
+      {
+        switch(event.target.value)
+        {
+          case 'Deputados': this.filtroTipo = `&tipo=Deputado%20Federal`; break;
+          case 'Senadores': this.filtroTipo = `&tipo=Senador`;
+        }
+      } 
+      else 
+        this.filtroPartido = '';
+
+      const url = `${this.url}${this.filtroEstado}${this.filtroPartido}${this.filtroTipo}`;
+      console.log(url);
+      this.updateRoute(url);
+    },
     changeEstado(event) {
-      if(event.target.value != "0")
-        this.filtroEstado = `&estado=${event.target.value}`;  
-      else  
-        this.filtroEstado = '';   
+      if (event.target.value !== '0') this.filtroEstado = `&estado=${event.target.value}`;
+      else  this.filtroEstado = '';
 
       const url = `${this.url}${this.filtroEstado}${this.filtroPartido}${this.filtroTipo}`;
       this.updateRoute(url);
     },
     changePartido(event) {
-      if(event.target.value != 0)
-        this.filtroPartido = `&partido=${event.target.value}`;
-      else
-        this.filtroPartido = '';
-      let url = `${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`;
+      if (event.target.value !== 0) this.filtroPartido = `&partido=${event.target.value}`;
+      else this.filtroPartido = '';
+      const url = `${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`;
       this.updateRoute(url);
     },
     async updateRoute(url) {
