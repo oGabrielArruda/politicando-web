@@ -42,101 +42,20 @@
         <th></th>
       </thead>
       <tbody>
-        <tr></tr>
-        <tr>
-          <td class="classification-column">1°</td>
+        <tr v-bind:key="politico" v-for="(politico, index) in politicos">
+          <td class="classification-column">{{index+1}}°</td>
           <td data-label="Nome" class="name-column">
-            <img src="https://placehold.it/360x270" />
-            <p>Logan Henderson</p>
+            <img :src="politico.foto" />
+            <p>{{politico.nome}}</p>
           </td>
-          <td data-label="Partido" class="label-exists">PMDB</td>
-          <td data-label="Tipo" class="label-exists">Deputado Federal</td>
-          <td data-label="Estado" class="label-exists">SP</td>
-          <td data-label="Gastos" class="label-exists">R$90.250,35</td>
-          <td data-label="Faltas" class="label-exists">60</td>
-          <td data-label="Presenças" class="label-exists">220</td>
-          <td data-label="Propostas" class="label-exists">2308</td>
-          <td data-label="Processos" class="label-exists">1</td>
-          <td data-label class="follow-button">
-            <div>
-              <button type="button">Seguir</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td data-label class="classification-column">2°</td>
-          <td data-label="Nome" class="name-column">
-            <img src="https://placehold.it/360x270" />
-            <p>Susi Carlson</p>
-          </td>
-          <td data-label="Partido" class="label-exists">MDB</td>
-          <td data-label="Tipo" class="label-exists">Deputado Federal</td>
-          <td data-label="Estado" class="label-exists">RS</td>
-          <td data-label="Gastos" class="label-exists">R$200.900,00</td>
-          <td data-label="Faltas" class="label-exists">45</td>
-          <td data-label="Presenças" class="label-exists">250</td>
-          <td data-label="Propostas" class="label-exists">1541</td>
-          <td data-label="Processos" class="label-exists">9</td>
-          <td data-label class="follow-button">
-            <div>
-              <button type="button">Seguir</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td data-label class="classification-column">3°</td>
-          <td data-label="Nome" class="name-column">
-            <img src="https://placehold.it/360x270" />
-            <p>Markus Benes</p>
-          </td>
-          <td data-label="Partido" class="label-exists">PSL</td>
-          <td data-label="Tipo" class="label-exists">Deputado Federal</td>
-          <td data-label="Estado" class="label-exists">AM</td>
-          <td data-label="Gastos" class="label-exists">R$1.000.000,00</td>
-          <td data-label="Faltas" class="label-exists">90</td>
-          <td data-label="Presenças" class="label-exists">210</td>
-          <td data-label="Propostas" class="label-exists">1309</td>
-          <td data-label="Processos" class="label-exists">10</td>
-          <td data-label class="follow-button following">
-            <div>
-              <button type="button">Seguindo</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td data-label class="classification-column">4°</td>
-          <td data-label="Nome" class="name-column">
-            <img src="https://placehold.it/360x270" />
-            <p>Marie Stephens</p>
-          </td>
-          <td data-label="Partido" class="label-exists">PSOL</td>
-          <td data-label="Tipo" class="label-exists">Senador</td>
-          <td data-label="Estado" class="label-exists">SP</td>
-          <td data-label="Gastos" class="label-exists">R$25.150,90</td>
-          <td data-label="Faltas" class="label-exists">10</td>
-          <td data-label="Presenças" class="label-exists">400</td>
-          <td data-label="Propostas" class="label-exists">1300</td>
-          <td data-label="Processos" class="label-exists">3</td>
-          <td data-label class="follow-button">
-            <div>
-              <button type="button">Seguir</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td data-label class="classification-column">5°</td>
-          <td data-label="Nome" class="name-column">
-            <img src="https://placehold.it/360x270" />
-            <p>Jacob Gibson</p>
-          </td>
-          <td data-label="Partido" class="label-exists">PT</td>
-          <td data-label="Tipo" class="label-exists">Deputado Federal</td>
-          <td data-label="Estado" class="label-exists">SP</td>
-          <td data-label="Gastos" class="label-exists">R$920.000,00</td>
-          <td data-label="Faltas" class="label-exists">120</td>
-          <td data-label="Presenças" class="label-exists">134</td>
-          <td data-label="Propostas" class="label-exists">1073</td>
-          <td data-label="Processos" class="label-exists">0</td>
+          <td data-label="Partido" class="label-exists">{{politico.partido}}</td>
+          <td data-label="Tipo" class="label-exists">{{politico.tipo}}</td>
+          <td data-label="Estado" class="label-exists">{{politico.estado}}</td>
+          <td data-label="Gastos" class="label-exists">{{politico.gastos}}</td>
+          <td data-label="Faltas" class="label-exists">{{politico.faltas}}</td>
+          <td data-label="Presenças" class="label-exists">{{politico.presencas}}</td>
+          <td data-label="Propostas" class="label-exists">{{politico.propostas}}</td>
+          <td data-label="Processos" class="label-exists">{{politico.processos}}</td>
           <td data-label class="follow-button">
             <div>
               <button type="button">Seguir</button>
@@ -172,16 +91,15 @@ export default {
       politicos: '',
     };
   },
-
-  mounted(){
+  mounted() {
     axios
-    .get("https://my-json-server.typicode.com/oGabrielArruda/fake-api/politicos")
-    .then(res => {
-      this.politicos = res.data;
-      console.log(res);
-    })
-    .catch(erro => {console.log(erro);})
-  }
+      .get('https://my-json-server.typicode.com/oGabrielArruda/fake-api/politicos')
+      .then((res) => {
+        this.politicos = res.data;
+        console.log(res);
+      })
+      .catch((erro) => { console.log(erro); });
+  },
 };
 </script>
 
