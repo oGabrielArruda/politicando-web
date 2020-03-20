@@ -71,7 +71,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import api from '../../config/api';
 
 export default {
@@ -107,10 +106,16 @@ export default {
 
   methods: {
     changeTipo(event) {
-      if (event.target.value != 0) {
+      if (event.target.value !== 0) {
         switch (event.target.value) {
-          case 'Deputados': this.filtroTipo = '&tipo=Deputado%20Federal'; break;
-          case 'Senadores': this.filtroTipo = '&tipo=Senador';
+          case 'Deputados':
+            this.filtroTipo = '&tipo=Deputado%20Federal';
+            break;
+          case 'Senadores':
+            this.filtroTipo = '&tipo=Senador';
+            break;
+          default:
+            return;
         }
       } else { this.filtroPartido = ''; }
 
@@ -140,17 +145,20 @@ export default {
       }
     },
   },
-    computed: {
-     async filtroPoliticos(){
-        try{
-          const response = await api.get(`${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`);
-          console.log(response.data);
-          return response.data;
-        } catch(erro) {
-          console.log(erro);
-        }
-      },
+  computed: {
+  },
+  asyncComputed: {
+    async filtroPoliticos() {
+      try {
+        console.log(`${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`);
+        const response = await api.get(`${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`);
+        console.log(response.data);
+        return response.data;
+      } catch (erro) {
+        return this.politicos;
+      }
     },
+  },
 };
 </script>
 
