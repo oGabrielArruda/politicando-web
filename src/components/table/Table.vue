@@ -69,6 +69,9 @@
 </template>
 
 <script>
+// import axios from 'axios';
+import api from '../../config/api';
+
 export default {
   name: 'Table',
   data() {
@@ -87,18 +90,17 @@ export default {
       partidoEscolhido: '',
       estadoEscolhido: '',
       classfEscolhido: '',
-
       politicos: '',
     };
   },
-  mounted() {
-    axios
-      .get('https://my-json-server.typicode.com/oGabrielArruda/fake-api/politicos')
-      .then((res) => {
-        this.politicos = res.data;
-        console.log(res);
-      })
-      .catch((erro) => { console.log(erro); });
+  async mounted() {
+    try {
+      const response = await api.get('/politicos');
+      this.politicos = response.data;
+    } catch (erro) {
+      // tratar erro
+      console.log('funcionou');
+    }
   },
 };
 </script>

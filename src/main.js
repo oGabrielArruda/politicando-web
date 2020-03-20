@@ -6,13 +6,9 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
-
 import './assets/styles.scss';
 
-window.axios = require('axios');
-
 Vue.use(VueAxios, axios);
-
 Vue.use(Carousel3d);
 
 Vue.config.productionTip = false;
