@@ -44,7 +44,7 @@
         <th></th>
       </thead>
       <tbody>
-        <tr v-bind:key="politico" v-for="(politico, index) in politicos">
+        <tr v-bind:key="politico" v-for="(politico, index) in filtroPoliticos">
           <td class="classification-column">{{index+1}}°</td>
           <td data-label="Nome" class="name-column">
             <img :src="politico.foto" />
@@ -106,17 +106,13 @@ export default {
   },
 
   methods: {
-    changeTipo(event){
-      if(event.target.value != 0)
-      {
-        switch(event.target.value)
-        {
-          case 'Deputados': this.filtroTipo = `&tipo=Deputado%20Federal`; break;
-          case 'Senadores': this.filtroTipo = `&tipo=Senador`;
+    changeTipo(event) {
+      if (event.target.value != 0) {
+        switch (event.target.value) {
+          case 'Deputados': this.filtroTipo = '&tipo=Deputado%20Federal'; break;
+          case 'Senadores': this.filtroTipo = '&tipo=Senador';
         }
-      } 
-      else 
-        this.filtroPartido = '';
+      } else { this.filtroPartido = ''; }
 
       const url = `${this.url}${this.filtroEstado}${this.filtroPartido}${this.filtroTipo}`;
       console.log(url);
@@ -124,7 +120,7 @@ export default {
     },
     changeEstado(event) {
       if (event.target.value !== '0') this.filtroEstado = `&estado=${event.target.value}`;
-      else  this.filtroEstado = '';
+      else this.filtroEstado = '';
 
       const url = `${this.url}${this.filtroEstado}${this.filtroPartido}${this.filtroTipo}`;
       this.updateRoute(url);
@@ -140,10 +136,21 @@ export default {
         const response = await api.get(url);
         this.politicos = response.data;
       } catch (erro) {
-        console.log('erro');
+        console.log(erro);
       }
     },
   },
+    computed: {
+     async filtroPoliticos(){
+        try{
+          const response = await api.get(`${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`);
+          console.log(response.data);
+          return response.data;
+        } catch(erro) {
+          console.log(erro);
+        }
+      },
+    },
 };
 </script>
 
