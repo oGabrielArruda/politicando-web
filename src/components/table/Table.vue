@@ -2,20 +2,20 @@
   <div class="table-container">
     <div class="header">
       <div class="filter-group">
-        <select v-model="tipoEscolhido">
+        <select>
           <option value disabled selected>Tipo de Político</option>
           <option v-bind:key="tipo" v-for="tipo in tiposDePolitico">{{tipo}}</option>
         </select>
-        <select v-model="estadoEscolhido">
+        <select @change="changeEstado($event)">
           <option value disabled selected>Estado</option>
           <option v-bind:key="estado" v-for="estado in estados">{{estado}}</option>
         </select>
-        <select v-model="partidoEscolhido">
+        <select>
           <option value disabled selected>Partido</option>
           <option value="0">Todos</option>
           <option v-bind:key="partido" v-for="partido in partidos">{{partido}}</option>
         </select>
-        <select v-model="classfEscolhido">
+        <select>
           <option value disabled selected>Classificar por</option>
           <option v-bind:key="clasf" v-for="clasf in classificativos">{{clasf}}</option>
         </select>
@@ -86,21 +86,34 @@ export default {
         'Propostas',
         'Processos',
       ],
-      tipoEscolhido: '',
-      partidoEscolhido: '',
-      estadoEscolhido: '',
-      classfEscolhido: '',
       politicos: '',
+      url: '/politicos?',
+      filtroEstado: '',
     };
   },
   async mounted() {
     try {
-      const response = await api.get('/politicos');
+      const response = await api.get(this.url);
       this.politicos = response.data;
     } catch (erro) {
       // tratar erro
       console.log('funcionou');
     }
+  },
+
+  methods: {
+    changeEstado(event) {
+      const url = `${this.url}&estado=${event.target.value}`;
+      this.updateRoute(url);
+    },
+    async updateRoute(url) {
+      try {
+        const response = await api.get(url);
+        this.politicos = response.data;
+      } catch (erro) {
+        console.log('erro');
+      }
+    },
   },
 };
 </script>
