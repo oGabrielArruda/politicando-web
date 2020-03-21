@@ -17,8 +17,9 @@
           <option value="0">Todos</option>
           <option v-bind:key="partido" v-for="partido in partidos">{{partido.sigla}}</option>
         </select>
-        <select>
+        <select @change="changeClasf($event)">
           <option value disabled selected>Classificar por</option>
+          <option value="0">Alfabeto</option>
           <option v-bind:key="clasf" v-for="clasf in classificativos">{{clasf}}</option>
         </select>
       </div>
@@ -81,7 +82,8 @@ export default {
       partidos: [],
       estados: ['SP', 'RJ', 'ES', 'etc'],
       classificativos: [
-        'Gastos',
+        'Mais Gastos',
+        'Menos Gastos',
         'Faltas',
         'Presenças',
         'Propostas',
@@ -92,6 +94,7 @@ export default {
       filtroEstado: '',
       filtroPartido: '',
       filtroTipo: '',
+      filtroClasf: '',
     };
   },
   async mounted() {
@@ -125,13 +128,21 @@ export default {
       if (event.target.value !== '0') this.filtroPartido = `&partido=${event.target.value}`;
       else this.filtroPartido = '';
     },
-    async updateRoute(url) {
-      try {
-        const response = await api.get(url);
-        this.politicos = response.data;
-      } catch (erro) {
-        console.log(erro);
-      }
+    changeClasf(event) {
+      const clasf = event.target.value;
+      if (clasf !== '0') {
+        if (clasf !== 'Mais Gastos' && clasf !== 'Menos Gastos' && clasf !== 'Presenças') this.filtroClasf = `&_sort=${clasf.toLowerCase()}&_order=desc`;
+        /* else
+        {
+          switch(clasf)
+          {
+            case 'Mais Gastos': this.filtroClasf = '&_sort=gastos&_order=desc'; break;
+            case 'Menos Gastos': this.filtroClasf = '&_sort=gastos&_order=asc'; break;
+            case 'Presenças': this.filtroClasf = '&_sort=presencas&_order=desc'; break;
+            default;
+          }
+        } */
+      } else this.filtroClasf = '';
     },
   },
   computed: {
@@ -139,9 +150,9 @@ export default {
   asyncComputed: {
     async filtroPoliticos() {
       try {
-        console.log(`${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`);
-        const response = await api.get(`${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}`);
-        console.log(response.data);
+        const url = `${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}${this.filtroClasf}`;
+        console.log(url);
+        const response = await api.get(url);
         return response.data;
       } catch (erro) {
         return this.politicos;
