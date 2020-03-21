@@ -54,7 +54,7 @@
           <td data-label="Partido" class="label-exists">{{politico.partido}}</td>
           <td data-label="Tipo" class="label-exists">{{politico.tipo}}</td>
           <td data-label="Estado" class="label-exists">{{politico.estado}}</td>
-          <td data-label="Gastos" class="label-exists">{{politico.gastos}}</td>
+          <td data-label="Gastos" class="label-exists">{{'R$'+politico.gastos}}</td>
           <td data-label="Faltas" class="label-exists">{{politico.faltas}}</td>
           <td data-label="Presenças" class="label-exists">{{politico.presencas}}</td>
           <td data-label="Propostas" class="label-exists">{{politico.propostas}}</td>
@@ -129,20 +129,16 @@ export default {
       else this.filtroPartido = '';
     },
     changeClasf(event) {
-      const clasf = event.target.value;
-      if (clasf !== '0') {
-        if (clasf !== 'Mais Gastos' && clasf !== 'Menos Gastos' && clasf !== 'Presenças') this.filtroClasf = `&_sort=${clasf.toLowerCase()}&_order=desc`;
-        /* else
-        {
-          switch(clasf)
-          {
-            case 'Mais Gastos': this.filtroClasf = '&_sort=gastos&_order=desc'; break;
-            case 'Menos Gastos': this.filtroClasf = '&_sort=gastos&_order=asc'; break;
-            case 'Presenças': this.filtroClasf = '&_sort=presencas&_order=desc'; break;
-            default;
-          }
-        } */
-      } else this.filtroClasf = '';
+      this.filtroClasf = this.clasfUrl(event.target.value);
+    },
+    clasfUrl(value) {
+      switch (value) {
+        case '0': return '';
+        case 'Mais Gastos': return '&_sort=gastos&_order=desc';
+        case 'Menos Gastos': return '&_sort=gastos&_order=asc';
+        case 'Presenças': return '&_sort=presencas&_order=desc';
+        default: return `&_sort=${value.toLowerCase()}&_order=desc`;
+      }
     },
   },
   computed: {
