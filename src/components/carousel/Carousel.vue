@@ -1,12 +1,13 @@
 <template>
     <div>
-        <Carousel3d>
+        <Carousel3d :listData="slides" :key="slides.length" :width="216" :height="288">
             <slide v-bind:key="slide" v-for="(slide, i) in slides" :index="i">
                 <figure>
-                  <img :src="slide.img">
+                  <img :src="slide.foto">
                   <figcaption>
                    {{slide.nome}}<br>
-                   {{slide.partido}}
+                   {{slide.tipo}}<br>
+                   {{slide.partido}}<br>
                   </figcaption>
                 </figure>
             </slide>
@@ -15,31 +16,27 @@
 </template>
 <script>
 import { Carousel3d, Slide } from 'vue-carousel-3d';
+import api from '../../config/api';
 
 export default {
   name: 'Carousel',
   data() {
     return {
-      slides: [{
-        img: 'https://www.camara.leg.br/internet/deputado/bandep/160976.jpgmaior.jpg',
-        nome: 'Tiririca',
-        partido: 'PST',
-      },
-      {
-        img: 'https://pbs.twimg.com/profile_images/1080956386937372675/kjGyt06n_400x400.jpg',
-        nome: 'Jairzinho',
-        partido: 'PSL',
-      },
-      {
-        img: 'https://ogimg.infoglobo.com.br/in/22881633-553-0aa/FT1086A/652/WhatsApp-Image-2018-07-12-at-22.02.04.jpeg.jpg',
-        nome: 'LULA',
-        partido: 'PT',
-      }],
+      slides: [],
     };
   },
   components: {
     Carousel3d,
     Slide,
+  },
+  async mounted() {
+    try {
+      const response = await api.get('/politicos?');
+      this.slides = response.data;
+      console.log(response.data);
+    } catch (erro) {
+      console.log(`Erro:${erro}`);
+    }
   },
 };
 </script>
