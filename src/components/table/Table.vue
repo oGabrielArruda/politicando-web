@@ -108,17 +108,16 @@ export default {
 
   methods: {
     changeTipo(event) {
-      if (event.target.value !== 0) {
-        switch (event.target.value) {
-          case 'Deputados':
-            this.filtroTipo = '&tipo=Deputado%20Federal';
-            break;
-          case 'Senadores':
-            this.filtroTipo = '&tipo=Senador';
-            break;
-          default:
-        }
-      } else { this.filtroPartido = ''; }
+      switch (event.target.value) {
+        case 'Deputados':
+          this.filtroTipo = '&tipo=Deputado%20Federal';
+          break;
+        case 'Senadores':
+          this.filtroTipo = '&tipo=Senador';
+          break;
+        default: this.filtroTipo = '';
+      }
+      console.log(this.filtroPartido);
     },
     changeEstado(event) {
       if (event.target.value !== '0') this.filtroEstado = `&estado=${event.target.value}`;
