@@ -20,13 +20,8 @@ const routes = [
   },
   {
     path: '/home',
-    name: 'Home',
     component: Home,
-  },
-  {
-    path: '/home/feed',
-    name: 'Feed',
-    component: Feed,
+    children: [{ path: 'feed', name: 'Feed', component: Feed }],
   },
 ];
 
