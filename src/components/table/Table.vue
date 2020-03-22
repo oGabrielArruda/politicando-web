@@ -23,12 +23,6 @@
           <option v-bind:key="clasf" v-for="clasf in classificativos">{{clasf}}</option>
         </select>
       </div>
-      <div class="filters">
-        <h3 class="filtro-tipo">Deputados</h3>
-        <h3 class="filtro-estado">Estados</h3>
-        <h3 class="filtro-partido">PSB</h3>
-        <h3 class="filtro-propostas">Propostas</h3>
-      </div>
     </div>
     <table>
       <thead>

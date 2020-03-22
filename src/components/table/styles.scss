@@ -70,48 +70,6 @@
         }
       }
     }
-
-    .filters {
-      display: flex;
-      flex-direction: row;
-      margin-top: 20px;
-
-      @include filter-computer {
-        align-items: center;
-        justify-content: flex-start;
-      }
-
-      @include filter-mobile {
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      & > h3 {
-        margin-left: 5px;
-        padding: 10px 20px;
-        font-size: 15px;
-        color: rgb(70, 61, 61);
-        border-radius: 4px;
-        cursor: not-allowed;
-      }
-
-      h3.filtro-tipo {
-        background: rgba(238, 255, 0, 0.308);
-      }
-
-      h3.filtro-estado {
-        background: rgba(38, 0, 255, 0.308);
-      }
-
-      h3.filtro-partido {
-        background: rgba(43, 255, 0, 0.308);
-      }
-
-      h3.filtro-propostas {
-        background: rgba(0, 140, 255, 0.507);
-      }
-    }
   }
 
   table {
