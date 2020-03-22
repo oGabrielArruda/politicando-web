@@ -1,10 +1,12 @@
 <template>
 <div>
-    <Feed />
+  <router-view>
+
+  </router-view>
 </div>
 </template>
 <script>
-import Feed from '../../components/feed/Feed.vue';
+
 
 export default {
   name: 'Home',
@@ -14,7 +16,7 @@ export default {
     };
   },
   components: {
-    Feed,
+
   },
 };
 </script>
