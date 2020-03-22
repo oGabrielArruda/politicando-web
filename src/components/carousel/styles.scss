@@ -1,5 +1,10 @@
+.carousel-3d-container{
+  width: 699.96px;
+}
+
 .carousel-3d-container figure {
     margin:0;
+    border-style: none;
   }
   
   .carousel-3d-container figcaption {
@@ -14,3 +19,13 @@
     min-width: 100%;
     box-sizing: border-box;
   }
+
+  .carousel-3d-slide{
+    border-radius: 15px;
+    border: 0;
+  }
+
+  .carousel-3d-controls >>> .prev >>> .nx{
+    background-color:blue;
+  }
+

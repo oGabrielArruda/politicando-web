@@ -1,14 +1,15 @@
 <template>
     <div>
-        <Carousel3d :listData="slides" :key="slides.length" :width="216" :height="288">
+        <Carousel3d :controls-visible="true" :listData="slides" :key="slides.length"
+        :perspective="0" :space="200" :width="131.91" :height="139">
             <slide v-bind:key="slide" v-for="(slide, i) in slides" :index="i">
                 <figure>
                   <img :src="slide.foto">
-                  <figcaption>
+           <!--       <figcaption>
                    {{slide.nome}}<br>
                    {{slide.tipo}}<br>
                    {{slide.partido}}<br>
-                  </figcaption>
+                  </figcaption> -->
                 </figure>
             </slide>
         </Carousel3d>
