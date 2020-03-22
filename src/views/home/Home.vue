@@ -6,8 +6,6 @@
 </div>
 </template>
 <script>
-
-
 export default {
   name: 'Home',
   data() {
@@ -17,6 +15,9 @@ export default {
   },
   components: {
 
+  },
+  created() {
+    this.$router.push({ name: 'Feed' });
   },
 };
 </script>
