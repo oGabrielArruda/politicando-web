@@ -91,6 +91,7 @@ export default {
       filtroClasf: '',
     };
   },
+  props: ['filtroNome'],
   async mounted() {
     try {
       const response = await api.get('https://dadosabertos.camara.leg.br/api/v2/partidos?ordem=ASC&ordenarPor=sigla');
@@ -139,7 +140,7 @@ export default {
   asyncComputed: {
     async filtroPoliticos() {
       try {
-        const url = `${this.url}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}${this.filtroClasf}`;
+        const url = `${this.url}${this.filtroNome}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}${this.filtroClasf}`;
         console.log(url);
         const response = await api.get(url);
         return response.data;
