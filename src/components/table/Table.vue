@@ -10,7 +10,7 @@
         <select @change="changeEstado($event)">
           <option value disabled selected>Estado</option>
           <option value="0">Todos</option>
-          <option v-bind:key="estado" v-for="estado in estados">{{estado}}</option>
+          <option v-bind:key="estado" v-for="estado in estados">{{estado.sigla}}</option>
         </select>
         <select @change="changePartido($event)">
           <option value disabled selected>Partido</option>
@@ -74,7 +74,7 @@ export default {
     return {
       tiposDePolitico: ['Deputados', 'Senadores'],
       partidos: [],
-      estados: ['SP', 'RJ', 'ES', 'etc'],
+      estados: [],
       classificativos: [
         'Mais Gastos',
         'Menos Gastos',
@@ -94,8 +94,11 @@ export default {
   props: ['filtroNome'],
   async mounted() {
     try {
-      const response = await api.get('https://dadosabertos.camara.leg.br/api/v2/partidos?ordem=ASC&ordenarPor=sigla');
-      this.partidos = response.data.dados;
+      const responsePoliticos = await api.get('politicos');
+      this.partidos = responsePoliticos.data;
+
+      const responseEstados = await api.get('estados');
+      this.estados = responseEstados.data;
     } catch (erro) {
       console.log(erro);
     }
@@ -123,15 +126,12 @@ export default {
       else this.filtroPartido = '';
     },
     changeClasf(event) {
-      this.filtroClasf = this.clasfUrl(event.target.value);
-    },
-    clasfUrl(value) {
-      switch (value) {
-        case '0': return '';
-        case 'Mais Gastos': return '&_sort=gastos&_order=desc';
-        case 'Menos Gastos': return '&_sort=gastos&_order=asc';
-        case 'Presenças': return '&_sort=presencas&_order=desc';
-        default: return `&_sort=${value.toLowerCase()}&_order=desc`;
+      switch (event.target.value) {
+        case '0': this.filtroClasf = ''; break;
+        case 'Mais Gastos': this.filtroClasf = '&_sort=gastos&_order=desc'; break;
+        case 'Menos Gastos': this.filtroClasf = '&_sort=gastos&_order=asc'; break;
+        case 'Presenças': this.filtroClasf = '&_sort=presencas&_order=desc'; break;
+        default: this.filtroClasf = `&_sort=${event.target.value.toLowerCase()}&_order=desc`;
       }
     },
   },

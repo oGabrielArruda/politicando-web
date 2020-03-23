@@ -9,7 +9,7 @@
       />
       <button type="button">Pesquisar</button>
     </div>
-    <Table :filtroNome="filtroNome" />
+    <Table :filtroNome="filtroNome"  />
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
   components: {
     Table,
   },
+  props: ['size'],
   methods: {
     changeNome(event) {
       this.filtroNome = `&q=${event.target.value.replace(' ', '%20')}`;
