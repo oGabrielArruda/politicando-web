@@ -4,7 +4,8 @@ import Initial from '../views/initial/Initial.vue';
 import Signup from '../views/signup/Signup.vue';
 import Home from '../views/home/Home.vue';
 import Feed from '../components/feed/Feed.vue';
-import Classificacao from '../components/classificacao/Classificacao.vue';
+import Classification from '../components/classification/Classification.vue';
+import Statistics from '../components/statistics/Statistics.vue';
 
 Vue.use(VueRouter);
 
@@ -31,7 +32,12 @@ const routes = [
       {
         path: 'classificacao',
         name: 'Classificacao',
-        component: Classificacao,
+        component: Classification,
+      },
+      {
+        path: 'estatisticas',
+        name: 'Estatisticas',
+        component: Statistics,
       },
     ],
   },

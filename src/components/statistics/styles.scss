@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: row;
+
+    .content {
+        width: 65vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}

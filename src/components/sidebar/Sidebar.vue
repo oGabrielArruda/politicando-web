@@ -2,7 +2,10 @@
   <nav>
     <div class="content">
       <div class="profile">
-        <img src="https://avatars2.githubusercontent.com/u/47468017?s=400&u=55cae324327ac3651093aace03e997ac44f2c9f5&v=4" alt="User" />
+        <img
+          src="https://avatars2.githubusercontent.com/u/47468017?s=400&u=55cae324327ac3651093aace03e997ac44f2c9f5&v=4"
+          alt="User"
+        />
         <div>
           <h1>Pedro Nunes</h1>
           <button type="button">Ver perfil</button>
@@ -10,17 +13,16 @@
       </div>
       <div class="division"></div>
       <div class="items">
-        <button type="button" class="selection">
-          <img src="../../assets/sidebar/feed.svg" alt="Feed" />
-          <p>Feed de Notícias</p>
-        </button>
-        <button type="button">
-          <img src="../../assets/sidebar/chart.svg" alt="Chart" />
-          <p>Estatísticas</p>
-        </button>
-        <button type="button" v-on:click="pushClassificacao">
-          <img src="../../assets/sidebar/classification.svg" alt="Classification" />
-          <p>Classificação</p>
+        <button
+          v-for="(button, index) in buttons"
+          :key="index"
+          class="btn"
+          :class="{ 'selected': button.isActive }"
+          @click="enableButton(index)"
+          v-bind="button"
+        >
+          <img :src="require(`../../sidebar/${button.srcName}.svg`)" >
+          <p>{{ button.text }}</p>
         </button>
       </div>
     </div>
@@ -34,10 +36,48 @@
 export default {
   name: 'Sidebar',
   components: {},
-  data() {},
+  data() {
+    return {
+      buttons: [
+        {
+          text: 'Feed de Notícias',
+          srcName: 'feed',
+          isActive: true,
+        },
+        {
+          text: 'Estatísticas',
+          srcName: 'chart',
+          isActive: false,
+        },
+        {
+          text: 'Classificação',
+          srcName: 'classification',
+          isActive: false,
+        },
+      ],
+      buttonSelected: 0,
+    };
+  },
   methods: {
-    pushClassificacao() {
-      this.$router.push({ name: 'Classificacao' });
+    pushRouter(i) {
+      switch (i) {
+        case 1:
+          this.$router.push({ name: 'Estatisticas' });
+          break;
+        case 2:
+          this.$router.push({ name: 'Classificacao' });
+          break;
+        default:
+          this.$router.push({ name: 'Feed' });
+          break;
+      }
+    },
+    enableButton(i) {
+      this.buttons[this.buttonSelected].isActive = false;
+      this.buttons[i].isActive = true;
+      this.buttonSelected = i;
+
+      this.pushRouter(i);
     },
   },
 };

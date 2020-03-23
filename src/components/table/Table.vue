@@ -143,6 +143,7 @@ export default {
         const url = `${this.url}${this.filtroNome}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}${this.filtroClasf}`;
         console.log(url);
         const response = await api.get(url);
+        console.log(response.data[0].foto);
         return response.data;
       } catch (erro) {
         return this.politicos;

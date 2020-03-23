@@ -7,6 +7,7 @@
 import Search from '../search/Search.vue';
 
 export default {
+  name: 'Classification',
   data() {
     return {
 
@@ -17,10 +18,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-    .search{
-        margin-top: 27%;
-        margin-left: 25%;
-        width: 800px;
-    }
-</style>
+<style lang="scss" src="./styles.scss" scoped />
