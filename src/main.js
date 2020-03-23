@@ -3,6 +3,8 @@ import Carousel3d from 'vue-carousel-3d';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import AsyncComputed from 'vue-async-computed';
+import vSelect from 'vue-select';
+import 'vue-select/src/scss/vue-select.scss';
 
 import App from './App.vue';
 import router from './router';
@@ -15,6 +17,7 @@ import '@fortawesome/fontawesome-free/js/all';
 Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
 Vue.use(Carousel3d);
+Vue.use(vSelect);
 
 Vue.config.productionTip = false;
 

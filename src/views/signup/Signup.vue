@@ -16,8 +16,8 @@
           <input class="margin-style" type="password" name="senha" placeholder="Senha" />
           <input type="password" name="confirma" placeholder="Confirme a senha" />
         </div>
-        <input type="search" name="deputado" placeholder="Selecione o ultimo deputado que votou" />
-        <input type="search" name="senador" placeholder="Selecione o ultimo senador que votou" />
+        <SelectPolitico :url="urlDeputados" :text="'Selecione o deputado em que você votou!'" />
+        <SelectPolitico :url="urlSenadores" :text="'Selecione o senador em que você votou!'" />
       </div>
       <div class="button-group">
         <button type="button" id="button-haveAccount" >Já tenho uma conta</button>
@@ -27,9 +27,18 @@
   </div>
 </template>
 <script>
+import SelectPolitico from './selectpolitico/SelectPolitico.vue';
+
 export default {
   data() {
-    return {};
+    return {
+      options: [],
+      urlDeputados: 'politicos',
+      urlSenadores: 'politicos',
+    };
+  },
+  components: {
+    SelectPolitico,
   },
 };
 </script>
