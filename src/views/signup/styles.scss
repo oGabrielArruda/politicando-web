@@ -1,105 +1,121 @@
 .container {
-    height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url("../../assets/signup/wave.svg") no-repeat bottom;
+  background-color: #27c55bb9;
+
+  & > img {
+    width: 200px;
+  }
+
+  & > form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background: url('../../assets/signup/wave.svg') no-repeat bottom;
-    background-color: #27c55bb9;
+    justify-content: space-between;
+    background: white;
+    border: solid 1px;
+    border-radius: 20px;
+    padding: 30px 20px;
+    max-width: 450px;
+    max-height: 500px;
+    width: 100%;
+    height: 100%;
 
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
 
-    & > img {
-        width: 200px;
-    }
-
-    & > form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        background: rgb(151, 255, 194);
-        border-radius: 6px;
-        padding: 30px 20px;
-        max-width: 450px;
-        max-height: 500px;
+      & > input {
         width: 100%;
-        height: 100%;
+        margin-bottom: 8px;
+        border: none;
+        padding: 6px 5px;
+        border-radius: 10px;
+        border: 1px solid;
+      }
 
-        .input-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            
-            & > input {
-                width: 100%;
-                margin-bottom: 8px;
-                border: none;
-                padding: 6px 5px;
-                border-radius: 4px;
-            }
+      .input-group {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 8px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
 
-            .input-group {
-                display: flex;
-                flex-direction: row;
-                margin-bottom: 8px;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-
-                .margin-style {
-                    margin-right: 12px;
-                }
-
-                & > input {
-                    width: 100%;
-                    border: none;
-                    padding: 6px 5px;
-                    border-radius: 4px;
-                }
-            }
-
-            .file-group {
-                margin-bottom: 50px;
-            }
+        .margin-style {
+          margin-right: 12px;
         }
 
-        .button-group {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-top: 20px;
-
-            & > button {
-                width: 40%;
-                border: none;
-                padding: 10px 15px;
-                border-radius: 3px;
-                color: #fff;
-                font-weight: bold;
-                font-size: 14px;
-                cursor: pointer;
-                transition: background .3s;
-            }
-
-            #button-haveAccount {
-                background: #2751c5b9;
-
-                &:hover {
-                    background: #2751c5ef;
-                }
-            }
-
-            #button-register {
-                background: #27c55bb9;
-
-                &:hover {
-                    background: #27c55cec;
-                }
-            }
+        & > input {
+          width: 100%;
+          border: none;
+          padding: 6px 5px;
+          border-radius: 10px;
+          border: 1px solid;
         }
+      }
+
+      .file-group {
+        margin-bottom: 50px;
+        label {
+          cursor: pointer;
+        }
+
+        #seletorArquivo[type="file"] {
+          display: none;
+        }
+      }
     }
+
+    .button-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 20px;
+
+      & > button {
+        width: 40%;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 3px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      #button-haveAccount {
+        background: #2751c5b9;
+
+        &:hover {
+          background: #2751c5ef;
+        }
+      }
+
+      #button-register {
+        background: #27c55bb9;
+
+        &:hover {
+          background: #27c55cec;
+        }
+      }
+    }
+  }
+}
+
+// MEDIA QUERIES
+
+
+ @media (max-width : 1024px){
+
 }

@@ -5,7 +5,7 @@
       <div class="input-container">
         <div class="file-group">
           <label for="seletorArquivo">Icone de Conta aqui</label>
-          <input type="file" name="seletorArquivo" />
+          <input type="file" name="seletorArquivo" id="seletorArquivo"/>
         </div>
         <div class="input-group">
           <input class="margin-style" type="text" name="nome" placeholder="Nome" />
