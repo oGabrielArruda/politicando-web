@@ -1,20 +1,20 @@
 <template>
-<div>
-  <router-view>
-    <h1>TESTE</h1>
-  </router-view>
-</div>
+  <div class="container">
+    <Sidebar />
+    <router-view></router-view>
+  </div>
 </template>
+
 <script>
+import Sidebar from '../../components/sidebar/Sidebar.vue';
+
 export default {
   name: 'Home',
   data() {
-    return {
-
-    };
+    return {};
   },
   components: {
-
+    Sidebar,
   },
   created() {
     this.$router.push({ name: 'Feed' });

@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="search-container">
-      <input type="text" name="Search" placeholder="Digite o nome do político..." v-on:input="changeNome($event)" />
+      <input
+        type="text"
+        name="Search"
+        placeholder="Digite o nome do político..."
+        v-on:input="changeNome($event)"
+      />
       <button type="button">Pesquisar</button>
     </div>
     <Table :filtroNome="filtroNome" />

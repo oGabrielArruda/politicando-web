@@ -21,7 +21,13 @@ const routes = [
   {
     path: '/home',
     component: Home,
-    children: [{ path: 'feed', name: 'Feed', component: Feed }],
+    children: [
+      {
+        path: 'feed',
+        name: 'Feed',
+        component: Feed,
+      },
+    ],
   },
 ];
 
