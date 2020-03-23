@@ -18,7 +18,7 @@
           <img src="../../assets/sidebar/chart.svg" alt="Chart" />
           <p>Estatísticas</p>
         </button>
-        <button type="button">
+        <button type="button" v-on:click="pushClassificacao">
           <img src="../../assets/sidebar/classification.svg" alt="Classification" />
           <p>Classificação</p>
         </button>
@@ -35,6 +35,11 @@ export default {
   name: 'Sidebar',
   components: {},
   data() {},
+  methods: {
+    pushClassificacao() {
+      this.$router.push({ name: 'Classificacao' });
+    },
+  },
 };
 </script>
 

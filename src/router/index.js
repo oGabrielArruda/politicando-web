@@ -4,6 +4,7 @@ import Initial from '../views/initial/Initial.vue';
 import Signup from '../views/signup/Signup.vue';
 import Home from '../views/home/Home.vue';
 import Feed from '../components/feed/Feed.vue';
+import Classificacao from '../components/classificacao/Classificacao.vue';
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,11 @@ const routes = [
         path: 'feed',
         name: 'Feed',
         component: Feed,
+      },
+      {
+        path: 'classificacao',
+        name: 'Classificacao',
+        component: Classificacao,
       },
     ],
   },
