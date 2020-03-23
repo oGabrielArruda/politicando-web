@@ -1,64 +1,105 @@
-
-#formulario {
-    border-radius: 15px;
-    border: 1px solid black;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 30px 10px;
-    width: 50vh;
-    padding: 50px 20px 50px 20px;
-    align-items: center;
-    background-color: white;
-
-    
-
-    #fotoUser, #email, #deputado, #senador{
-        grid-column: 1/3;
-    }
-
-    #fotoUser{
-        cursor: pointer;
-    }
-
-    #btnCadastrar{
-        background-color: blue;
-        color: white;
-        margin-top: 17vh;
-        cursor: pointer;
-    }
-
-    #btnJaTemConta {
-        color: white;
-        background-color: #11c04b;
-        margin-top: 17vh;     
-        cursor: pointer;  
-    }
-}
-
-input {
-    display: block;
-    border-radius: 10px;
-    border: 1px solid black;
-    padding: 6px;
-}
-
-#logo{
-    height: 70px;
-    margin-top: 15vh;
-    margin-left: 10px;
-}
-
-#seletorArquivo[type='file']{
-    display: none;
-}
-
-.background{
-    text-align: -webkit-center;
-}
-
-.container{
-    background: url('../../assets/initial/waveFundoCadastroBottom.svg') no-repeat bottom,
-    url('../../assets/initial/waveFundoCadastroTop.svg') no-repeat top; 
-
+.container {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url('../../assets/signup/wave.svg') no-repeat bottom;
+    background-color: #27c55bb9;
+
+
+    & > img {
+        width: 200px;
+    }
+
+    & > form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        background: rgb(151, 255, 194);
+        border-radius: 6px;
+        padding: 30px 20px;
+        max-width: 450px;
+        max-height: 500px;
+        width: 100%;
+        height: 100%;
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            
+            & > input {
+                width: 100%;
+                margin-bottom: 8px;
+                border: none;
+                padding: 6px 5px;
+                border-radius: 4px;
+            }
+
+            .input-group {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 8px;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+
+                .margin-style {
+                    margin-right: 12px;
+                }
+
+                & > input {
+                    width: 100%;
+                    border: none;
+                    padding: 6px 5px;
+                    border-radius: 4px;
+                }
+            }
+
+            .file-group {
+                margin-bottom: 50px;
+            }
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px;
+
+            & > button {
+                width: 40%;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 3px;
+                color: #fff;
+                font-weight: bold;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background .3s;
+            }
+
+            #button-haveAccount {
+                background: #2751c5b9;
+
+                &:hover {
+                    background: #2751c5ef;
+                }
+            }
+
+            #button-register {
+                background: #27c55bb9;
+
+                &:hover {
+                    background: #27c55cec;
+                }
+            }
+        }
+    }
 }
