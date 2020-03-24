@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-select label="nome" :filterable="false" :options="options"
-        @search="onSearch()" >
+        @search="onSearch($event)" >
         <template slot="no-options">
          {{text}}
         </template>
@@ -28,7 +28,6 @@ export default {
   data() {
     return {
       options: [],
-      search: '',
     };
   },
   props: ['url', 'text'],
@@ -36,9 +35,10 @@ export default {
     vSelect,
   },
   methods: {
-    async onSearch() {
+    async onSearch(event) {
       try {
-        const response = await api.get(`${this.url}?q=${this.search}`);
+        const strSearch = event.replace('%20', ' ');
+        const response = await api.get(`${this.url}?q=${strSearch}`);
         this.options = response.data;
       } catch (erro) {
         console.log(erro);
