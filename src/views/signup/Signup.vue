@@ -33,8 +33,8 @@ export default {
   data() {
     return {
       options: [],
-      urlDeputados: '/PoliticoItems/filtrado?tipo=1',
-      urlSenadores: '/PoliticoItems/filtrado?tipo=2',
+      urlDeputados: '/PoliticoItems/filtrado?tipo=1&size=5',
+      urlSenadores: '/PoliticoItems/filtrado?tipo=2&size=5',
     };
   },
   components: {

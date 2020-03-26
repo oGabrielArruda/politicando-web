@@ -9,7 +9,7 @@
       />
       <button type="button">Pesquisar</button>
     </div>
-    <Table :filtroNome="filtroNome"  />
+    <Table :filtroNome="filtroNome" :size="size" />
   </div>
 </template>
 

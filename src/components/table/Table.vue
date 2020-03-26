@@ -91,14 +91,14 @@ export default {
       filtroClasf: '',
     };
   },
-  props: ['filtroNome'],
+  props: ['filtroNome', 'size'],
   async mounted() {
     try {
-      const responsePoliticos = await api.get('/PoliticoItems/filtrado');
+      /* const responsePartidos = await api.get('/Partidos');
       this.partidos = responsePoliticos.data;
 
       const responseEstados = await api.get('estados');
-      this.estados = responseEstados.data;
+      this.estados = responseEstados.data; */
     } catch (erro) {
       console.log(erro);
     }
@@ -140,7 +140,14 @@ export default {
   asyncComputed: {
     async filtroPoliticos() {
       try {
-        const url = `${this.url}${this.filtroNome}${this.filtroPartido}${this.filtroEstado}${this.filtroTipo}${this.filtroClasf}`;
+        const url = `${this.url}
+        &size=${this.size}
+        ${this.filtroNome}
+        ${this.filtroPartido}
+        ${this.filtroEstado}
+        ${this.filtroTipo}
+        ${this.filtroClasf}
+        `;
         console.log(url);
         const response = await api.get(url);
         console.log(response.data[0].foto);

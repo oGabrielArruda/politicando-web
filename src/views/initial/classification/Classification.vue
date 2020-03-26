@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1>Qual o melhor político de acordo com o seu filtro?</h1>
-    <Search/>
+    <Search :size="10"/>
   </main>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Search class="search" />
+        <Search :size="8" class="search" />
     </div>
 </template>
 <script>
