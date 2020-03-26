@@ -38,7 +38,7 @@ export default {
     async onSearch(event) {
       try {
         const strSearch = event.replace('%20', ' ');
-        const response = await api.get(`${this.url}?q=${strSearch}`);
+        const response = await api.get(`${this.url}&nome=${strSearch}`);
         this.options = response.data;
       } catch (erro) {
         console.log(erro);

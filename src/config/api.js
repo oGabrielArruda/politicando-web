@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://my-json-server.typicode.com/oGabrielArruda/fake-api',
+  baseURL: 'https://localhost:44377/api',
 });
 
 export default api;
