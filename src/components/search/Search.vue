@@ -29,7 +29,7 @@ export default {
   props: ['size'],
   methods: {
     changeNome(event) {
-      this.filtroNome = `&q=${event.target.value.replace(' ', '%20')}`;
+      this.filtroNome = `&nome=${event.target.value.replace(' ', '%20')}`;
       console.log(this.filtroNome);
     },
   },

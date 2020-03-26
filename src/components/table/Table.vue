@@ -84,7 +84,7 @@ export default {
         'Processos',
       ],
       politicos: '',
-      url: '/politicos?',
+      url: '/PoliticoItems/filtrado?',
       filtroEstado: '',
       filtroPartido: '',
       filtroTipo: '',
@@ -94,7 +94,7 @@ export default {
   props: ['filtroNome'],
   async mounted() {
     try {
-      const responsePoliticos = await api.get('politicos');
+      const responsePoliticos = await api.get('/PoliticoItems/filtrado');
       this.partidos = responsePoliticos.data;
 
       const responseEstados = await api.get('estados');
@@ -108,10 +108,10 @@ export default {
     changeTipo(event) {
       switch (event.target.value) {
         case 'Deputados':
-          this.filtroTipo = '&tipo=Deputado%20Federal';
+          this.filtroTipo = '&tipo=1';
           break;
         case 'Senadores':
-          this.filtroTipo = '&tipo=Senador';
+          this.filtroTipo = '&tipo=2';
           break;
         default: this.filtroTipo = '';
       }
