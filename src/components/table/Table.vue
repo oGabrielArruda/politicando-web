@@ -46,7 +46,8 @@
             <p>{{politico.nome}}</p>
           </td>
           <td data-label="Partido" class="label-exists">{{politico.partido}}</td>
-          <td data-label="Tipo" class="label-exists">{{politico.tipo}}</td>
+          <td data-label="Tipo" class="label-exists" v-if="politico.tipo == 1">Deputado Federal</td>
+          <td data-label="Tipo" class="label-exists" v-else>Senador</td>
           <td data-label="Estado" class="label-exists">{{politico.estado}}</td>
           <td data-label="Gastos" class="label-exists">{{'R$'+politico.gastos}}</td>
           <td data-label="Faltas" class="label-exists">{{politico.faltas}}</td>
@@ -94,11 +95,11 @@ export default {
   props: ['filtroNome', 'size'],
   async mounted() {
     try {
-      /* const responsePartidos = await api.get('/Partidos');
-      this.partidos = responsePoliticos.data;
+      const responsePartidos = await api.get('/Partidos');
+      this.partidos = responsePartidos.data;
 
-      const responseEstados = await api.get('estados');
-      this.estados = responseEstados.data; */
+      const responseEstados = await api.get('/estados');
+      this.estados = responseEstados.data;
     } catch (erro) {
       console.log(erro);
     }
@@ -148,9 +149,8 @@ export default {
         ${this.filtroTipo}
         ${this.filtroClasf}
         `;
-        console.log(url);
         const response = await api.get(url);
-        console.log(response.data[0].foto);
+        console.log(url);
         return response.data;
       } catch (erro) {
         return this.politicos;
