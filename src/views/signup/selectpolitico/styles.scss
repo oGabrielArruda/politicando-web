@@ -1,0 +1,46 @@
+.v-select {
+    width: 100%;
+    margin-bottom: 8px;
+
+    .dropdown {
+        & > li {
+            border-bottom: 1px solid rgba(112, 128, 144, 0.1);
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            a {
+                padding: 10px 20px;
+                width: 100%;
+                font-size: 1.25em;
+                color: #3c3c3c;
+            }
+        }
+
+        .active {
+            & > a {
+                color: #fff;
+            }
+        }
+    }
+
+    .d-center {
+        display: flex;
+        align-items: center;
+
+        img {
+            height: auto;
+            max-width: 2.5rem;
+            margin-right: 1rem;
+        }
+    }
+
+    .selected {
+        img {
+            width: auto;
+            max-height: 23px;
+            margin-right: 0.5rem;
+        }
+    }
+}
