@@ -1,10 +1,17 @@
 <template>
   <div class="container">
     <img id="logo" src="../../assets/initial/logo2.png" />
-    <form action>
+    <form>
       <div class="input-container">
         <div class="file-group">
-          <label for="seletorArquivo">Icone de Conta aqui</label>
+          <div class="image-container">
+            <img src="../../assets/signup/user.svg" alt="User-Icon" />
+          </div>
+          <div class="select-file-container">
+            <label for="seletorArquivo">
+                <i class="fas fa-plus"></i>
+            </label>
+          </div>
           <input type="file" name="seletorArquivo" id="seletorArquivo" />
         </div>
         <div class="input-group">
@@ -24,6 +31,10 @@
       <div class="button-group">
         <button type="button" id="button-haveAccount">Já tenho uma conta</button>
         <button type="button" id="button-register">Cadastrar</button>
+      </div>
+      <div class="warning-group">
+        <img src="../../assets/signup/rotate.svg" alt="User-Icon" />
+        <h2>VIRE A TELA PARA SE CADASTRAR</h2>
       </div>
     </form>
   </div>
