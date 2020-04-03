@@ -1,4 +1,16 @@
+@mixin extra-mobile {
+    @media (max-width: 860px) {
+        @content;
+    }
+}
+
 .container {
     border: 1px solid red;
     width: 20vw;
+
+    @include extra-mobile {
+        width: 100vw;
+        height: 20vh;
+        z-index: 999;
+    }
 }

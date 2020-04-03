@@ -20,7 +20,7 @@
           @click="enableButton(index)"
           v-bind="button"
         >
-          <img :src="require(`../../assets/sidebar/${button.srcName}.svg`)" >
+          <img :src="require(`../../assets/sidebar/${button.srcName}.svg`)" />
           <p>{{ button.text }}</p>
         </button>
       </div>
