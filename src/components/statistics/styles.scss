@@ -1,6 +1,53 @@
+@mixin feed-mobile {
+    @media (min-width: 861px) and (max-width: 1125px) {
+        @content;
+    }
+}
+
+@mixin feed-mobile-2 {
+    @media (max-width: 860px) {
+        @content;
+    }
+}
+
 .container {
     display: flex;
     flex-direction: row;
+    transition: transform 0.5s;
+
+    @include feed-mobile {
+        z-index: 999;
+    }
+
+    @include feed-mobile-2 {
+        z-index: 999;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    &.move {
+        transform: translate(200px);
+    }
+
+    & > button {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        border: none;
+        background: #f1f1f1;
+        padding: 4px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &.show {
+            display: none;
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }
 
     .content {
         width: 65vw;
@@ -8,5 +55,48 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        @include feed-mobile {
+            width: 80vw;
+        }
+
+        @include feed-mobile-2 {
+            width: 100vw;
+            min-height: 80vh;
+        }
+    }
+
+    /* SCROLLBAR */
+
+    /* total width */
+    .content::-webkit-scrollbar {
+        background-color: #f1f1f1;
+        width: 16px;
+    }
+
+    /* background of the scrollbar except button or resizer */
+    .content::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+    .content::-webkit-scrollbar-track:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* scrollbar itself */
+    .content::-webkit-scrollbar-thumb {
+        background-color: #babac0;
+        border-radius: 16px;
+        border: 5px solid #f1f1f1;
+    }
+    .content::-webkit-scrollbar-thumb:hover {
+        background-color: #a0a0a5;
+        border: 4px solid #f1f1f1;
+    }
+
+    /* set button(top and bottom of the scrollbar) */
+    .content::-webkit-scrollbar-button {
+        display: none;
     }
 }

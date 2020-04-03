@@ -5,9 +5,6 @@
     </button>
     <div class="content">
       <Carousel />
-      <div class="scrollbar">
-        <div class="overflow"></div>
-      </div>
       <h1>asdsada</h1>
       <h1>asdsada</h1>
       <h1>asdsada</h1>
@@ -24,7 +21,6 @@
       <h1>12</h1>
       <h1>12</h1>
       <h1>12</h1>
-
       <h1>12</h1>
       <h1>12</h1>
       <h1>12</h1>

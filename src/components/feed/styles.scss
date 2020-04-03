@@ -13,7 +13,6 @@
 .container {
     display: flex;
     flex-direction: row;
-    border: 1px solid red;
     transition: transform 0.5s;
 
     @include feed-mobile {
@@ -66,8 +65,6 @@
         @include feed-mobile-2 {
             width: 100vw;
             min-height: 80vh;
-
-            border: 1px solid red;
         }
     }
 
