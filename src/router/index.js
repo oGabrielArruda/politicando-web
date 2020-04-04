@@ -7,6 +7,7 @@ import Feed from '../components/feed/Feed.vue';
 import Classification from '../components/classification/Classification.vue';
 import Statistics from '../components/statistics/Statistics.vue';
 
+
 Vue.use(VueRouter);
 
 const routes = [

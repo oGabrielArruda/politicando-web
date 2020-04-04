@@ -2,11 +2,13 @@
   <div class="container">
     <Sidebar />
     <router-view></router-view>
+    <Pagination />
   </div>
 </template>
 
 <script>
 import Sidebar from '../../components/sidebar/Sidebar.vue';
+
 
 export default {
   name: 'Home',

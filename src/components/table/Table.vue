@@ -5,22 +5,22 @@
         <select @change="changeTipo($event)">
           <option value disabled selected>Tipo de Político</option>
           <option value="0">Todos</option>
-          <option v-bind:key="tipo" v-for="tipo in tiposDePolitico">{{tipo}}</option>
+          <option v-bind:key="tipo" v-for="tipo in tiposDePolitico">{{ tipo }}</option>
         </select>
         <select @change="changeEstado($event)">
           <option value disabled selected>Estado</option>
           <option value="0">Todos</option>
-          <option v-bind:key="estado" v-for="estado in estados">{{estado.sigla}}</option>
+          <option v-bind:key="estado" v-for="estado in estados">{{ estado.sigla }}</option>
         </select>
         <select @change="changePartido($event)">
           <option value disabled selected>Partido</option>
           <option value="0">Todos</option>
-          <option v-bind:key="partido" v-for="partido in partidos">{{partido.sigla}}</option>
+          <option v-bind:key="partido" v-for="partido in partidos">{{ partido.sigla }}</option>
         </select>
         <select @change="changeClasf($event)">
           <option value disabled selected>Classificar por</option>
           <option value="0">Alfabeto</option>
-          <option v-bind:key="clasf" v-for="clasf in classificativos">{{clasf}}</option>
+          <option v-bind:key="clasf" v-for="clasf in classificativos">{{ clasf }}</option>
         </select>
       </div>
     </div>
@@ -40,20 +40,20 @@
       </thead>
       <tbody>
         <tr v-bind:key="politico" v-for="(politico, index) in filtroPoliticos">
-          <td class="classification-column">{{index+1}}°</td>
+          <td class="classification-column">{{ index + 1 }}°</td>
           <td data-label="Nome" class="name-column">
             <img :src="politico.foto" />
-            <p>{{politico.nome}}</p>
+            <p>{{ politico.nome }}</p>
           </td>
-          <td data-label="Partido" class="label-exists">{{politico.partido}}</td>
+          <td data-label="Partido" class="label-exists">{{ politico.partido }}</td>
           <td data-label="Tipo" class="label-exists" v-if="politico.tipo == 1">Deputado Federal</td>
           <td data-label="Tipo" class="label-exists" v-else>Senador</td>
-          <td data-label="Estado" class="label-exists">{{politico.estado}}</td>
-          <td data-label="Gastos" class="label-exists">{{'R$'+politico.gastos}}</td>
-          <td data-label="Faltas" class="label-exists">{{politico.faltas}}</td>
-          <td data-label="Presenças" class="label-exists">{{politico.presencas}}</td>
-          <td data-label="Propostas" class="label-exists">{{politico.propostas}}</td>
-          <td data-label="Processos" class="label-exists">{{politico.processos}}</td>
+          <td data-label="Estado" class="label-exists">{{ politico.estado }}</td>
+          <td data-label="Gastos" class="label-exists">{{ "R$" + politico.gastos }}</td>
+          <td data-label="Faltas" class="label-exists">{{ politico.faltas }}</td>
+          <td data-label="Presenças" class="label-exists">{{ politico.presencas }}</td>
+          <td data-label="Propostas" class="label-exists">{{ politico.propostas }}</td>
+          <td data-label="Processos" class="label-exists">{{ politico.processos }}</td>
           <td data-label class="follow-button">
             <div>
               <button type="button">Seguir</button>
@@ -62,6 +62,16 @@
         </tr>
       </tbody>
     </table>
+    <center>
+      <div class="pagination">
+        <a class="left-arrow" v-on:click='changePageDown()'> &#60; </a>
+        <div class="actual-page">
+          {{ page }}
+        </div>
+        <a class="right-arrow" v-on:click='changePageUp()'> &#62; </a>
+      </div>
+    </center>
+
     <div class="footer"></div>
   </div>
 </template>
@@ -90,6 +100,7 @@ export default {
       filtroPartido: '',
       filtroTipo: '',
       filtroClasf: '',
+      page: 1,
     };
   },
   props: ['filtroNome', 'size'],
@@ -114,7 +125,8 @@ export default {
         case 'Senadores':
           this.filtroTipo = '&tipo=2';
           break;
-        default: this.filtroTipo = '';
+        default:
+          this.filtroTipo = '';
       }
       console.log(this.filtroPartido);
     },
@@ -128,21 +140,38 @@ export default {
     },
     changeClasf(event) {
       switch (event.target.value) {
-        case '0': this.filtroClasf = ''; break;
-        case 'Mais Gastos': this.filtroClasf = '&_sort=gastos&_order=desc'; break;
-        case 'Menos Gastos': this.filtroClasf = '&_sort=gastos&_order=asc'; break;
-        case 'Presenças': this.filtroClasf = '&_sort=presencas&_order=desc'; break;
-        default: this.filtroClasf = `&_sort=${event.target.value.toLowerCase()}&_order=desc`;
+        case '0':
+          this.filtroClasf = '';
+          break;
+        case 'Mais Gastos':
+          this.filtroClasf = '&_sort=gastos&_order=desc';
+          break;
+        case 'Menos Gastos':
+          this.filtroClasf = '&_sort=gastos&_order=asc';
+          break;
+        case 'Presenças':
+          this.filtroClasf = '&_sort=presencas&_order=desc';
+          break;
+        default:
+          this.filtroClasf = `&_sort=${event.target.value.toLowerCase()}&_order=desc`;
+      }
+    },
+    changePageUp() {
+      this.page += 1;
+    },
+    changePageDown() {
+      if (this.page > 1) {
+        this.page -= 1;
       }
     },
   },
-  computed: {
-  },
+  computed: {},
   asyncComputed: {
     async filtroPoliticos() {
       try {
         const url = `${this.url}
         &size=${this.size}
+        ${this.page}
         ${this.filtroNome}
         ${this.filtroPartido}
         ${this.filtroEstado}

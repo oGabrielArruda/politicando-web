@@ -240,4 +240,21 @@
       }
     }
   }
+  
+  .pagination{
+    margin-top: 10px;
+    width: 20vh;
+    display: flex;
+    justify-content: space-evenly;
+
+    .actual-page, .left-arrow, .right-arrow{
+      font-size: 1.5em;
+      user-select: none;
+      
+    }
+
+    .left-arrow, .right-arrow{
+      cursor: pointer;
+    }
+  }
 }
