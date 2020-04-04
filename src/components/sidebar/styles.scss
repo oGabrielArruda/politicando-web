@@ -1,4 +1,11 @@
+@mixin nav-mobile {
+  @media (max-width: 1125px) {
+    @content;
+  }
+}
+
 nav {
+  height: 100vh;
   width: 15vw;
   background: #fff;
   display: flex;
@@ -6,6 +13,14 @@ nav {
   justify-content: space-between;
   padding: 20px 18px;
   border-radius: 0 20px 20px 0;
+
+  @include nav-mobile {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    border-radius: 0;
+  }
 
   .content {
     display: flex;
@@ -109,16 +124,14 @@ nav {
     width: 40px;
     height: 35px;
     border: none;
-    background: #f1f1f1;
+    background: #f13131;
     border-radius: 6px;
+    color: rgb(255, 255, 255);
     transition: background 0.3s;
     cursor: pointer;
 
-    & > i {
-    }
-
     &:hover {
-      background: #dddddd;
+      background: #be1f1f;
     }
   }
 }
