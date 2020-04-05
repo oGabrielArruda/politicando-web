@@ -39,7 +39,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await api.get('/politicos?');
+      const response = await api.get('/PoliticoItems?');
       this.slides = response.data;
       console.log(response.data);
     } catch (erro) {
