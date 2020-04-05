@@ -72,7 +72,7 @@
         <div class="actual-page">
           {{ page }}
         </div>
-        <button @click="changePageUp" class="btnPage">
+        <button @click="changePageUp" class="btnPage" :disabled="!isNextPageEnabled">
           <i class="fas fa-chevron-right"></i>
         </button>
       </div>
@@ -105,6 +105,7 @@ export default {
       filtroTipo: '',
       filtroClasf: '',
       page: 1,
+      isNextPageEnabled: true,
     };
   },
   props: ['filtroNome', 'size'],
@@ -174,11 +175,33 @@ export default {
         this.page -= 1;
       }
     },
+    async isNextPageWithData() {
+      try {
+        const url = `${this.url}
+        &size=${this.size}
+        &page=${this.page + 1}
+        ${this.filtroNome}
+        ${this.filtroPartido}
+        ${this.filtroEstado}
+        ${this.filtroTipo}
+        ${this.filtroClasf}
+        `;
+        const response = await api.get(url);
+        if (response) {
+          return true;
+        }
+        return true;
+      } catch (erro) {
+        return false;
+      }
+    },
   },
   computed: {},
   asyncComputed: {
     async filtroPoliticos() {
       try {
+        const nextPageWithData = this.isNextPageWithData();
+
         const url = `${this.url}
         &size=${this.size}
         &page=${this.page}
@@ -189,9 +212,11 @@ export default {
         ${this.filtroClasf}
         `;
         const response = await api.get(url);
+        this.isNextPageEnabled = await nextPageWithData;
+
         return response.data;
       } catch (erro) {
-        this.page -= 1;
+        this.page = 1;
         return null;
       }
     },
