@@ -191,7 +191,8 @@ export default {
         const response = await api.get(url);
         return response.data;
       } catch (erro) {
-        return this.politicos;
+        this.page -= 1;
+        return null;
       }
     },
   },
