@@ -49,7 +49,9 @@
           <td data-label="Tipo" class="label-exists" v-if="politico.tipo == 1">Deputado Federal</td>
           <td data-label="Tipo" class="label-exists" v-else>Senador</td>
           <td data-label="Estado" class="label-exists">{{ politico.estado }}</td>
-          <td data-label="Gastos" class="label-exists">{{ "R$" + politico.gastos }}</td>
+          <td data-label="Gastos" class="label-exists">
+            {{ "R$" + Math.round(politico.gastos).toLocaleString('pr-BR') }}
+          </td>
           <td data-label="Faltas" class="label-exists">{{ politico.faltas }}</td>
           <td data-label="Presenças" class="label-exists">{{ politico.presencas }}</td>
           <td data-label="Propostas" class="label-exists">{{ politico.propostas }}</td>
@@ -144,16 +146,22 @@ export default {
           this.filtroClasf = '';
           break;
         case 'Mais Gastos':
-          this.filtroClasf = '&_sort=gastos&_order=desc';
+          this.filtroClasf = '&clasf=mais%20gastos';
           break;
         case 'Menos Gastos':
-          this.filtroClasf = '&_sort=gastos&_order=asc';
+          this.filtroClasf = '&clasf=menos%20gastos';
           break;
         case 'Presenças':
-          this.filtroClasf = '&_sort=presencas&_order=desc';
+          this.filtroClasf = '&clasf=presencas';
+          break;
+        case 'Faltas':
+          this.filtroClasf = '&clasf=faltas';
+          break;
+        case 'Propostas':
+          this.filtroClasf = '&clasf=propostas';
           break;
         default:
-          this.filtroClasf = `&_sort=${event.target.value.toLowerCase()}&_order=desc`;
+          this.filtroClasf = '&clasf=processos';
       }
     },
     changePageUp() {
@@ -171,7 +179,6 @@ export default {
       try {
         const url = `${this.url}
         &size=${this.size}
-        ${this.page}
         ${this.filtroNome}
         ${this.filtroPartido}
         ${this.filtroEstado}
