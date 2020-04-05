@@ -5,14 +5,14 @@
       <div class="input-container">
         <div class="file-group">
           <div class="image-container">
-            <img src="../../assets/signup/user.svg" alt="User-Icon" />
+            <img src="../../assets/signup/user.svg" alt="User-Icon" id="imgUser"/>
           </div>
           <div class="select-file-container">
             <label for="seletorArquivo">
-                <i class="fas fa-plus"></i>
+              <i class="fas fa-plus"></i>
             </label>
           </div>
-          <input type="file" name="seletorArquivo" id="seletorArquivo" />
+          <input type="file" name="seletorArquivo" id="seletorArquivo" @change="changePhoto()"/>
         </div>
         <div class="input-group">
           <input class="margin-style" type="text" name="nome" placeholder="Nome" />
@@ -52,6 +52,24 @@ export default {
   },
   components: {
     SelectPolitico,
+  },
+  methods: {
+    changePhoto() {
+      const inpFile = document.querySelector('#seletorArquivo');
+      const image = document.querySelector('#imgUser');
+
+      const file = inpFile.files[0];
+
+      if (file && file.type.includes('image')) {
+        const fileReader = new FileReader();
+
+        fileReader.addEventListener('load', () => {
+          image.setAttribute('src', fileReader.result);
+        });
+
+        fileReader.readAsDataURL(file);
+      }
+    },
   },
 };
 </script>
