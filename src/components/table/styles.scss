@@ -13,13 +13,13 @@
 
 /* responsive filter */
 @mixin filter-mobile {
-  @media (max-width: 645px) {
+  @media (max-width: 710px) {
     @content;
   }
 }
 
 @mixin filter-computer {
-  @media (min-width: 646px) {
+  @media (min-width: 711px) {
     @content;
   }
 }
@@ -247,14 +247,22 @@
     display: flex;
     justify-content: space-evenly;
 
-    .actual-page, .left-arrow, .right-arrow{
+    .actual-page, button {
       font-size: 1.5em;
       user-select: none;
-      
+      color: rgb(78, 78, 78);
     }
 
-    .left-arrow, .right-arrow{
+    & > button {
+      background: transparent;
+      border: none;
       cursor: pointer;
+      transition: transform .1s;
+      transition: color .2s;
+
+      &:active {
+        transform: scale(0.90);
+      }
     }
   }
 }

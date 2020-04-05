@@ -7,7 +7,7 @@
         placeholder="Digite o nome do político..."
         v-on:input="changeNome($event)"
       />
-      <button type="button">Pesquisar</button>
+      <!--<button type="button">Pesquisar</button>-->
     </div>
     <Table :filtroNome="filtroNome" :size="size" />
   </div>

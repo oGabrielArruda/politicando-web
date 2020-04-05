@@ -66,15 +66,17 @@
     </table>
     <center>
       <div class="pagination">
-        <a class="left-arrow" v-on:click='changePageDown()'> &#60; </a>
+        <button @click="changePageDown">
+          <i class="fas fa-chevron-left"></i>
+        </button>
         <div class="actual-page">
           {{ page }}
         </div>
-        <a class="right-arrow" v-on:click='changePageUp()'> &#62; </a>
+        <button @click="changePageUp">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
     </center>
-
-    <div class="footer"></div>
   </div>
 </template>
 

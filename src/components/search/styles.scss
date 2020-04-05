@@ -12,7 +12,13 @@
 }
 
 @mixin search-mobile-3 {
-  @media (min-width: 200px) and (max-width: 394px) {
+  @media (min-width: 321px) and (max-width: 394px) {
+    @content;
+  }
+}
+
+@mixin search-mobile-4 {
+  @media (min-width: 100px) and (max-width: 320px) {
     @content;
   }
 }
@@ -34,12 +40,13 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
+      //border: 1px solid red;
 
-      @include search-mobile-3 {
+      /*@include search-mobile-3 {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-      }
+      }*/
   
       & > input {
         border: none;
@@ -69,6 +76,13 @@
 
         @include search-mobile-3 {
           width: 310px;
+          padding: 13px 12px;
+          border-radius: 4px;
+          font-size: 13px;
+        }
+
+        @include search-mobile-4  {
+          width: 250px;
           padding: 13px 12px;
           border-radius: 4px;
           font-size: 13px;

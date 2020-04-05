@@ -26,7 +26,7 @@
       </div>
     </div>
     <button type="button">
-      <i class="fas fa-sign-out-alt"></i>
+      <i class="fas fa-door-open"></i>
     </button>
   </nav>
 </template>
