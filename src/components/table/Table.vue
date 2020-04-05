@@ -66,13 +66,13 @@
     </table>
     <center>
       <div class="pagination">
-        <button @click="changePageDown">
+        <button @click="changePageDown" :disabled="this.page == 1">
           <i class="fas fa-chevron-left"></i>
         </button>
         <div class="actual-page">
           {{ page }}
         </div>
-        <button @click="changePageUp">
+        <button @click="changePageUp" :disabled="this.page == 59">
           <i class="fas fa-chevron-right"></i>
         </button>
       </div>
@@ -181,6 +181,7 @@ export default {
       try {
         const url = `${this.url}
         &size=${this.size}
+        &page=${this.page}
         ${this.filtroNome}
         ${this.filtroPartido}
         ${this.filtroEstado}
