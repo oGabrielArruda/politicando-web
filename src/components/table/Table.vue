@@ -66,13 +66,13 @@
     </table>
     <center>
       <div class="pagination">
-        <button @click="changePageDown" :disabled="this.page == 1">
+        <button @click="changePageDown" class="btnPage" :disabled="this.page==1">
           <i class="fas fa-chevron-left"></i>
         </button>
         <div class="actual-page">
           {{ page }}
         </div>
-        <button @click="changePageUp" :disabled="this.page == 59">
+        <button @click="changePageUp" class="btnPage">
           <i class="fas fa-chevron-right"></i>
         </button>
       </div>
@@ -189,7 +189,6 @@ export default {
         ${this.filtroClasf}
         `;
         const response = await api.get(url);
-        console.log(url);
         return response.data;
       } catch (erro) {
         return this.politicos;
