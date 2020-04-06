@@ -5,22 +5,22 @@
         <select @change="changeTipo($event)">
           <option value disabled selected>Tipo de Político</option>
           <option value="0">Todos</option>
-          <option v-bind:key="tipo" v-for="tipo in tiposDePolitico">{{ tipo }}</option>
+          <option :key="tipo.value" v-for="tipo in tiposDePolitico">{{ tipo }}</option>
         </select>
         <select @change="changeEstado($event)">
           <option value disabled selected>Estado</option>
           <option value="0">Todos</option>
-          <option v-bind:key="estado" v-for="estado in estados">{{ estado.sigla }}</option>
+          <option :key="estado.value" v-for="estado in estados">{{ estado.sigla }}</option>
         </select>
         <select @change="changePartido($event)">
           <option value disabled selected>Partido</option>
           <option value="0">Todos</option>
-          <option v-bind:key="partido" v-for="partido in partidos">{{ partido.sigla }}</option>
+          <option :key="partido.value" v-for="partido in partidos">{{ partido.sigla }}</option>
         </select>
         <select @change="changeClasf($event)">
           <option value disabled selected>Classificar por</option>
           <option value="0">Alfabeto</option>
-          <option v-bind:key="clasf" v-for="clasf in classificativos">{{ clasf }}</option>
+          <option :key="clasf.value" v-for="clasf in classificativos">{{ clasf }}</option>
         </select>
       </div>
     </div>
@@ -39,7 +39,7 @@
         <th></th>
       </thead>
       <tbody>
-        <tr v-bind:key="politico" v-for="(politico, index) in filtroPoliticos">
+        <tr :key="politico.value" v-for="(politico, index) in filtroPoliticos">
           <td class="classification-column">{{ index + 1 }}°</td>
           <td data-label="Nome" class="name-column">
             <img :src="politico.foto" />
