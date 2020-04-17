@@ -8,7 +8,7 @@
         />
         <div>
           <h1>Pedro Nunes</h1>
-          <button type="button">Ver perfil</button>
+          <button type="button" @click="goToProfile()">Ver perfil</button>
         </div>
       </div>
       <div class="division"></div>
@@ -77,6 +77,10 @@ export default {
       this.buttonSelected = i;
 
       this.pushRouter(i);
+    },
+    goToProfile() {
+      this.$router.push({ name: 'UsersProfile' });
+      this.buttons[this.buttonSelected].isActive = false;
     },
   },
 };
