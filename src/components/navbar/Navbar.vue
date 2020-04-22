@@ -5,6 +5,7 @@
       <input name="email" type="text" placeholder="Endereço de email" />
       <input name="senha" type="text" placeholder="Senha" />
       <button>Entrar</button>
+
     </div>
   </nav>
 </template>
