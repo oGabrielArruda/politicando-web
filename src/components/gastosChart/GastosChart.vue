@@ -73,13 +73,17 @@ export default {
     apexChart: VueApexCharts,
     SelectPolitico,
   },
-  props: ['politico'],
   methods: {
     updateChart(responseGastos) {
+      const objGasto = this.getObjGastos(responseGastos);
+      ApexCharts.exec('chartGastos', 'appendSeries', objGasto);
+    },
+    getObjGastos(responseGastos) {
       const objGasto = { name: 'Politico', data: [] };
-
       for (let i = 1; i <= 12; i += 1) {
-        const gastos = responseGastos.filter((valor) => valor.ano === this.ano && valor.mes === i);
+        let ano = this.ano - 1;
+        ano += 1; // não me pergunte pq tem que fazer isso, só arrumei o bug
+        const gastos = responseGastos.filter((valor) => valor.ano === ano && valor.mes === i);
         console.log(gastos);
         const soma = Object.values(gastos).reduce((prev, { valor }) => prev + valor, 0);
         if (soma > 0) {
@@ -87,26 +91,49 @@ export default {
           objGasto.data.push(valor.toFixed(2));
         } else { objGasto.data.push(0); }
       }
-      ApexCharts.exec('chartGastos', 'appendSeries', objGasto);
+      return objGasto;
     },
-    async getGastos(idPolitico) {
+    async getGastosAPI(idPolitico) {
+      console.log('Entrou no get gastos');
       const url = `/PoliticoItems/${idPolitico}/gastos`;
       const responseGastos = await api.get(url);
-      return responseGastos;
+      return responseGastos.data;
     },
   },
   async mounted() {
     try {
-      const responseGastos = await this.getGastos(this.politico);
-      console.log(responseGastos.data);
-      this.updateChart(responseGastos.data);
+      const responseGastos = await this.getGastosAPI(this.$store.state.politicoId);
+      console.log(responseGastos);
+      this.updateChart(responseGastos);
     } catch (erro) {
       console.log(erro);
     }
   },
+  computed: {
+    idPolitico() { return this.$store.state.politicoId; },
+  },
   watch: {
-    ano: () => {
-      ApexCharts.exec('chartGastos', 'resetSeries');
+    ano: async function a() {
+      try {
+        const responseGastos = await this.getGastosAPI(this.idPolitico);
+        const objGastos = this.getObjGastos(responseGastos);
+        ApexCharts.exec('chartGastos', 'updateSeries', [
+          objGastos,
+        ], true);
+      } catch (erro) {
+        console.log(erro);
+      }
+    },
+    idPolitico: async function a(val) {
+      try {
+        const responseGastos = await this.getGastosAPI(val);
+        const objGastos = this.getObjGastos(responseGastos);
+        ApexCharts.exec('chartGastos', 'updateSeries', [
+          objGastos,
+        ], true);
+      } catch (erro) {
+        console.log(erro);
+      }
     },
   },
 };
