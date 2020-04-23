@@ -4,13 +4,13 @@
       <i class="fas fa-bars"></i>
     </button>
     <div class="content">
-      <Carousel />
-      <GastosChart :politico="141518" />
+      <!-- <Carousel /> !-->
+      <GastosChart :politico="5322" />
     </div>
   </div>
 </template>
 <script>
-import Carousel from '../carousel/Carousel.vue';
+// import Carousel from '../carousel/Carousel.vue';
 import GastosChart from '../gastosChart/GastosChart.vue';
 
 export default {
@@ -22,7 +22,7 @@ export default {
     };
   },
   components: {
-    Carousel,
+  //  Carousel,
     GastosChart,
   },
   methods: {

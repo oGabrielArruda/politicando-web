@@ -40,14 +40,14 @@
   </div>
 </template>
 <script>
-import SelectPolitico from './selectpolitico/SelectPolitico.vue';
+import SelectPolitico from '../../components/selectpolitico/SelectPolitico.vue';
 
 export default {
   data() {
     return {
       options: [],
-      urlDeputados: '/PoliticoItems/filtrado?tipo=1&size=5',
-      urlSenadores: '/PoliticoItems/filtrado?tipo=2&size=5',
+      urlDeputados: '/PoliticoItems/filtrado?tipo=1&size=5&page=1',
+      urlSenadores: '/PoliticoItems/filtrado?tipo=2&size=5&page=1',
     };
   },
   components: {

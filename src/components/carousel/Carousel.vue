@@ -39,7 +39,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await api.get('/PoliticoItems?');
+      const response = await api.get('/PoliticoItems/filtrado?size=5&page=1');
       this.slides = response.data;
       console.log(response.data);
     } catch (erro) {

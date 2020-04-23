@@ -1,38 +1,34 @@
 <template>
   <div id="chart">
+    <select v-model="ano">
+      <option :key="ano" v-for="ano in anos"> {{ano}} </option>
+    </select>
     <apexChart
      type="bar"
      height="350"
-     width="500"
+     width="800"
      :options="chartOptions"
      :series="series" />
+     <SelectPolitico
+     :url="'/PoliticoItems/filtrado?size=5&page=1'"
+     :text="'Selecione o político para comparar os gastos'" />
   </div>
 </template>
 
 <script>
 import VueApexCharts from 'vue-apexcharts';
+import ApexCharts from 'apexcharts';
+import SelectPolitico from '../selectpolitico/SelectPolitico.vue';
 import api from '../../config/api';
 
 export default {
   name: 'GastosChart',
   data() {
     return {
-      series: [
-        {
-          name: 'Net Profit',
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-        },
-        {
-          name: 'Revenue',
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-        },
-        {
-          name: 'Free Cash Flow',
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-        },
-      ],
+      series: [],
       chartOptions: {
         chart: {
+          id: 'chartGastos',
           type: 'bar',
           height: 350,
         },
@@ -48,7 +44,7 @@ export default {
         },
         stroke: {
           show: true,
-          width: 4,
+          width: 1,
           colors: ['transparent'],
         },
         xaxis: {
@@ -69,33 +65,46 @@ export default {
         },
       },
       ano: 2020,
+      anos: [2019, 2020],
+      politicos: [],
     };
   },
   components: {
     apexChart: VueApexCharts,
+    SelectPolitico,
   },
   props: ['politico'],
   methods: {
     updateChart(responseGastos) {
-      const novaColuna = [];
+      const objGasto = { name: 'Politico', data: [] };
+
       for (let i = 1; i <= 12; i += 1) {
         const gastos = responseGastos.filter((valor) => valor.ano === this.ano && valor.mes === i);
         console.log(gastos);
         const soma = Object.values(gastos).reduce((prev, { valor }) => prev + valor, 0);
-        novaColuna[i] = soma;
-        this.apexChart.updateSeries([{ name: 'a', data: novaColuna }]);
+        objGasto.data.push(soma + 33763);
       }
+      ApexCharts.exec('chartGastos', 'appendSeries', objGasto);
+    },
+    async getGastos(idPolitico) {
+      const url = `/PoliticoItems/${idPolitico}/gastos`;
+      const responseGastos = await api.get(url);
+      return responseGastos;
     },
   },
   async mounted() {
     try {
-      const url = `/PoliticoItems/${this.politico}/gastos`;
-      const responseGastos = await api.get(url);
+      const responseGastos = await this.getGastos(this.politico);
       console.log(responseGastos.data);
       this.updateChart(responseGastos.data);
     } catch (erro) {
       console.log(erro);
     }
+  },
+  watch: {
+    ano: () => {
+      ApexCharts.exec('chartGastos', 'resetSeries');
+    },
   },
 };
 </script>

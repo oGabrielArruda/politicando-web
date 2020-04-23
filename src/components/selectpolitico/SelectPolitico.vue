@@ -21,7 +21,7 @@
 </template>
 <script>
 import vSelect from 'vue-select';
-import api from '../../../config/api';
+import api from '../../config/api';
 
 export default {
   data() {
