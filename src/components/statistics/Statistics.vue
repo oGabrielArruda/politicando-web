@@ -5,35 +5,13 @@
     </button>
     <div class="content">
       <Carousel />
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
+      <GastosChart :politico="141518" />
     </div>
-    <ExtraInfo />
   </div>
 </template>
 <script>
 import Carousel from '../carousel/Carousel.vue';
-import ExtraInfo from '../extraInfo/ExtraInfo.vue';
+import GastosChart from '../gastosChart/GastosChart.vue';
 
 export default {
   name: 'Statistics',
@@ -45,7 +23,7 @@ export default {
   },
   components: {
     Carousel,
-    ExtraInfo,
+    GastosChart,
   },
   methods: {
     handleView() {

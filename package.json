@@ -10,9 +10,11 @@
   "dependencies": {
     "@desislavsd/vue-select": "^0.5.0",
     "@fortawesome/fontawesome-free": "^5.12.1",
+    "apexcharts": "^3.18.1",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
+    "vue-apexcharts": "^1.5.3",
     "vue-async": "^0.4.0",
     "vue-async-computed": "^3.8.2",
     "vue-axios": "^2.1.5",
