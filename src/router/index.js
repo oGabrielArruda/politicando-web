@@ -11,6 +11,7 @@ import UsersProfile from '../components/usersProfile/UsersProfile.vue';
 
 Vue.use(VueRouter);
 
+
 const routes = [
   {
     path: '/',

@@ -64,7 +64,7 @@ export default {
           },
         },
       },
-      ano: 2020,
+      ano: 2019,
       anos: [2019, 2020],
       politicos: [],
     };
@@ -82,7 +82,10 @@ export default {
         const gastos = responseGastos.filter((valor) => valor.ano === this.ano && valor.mes === i);
         console.log(gastos);
         const soma = Object.values(gastos).reduce((prev, { valor }) => prev + valor, 0);
-        objGasto.data.push(soma + 33763);
+        if (soma > 0) {
+          const valor = soma + 33763;
+          objGasto.data.push(valor.toFixed(2));
+        } else { objGasto.data.push(0); }
       }
       ApexCharts.exec('chartGastos', 'appendSeries', objGasto);
     },

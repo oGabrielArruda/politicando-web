@@ -8,15 +8,14 @@
       :space="200"
       :width="131.91"
       :height="139"
+      @after-slide-change="onAfterSlideChange"
     >
       <slide v-bind:key="slide" v-for="(slide, i) in slides" :index="i">
         <figure>
           <img :src="slide.foto" />
-          <!--       <figcaption>
+          <figcaption>
                    {{slide.nome}}<br>
-                   {{slide.tipo}}<br>
-                   {{slide.partido}}<br>
-          </figcaption>-->
+          </figcaption>
         </figure>
       </slide>
     </Carousel3d>
@@ -33,6 +32,12 @@ export default {
       slides: [],
     };
   },
+  methods: {
+    onAfterSlideChange(index) {
+      this.$store.dispatch('changePoliticoId', this.slides[index].id);
+      console.log(this.$store.state.politicoId);
+    },
+  },
   components: {
     Carousel3d,
     Slide,
@@ -41,6 +46,7 @@ export default {
     try {
       const response = await api.get('/PoliticoItems/filtrado?size=5&page=1');
       this.slides = response.data;
+      this.$store.dispatch('changePoliticoId', this.slides[0].id);
       console.log(response.data);
     } catch (erro) {
       console.log(`Erro:${erro}`);
