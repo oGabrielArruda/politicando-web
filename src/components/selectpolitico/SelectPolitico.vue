@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-select label="nome" :filterable="false" :options="options" @search="onSearch($event)">
+    <v-select label="nome" :filterable="false" :options="options" @search="onSearch($event)"
+    @input="onChange($event)" v-model="selected">
       <template slot="no-options">
         <p>{{text}}</p>
       </template>
@@ -27,6 +28,8 @@ export default {
   data() {
     return {
       options: [],
+      selected: {},
+      lastValue: '',
     };
   },
   props: ['url', 'text'],
@@ -42,6 +45,10 @@ export default {
       } catch (erro) {
         console.log(erro);
       }
+    },
+    onChange(event) {
+      this.$emit('onChange', { value: event, lastValue: this.lastValue });
+      this.lastValue = event;
     },
   },
 };

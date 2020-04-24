@@ -34,8 +34,7 @@ export default {
   },
   methods: {
     onAfterSlideChange(index) {
-      this.$store.dispatch('changePoliticoId', this.slides[index].id);
-      console.log(this.$store.state.politicoId);
+      this.$store.dispatch('changePoliticoCarrossel', this.slides[index]);
     },
   },
   components: {
@@ -46,7 +45,7 @@ export default {
     try {
       const response = await api.get('/PoliticoItems/filtrado?size=5&page=1&tipo=2');
       this.slides = response.data;
-      this.$store.dispatch('changePoliticoId', this.slides[0].id);
+      this.$store.dispatch('changePoliticoCarrossel', this.slides[0]);
       console.log(response.data);
     } catch (erro) {
       console.log(`Erro:${erro}`);

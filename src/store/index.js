@@ -5,16 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    politicoId: 0,
+    politicoCarrossel: {},
   },
   mutations: {
-    set_politicoId: (state, id) => {
-      state.politicoId = id;
+    set_politicoCarrossel: (state, politico) => {
+      state.politicoCarrossel = politico;
     },
   },
   actions: {
-    changePoliticoId({ commit }, id) {
-      commit('set_politicoId', id);
+    changePoliticoCarrossel({ commit }, politico) {
+      commit('set_politicoCarrossel', politico);
     },
   },
   modules: {

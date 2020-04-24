@@ -10,6 +10,7 @@
      :options="chartOptions"
      :series="series" />
      <SelectPolitico
+     @onChange="addPolitico"
      :url="'/PoliticoItems/filtrado?size=5&page=1'"
      :text="'Selecione o político para comparar os gastos'" />
   </div>
@@ -67,6 +68,7 @@ export default {
       ano: 2019,
       anos: [2019, 2020],
       politicos: [],
+      i: 0,
     };
   },
   components: {
@@ -74,17 +76,33 @@ export default {
     SelectPolitico,
   },
   methods: {
-    updateChart(responseGastos) {
-      const objGasto = this.getObjGastos(responseGastos);
-      ApexCharts.exec('chartGastos', 'appendSeries', objGasto);
+    async addPolitico(values) {
+      try {
+        if (values.value !== null) {
+          const responseGastos = await this.getGastosAPI(values.value.id);
+          this.updateChart(responseGastos, values.value.nome);
+        } else {
+          this.removePolitico(values.lastValue.nome);
+        }
+      } catch (erro) {
+        console.log(erro);
+      }
     },
-    getObjGastos(responseGastos) {
-      const objGasto = { name: 'Politico', data: [] };
+    removePolitico(removedName) {
+      console.log(this.politicos);
+      this.politicos = this.politicos.filter((politico) => politico.name !== removedName);
+    },
+    updateChart(responseGastos, nome) {
+      const objGasto = this.getObjGastos(responseGastos, nome);
+      this.politicos.push(objGasto);
+      // ApexCharts.exec('chartGastos', 'updateSeries', this.politicos, true);
+    },
+    getObjGastos(responseGastos, nome) {
+      const objGasto = { name: nome, data: [] };
       for (let i = 1; i <= 12; i += 1) {
         let ano = this.ano - 1;
         ano += 1; // não me pergunte pq tem que fazer isso, só arrumei o bug
         const gastos = responseGastos.filter((valor) => valor.ano === ano && valor.mes === i);
-        console.log(gastos);
         const soma = Object.values(gastos).reduce((prev, { valor }) => prev + valor, 0);
         if (soma > 0) {
           const valor = soma + 33763;
@@ -102,21 +120,21 @@ export default {
   },
   async mounted() {
     try {
-      const responseGastos = await this.getGastosAPI(this.$store.state.politicoId);
-      console.log(responseGastos);
-      this.updateChart(responseGastos);
+      const responseGastos = await
+      this.getGastosAPI(this.politicoCarrossel.id);
+      this.updateChart(responseGastos, this.politicoCarrossel.nome);
     } catch (erro) {
       console.log(erro);
     }
   },
   computed: {
-    idPolitico() { return this.$store.state.politicoId; },
+    politicoCarrossel() { return this.$store.state.politicoCarrossel; },
   },
   watch: {
     ano: async function a() {
       try {
-        const responseGastos = await this.getGastosAPI(this.idPolitico);
-        const objGastos = this.getObjGastos(responseGastos);
+        const responseGastos = await this.getGastosAPI(this.politicoCarrossel.id);
+        const objGastos = this.getObjGastos(responseGastos, this.politicoCarrossel.nome);
         ApexCharts.exec('chartGastos', 'updateSeries', [
           objGastos,
         ], true);
@@ -124,16 +142,20 @@ export default {
         console.log(erro);
       }
     },
-    idPolitico: async function a(val) {
+    politicoCarrossel: async function a(politico) {
+      if (this.i === 0) { this.i += 1; return; }
       try {
-        const responseGastos = await this.getGastosAPI(val);
-        const objGastos = this.getObjGastos(responseGastos);
-        ApexCharts.exec('chartGastos', 'updateSeries', [
-          objGastos,
-        ], true);
+        const responseGastos = await this.getGastosAPI(politico.id);
+        const objGasto = this.getObjGastos(responseGastos, politico.nome);
+        this.politicos[0] = objGasto;
+        console.log(this.politicos[0]);
+        ApexCharts.exec('chartGastos', 'updateSeries', this.politicos, true);
       } catch (erro) {
         console.log(erro);
       }
+    },
+    politicos: function a(politicos) {
+      ApexCharts.exec('chartGastos', 'updateSeries', politicos, true);
     },
   },
 };
