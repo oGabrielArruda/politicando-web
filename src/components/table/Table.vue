@@ -31,16 +31,34 @@
         <th>Partido</th>
         <th>Tipo</th>
         <th>Estado</th>
-        <th>Gastos</th>
-        <th>Faltas</th>
-        <th>Presenças</th>
-        <th>Propostas</th>
-        <th>Processos</th>
+        <th>Gastos <span class="tooltip"
+            ><i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span class="tooltip-text">Os Gastos representam bla bla bla bla bla bla</span></span
+          ></th>
+        <th>
+          Faltas
+          <span class="tooltip"
+            ><i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span class="tooltip-text">As Faltas representam bla bla bla bla bla bla</span></span
+          >
+        </th>
+        <th>Presenças <span class="tooltip"
+            ><i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span class="tooltip-text">As Presenças representam bla bla bla bla bla bla</span></span
+          ></th>
+        <th>Propostas <span class="tooltip"
+            ><i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span class="tooltip-text">As Propostas representam bla bla bla bla bla bla</span></span
+          ></th>
+        <th>Processos <span class="tooltip"
+            ><i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span class="tooltip-text">Os Processos representam bla bla bla bla bla bla</span></span
+          ></th>
         <th></th>
       </thead>
       <tbody>
         <tr :key="politico.value" v-for="(politico, index) in filtroPoliticos">
-          <td class="classification-column">{{ index + 1 }}°</td>
+          <td class="classification-column">{{ ((page - 1) * 8) + (index + 1) }}°</td>
           <td data-label="Nome" class="name-column">
             <img :src="politico.foto" />
             <p>{{ politico.nome }}</p>
@@ -50,7 +68,7 @@
           <td data-label="Tipo" class="label-exists" v-else>Senador</td>
           <td data-label="Estado" class="label-exists">{{ politico.estado }}</td>
           <td data-label="Gastos" class="label-exists">
-            {{ "R$" + Math.round(politico.gastos).toLocaleString('pr-BR') }}
+            {{ "R$" + Math.round(politico.gastos).toLocaleString("pr-BR") }}
           </td>
           <td data-label="Faltas" class="label-exists">{{ politico.faltas }}</td>
           <td data-label="Presenças" class="label-exists">{{ politico.presencas }}</td>
@@ -66,7 +84,7 @@
     </table>
     <center>
       <div class="pagination">
-        <button @click="changePageDown" class="btnPage" :disabled="this.page==1">
+        <button @click="changePageDown" class="btnPage" :disabled="this.page == 1">
           <i class="fas fa-chevron-left"></i>
         </button>
         <div class="actual-page">
