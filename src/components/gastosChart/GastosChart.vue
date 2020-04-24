@@ -12,7 +12,9 @@
      <SelectPolitico
      @onChange="addPolitico"
      :url="'/PoliticoItems/filtrado?size=5&page=1'"
-     :text="'Selecione o político para comparar os gastos'" />
+     :text="'Selecione o político para comparar os gastos'"
+     :key="i"
+     v-for="i in qtdSelects" />
   </div>
 </template>
 
@@ -68,7 +70,9 @@ export default {
       ano: 2019,
       anos: [2019, 2020],
       politicos: [],
+      idPoliticos: [],
       i: 0,
+      qtdSelects: 1,
     };
   },
   components: {
@@ -80,21 +84,23 @@ export default {
       try {
         if (values.value !== null) {
           const responseGastos = await this.getGastosAPI(values.value.id);
-          this.updateChart(responseGastos, values.value.nome);
+          this.updateChart(responseGastos, values.value.nome, values.value.id);
         } else {
-          this.removePolitico(values.lastValue.nome);
+          this.removePolitico(values.lastValue);
         }
       } catch (erro) {
         console.log(erro);
       }
     },
-    removePolitico(removedName) {
+    removePolitico(removed) {
       console.log(this.politicos);
-      this.politicos = this.politicos.filter((politico) => politico.name !== removedName);
+      this.politicos = this.politicos.filter((politico) => politico.name !== removed.nome);
+      this.idPoliticos = this.politicos.filter((id) => id !== removed.id);
     },
-    updateChart(responseGastos, nome) {
+    updateChart(responseGastos, nome, id) {
       const objGasto = this.getObjGastos(responseGastos, nome);
       this.politicos.push(objGasto);
+      this.idPoliticos.push(id);
     },
     getObjGastos(responseGastos, nome) {
       const objGasto = { name: nome, data: [] };
@@ -124,16 +130,22 @@ export default {
       const data = new Date();
       const anoAtual = data.getFullYear();
       if (anoAtual > ano) { return true; }
-      const mesAtual = data.getMonth();
-      if (mesAtual > mes) { return true; }
+      const mesAtual = data.getMonth() + 1;
+      console.log('AAAAAAA');
+      console.log(mesAtual);
+      if (mesAtual >= mes) { return true; }
       return false;
+    },
+    increaseQtdSelects() {
+      if (this.qtdSelects < 5) { this.qtdSelects += 1; }
     },
   },
   async mounted() {
     try {
       const responseGastos = await
       this.getGastosAPI(this.politicoCarrossel.id);
-      this.updateChart(responseGastos, this.politicoCarrossel.nome);
+      this.updateChart(responseGastos,
+        this.politicoCarrossel.nome, this.politicoCarrossel.id);
     } catch (erro) {
       console.log(erro);
     }
@@ -144,22 +156,29 @@ export default {
   watch: {
     ano: async function a() {
       try {
-        const responseGastos = await this.getGastosAPI(this.politicoCarrossel.id);
-        const objGastos = this.getObjGastos(responseGastos, this.politicoCarrossel.nome);
-        ApexCharts.exec('chartGastos', 'updateSeries', [
-          objGastos,
-        ], true);
+        const gastosPromisses = [];
+        this.idPoliticos.forEach((id) => {
+          gastosPromisses.push(this.getGastosAPI(id));
+        });
+        const gastosResponses = await Promise.all(gastosPromisses);
+        const gastosArr = [];
+        for (let i = 0; i < this.idPoliticos.length; i += 1) {
+          const objGastos = this.getObjGastos(gastosResponses[i], this.politicos[i].nome);
+          gastosArr.push(objGastos);
+        }
+        this.politicos = gastosArr;
       } catch (erro) {
         console.log(erro);
       }
     },
     politicoCarrossel: async function a(politico) {
-      if (this.i === 0) { this.i += 1; return; }
+      if (this.i === 0) { this.i += 1; return; } // se for a primeira vez carregando o componente
       try {
         const responseGastos = await this.getGastosAPI(politico.id);
         const objGasto = this.getObjGastos(responseGastos, politico.nome);
         this.politicos[0] = objGasto;
-        console.log(this.politicos[0]);
+        this.idPoliticos[0] = politico.id;
+        console.log(this.idPoliticos);
         ApexCharts.exec('chartGastos', 'updateSeries', this.politicos, true);
       } catch (erro) {
         console.log(erro);
