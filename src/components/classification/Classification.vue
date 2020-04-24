@@ -3,7 +3,9 @@
     <button :class="{ 'show': !mobileView }" @click="showNav">
       <i class="fas fa-bars"></i>
     </button>
-    <Search :size="8" class="search" />
+    <div>
+      <Search :size="8" class="search" />
+    </div>
   </div>
 </template>
 <script>

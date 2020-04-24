@@ -58,7 +58,7 @@
       </thead>
       <tbody>
         <tr :key="politico.value" v-for="(politico, index) in filtroPoliticos">
-          <td class="classification-column">{{ ((page - 1) * 8) + (index + 1) }}°</td>
+          <td class="classification-column">{{ ((page - 1) * size) + (index + 1) }}°</td>
           <td data-label="Nome" class="name-column">
             <img :src="politico.foto" />
             <p>{{ politico.nome }}</p>

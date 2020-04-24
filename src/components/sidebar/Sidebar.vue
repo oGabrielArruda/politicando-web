@@ -8,7 +8,11 @@
         />
         <div>
           <h1>Pedro Nunes</h1>
-          <button type="button" @click="goToProfile()">Ver perfil</button>
+          <button
+            type="button"
+            @click="goToProfile()"
+            :class="{ 'profile-selected': profileIsActive }"
+          >Ver perfil</button>
         </div>
       </div>
       <div class="division"></div>
@@ -37,6 +41,7 @@ export default {
   components: {},
   data() {
     return {
+      profileIsActive: false,
       buttons: [
         {
           text: 'Feed de Notícias',
@@ -72,15 +77,23 @@ export default {
       }
     },
     enableButton(i) {
-      this.buttons[this.buttonSelected].isActive = false;
+      if (this.buttonSelected >= 0) {
+        this.buttons[this.buttonSelected].isActive = false;
+      } else {
+        this.profileIsActive = false;
+      }
+
       this.buttons[i].isActive = true;
       this.buttonSelected = i;
 
       this.pushRouter(i);
     },
     goToProfile() {
-      this.$router.push({ name: 'UsersProfile' });
       this.buttons[this.buttonSelected].isActive = false;
+      this.profileIsActive = true;
+      this.buttonSelected = -1;
+
+      this.$router.push({ name: 'UsersProfile' });
     },
   },
 };

@@ -1,3 +1,9 @@
+@mixin table-computer {
+    @media (min-width: 1240px) {
+        @content;
+    }
+}
+
 @mixin table-mobile {
     @media (max-width: 1125px) {
         @content;
@@ -11,6 +17,13 @@
     transition: transform 0.5s;
     overflow-x: hidden;
     overflow-y: scroll;
+
+    @include table-computer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
     @include table-mobile {
         width: 100vw;
@@ -40,10 +53,6 @@
         &:active {
             transform: scale(0.9);
         }
-    }
-
-    .search {
-        margin-top: 30px;
     }
 }
 

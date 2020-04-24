@@ -105,7 +105,7 @@
         .tooltip .tooltip-text {
           visibility: hidden;
           width: 120px;
-          background-color: rgba(189, 189, 189, 0.541);
+          background-color: rgb(93, 131, 167);
           text-align: center;
           border-radius: 6px;
           padding: 5px 0;
@@ -117,6 +117,9 @@
           opacity: 0;
           transition: opacity 0.5s;
           transition: 0.5s;
+          color: #fff;
+          font-weight: normal;
+          font-size: 12px;
         }
 
         
@@ -128,7 +131,7 @@
           margin-left: -5px;
           border-width: 5px;
           border-style: solid;
-          border-color: rgba(189, 189, 189, 0.541)transparent transparent transparent;
+          border-color: rgb(93, 131, 167) transparent transparent transparent;
           transition: 0.5s;
         }
         
