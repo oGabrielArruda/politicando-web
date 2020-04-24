@@ -1,6 +1,7 @@
 .v-select {
     width: 100%;
     margin-bottom: 2%;
+    background: #fff;
 
     .dropdown {
         & > li {
@@ -28,7 +29,7 @@
     .d-center {
         display: flex;
         align-items: center;
-
+        
         img {
             height: auto;
             max-width: 2.5rem;

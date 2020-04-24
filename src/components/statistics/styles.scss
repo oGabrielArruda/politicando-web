@@ -1,10 +1,10 @@
-@mixin feed-mobile {
+@mixin statistics-mobile {
     @media (min-width: 861px) and (max-width: 1125px) {
         @content;
     }
 }
 
-@mixin feed-mobile-2 {
+@mixin statistics-mobile-2 {
     @media (max-width: 860px) {
         @content;
     }
@@ -15,11 +15,11 @@
     flex-direction: row;
     transition: transform 0.5s;
 
-    @include feed-mobile {
+    @include statistics-mobile {
         z-index: 999;
     }
 
-    @include feed-mobile-2 {
+    @include statistics-mobile-2 {
         z-index: 999;
         flex-direction: column;
         height: 100vh;
@@ -50,7 +50,7 @@
     }
 
     .content {
-        width: 65vw;
+        width: 100vw;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -58,14 +58,14 @@
         overflow-y: scroll;
         overflow-x: hidden;
 
-        @include feed-mobile {
+        /*@include feed-mobile {
             width: 80vw;
         }
 
         @include feed-mobile-2 {
             width: 100vw;
             min-height: 80vh;
-        }
+        }*/
     }
 
     /* SCROLLBAR */
