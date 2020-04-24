@@ -5,7 +5,10 @@
       <Header />
     </div>
     <div class="light-bar"></div>
-    <Classification />
+    <main>
+      <h1>Qual o melhor político de acordo com o seu filtro?</h1>
+      <Search :size="10" :showBorder="true" />
+    </main>
     <Footer />
   </div>
 </template>
@@ -13,7 +16,7 @@
 <script>
 import Navbar from '../../components/navbar/Navbar.vue';
 import Header from '../../components/header/Header.vue';
-import Classification from './classification/Classification.vue';
+import Search from '../../components/search/Search.vue';
 import Footer from '../../components/footer/Footer.vue';
 
 export default {
@@ -22,7 +25,7 @@ export default {
   components: {
     Navbar,
     Header,
-    Classification,
+    Search,
     Footer,
   },
 };

@@ -30,7 +30,6 @@
   width: 78vw;
   padding: 20px 15px;
   margin: 15px 0;
-  border: 1px solid rgba(189, 189, 189, 0.541);
   border-radius: 5px;
   //border: 1px solid red;
   background: #fff;
@@ -314,4 +313,8 @@
   .btnPage:disabled{
     color: rgb(165, 164, 164);
   }
+}
+
+.border {
+  border: 1px solid rgba(189, 189, 189, 0.541);
 }

@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="search-container">
+    <div class="search-container" :class="{ 'border-search': showBorder }">
+      <div>
+        <i class="fas fa-search teste" style=""></i>
+      </div>
       <input
         type="text"
         name="Search"
@@ -9,7 +12,7 @@
       />
       <!--<button type="button">Pesquisar</button>-->
     </div>
-    <Table :filtroNome="filtroNome" :size="size" />
+    <Table :filtroNome="filtroNome" :size="size" :showBorder="showBorder" />
   </div>
 </template>
 
@@ -26,7 +29,7 @@ export default {
   components: {
     Table,
   },
-  props: ['size'],
+  props: ['size', 'showBorder'],
   methods: {
     changeNome(event) {
       this.filtroNome = `&nome=${event.target.value.replace(' ', '%20')}`;

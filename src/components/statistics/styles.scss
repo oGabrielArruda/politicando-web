@@ -50,7 +50,8 @@
     }
 
     .content {
-        width: 100vw;
+        width: 85vw;
+        border: 1px solid red;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -58,14 +59,14 @@
         overflow-y: scroll;
         overflow-x: hidden;
 
-        /*@include feed-mobile {
-            width: 80vw;
+        @include statistics-mobile {
+            width: 100vw;
         }
 
-        @include feed-mobile-2 {
+        @include statistics-mobile-2 {
             width: 100vw;
-            min-height: 80vh;
-        }*/
+            min-height: 100vh;
+        }
     }
 
     /* SCROLLBAR */

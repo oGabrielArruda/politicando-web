@@ -93,7 +93,7 @@ export default {
       this.profileIsActive = true;
       this.buttonSelected = -1;
 
-      this.$router.push({ name: 'UsersProfile' });
+      this.$router.push({ name: 'Profile' });
     },
   },
 };

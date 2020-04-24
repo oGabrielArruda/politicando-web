@@ -4,7 +4,7 @@
       <i class="fas fa-bars"></i>
     </button>
     <div>
-      <Search :size="8" class="search" />
+      <Search :size="8" :showBorder="false" class="search" />
     </div>
   </div>
 </template>

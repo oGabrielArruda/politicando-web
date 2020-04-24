@@ -1,5 +1,5 @@
 <template>
-  <div class="table-container">
+  <div class="table-container" :class="{ 'border': showBorder }">
     <div class="header">
       <div class="filter-group">
         <select @change="changeTipo($event)">
@@ -126,7 +126,7 @@ export default {
       isNextPageEnabled: true,
     };
   },
-  props: ['filtroNome', 'size'],
+  props: ['filtroNome', 'size', 'showBorder'],
   async mounted() {
     try {
       const responsePartidos = await api.get('/Partidos');

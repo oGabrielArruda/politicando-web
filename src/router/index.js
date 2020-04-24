@@ -6,7 +6,7 @@ import Home from '../views/home/Home.vue';
 import Feed from '../components/feed/Feed.vue';
 import Classification from '../components/classification/Classification.vue';
 import Statistics from '../components/statistics/Statistics.vue';
-import UsersProfile from '../components/usersProfile/UsersProfile.vue';
+import Profile from '../components/profile/Profile.vue';
 
 
 Vue.use(VueRouter);
@@ -43,9 +43,9 @@ const routes = [
         component: Statistics,
       },
       {
-        path: 'usersProfile',
-        name: 'UsersProfile',
-        component: UsersProfile,
+        path: 'profile',
+        name: 'Profile',
+        component: Profile,
       },
     ],
   },
