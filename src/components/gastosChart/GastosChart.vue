@@ -95,7 +95,6 @@ export default {
     updateChart(responseGastos, nome) {
       const objGasto = this.getObjGastos(responseGastos, nome);
       this.politicos.push(objGasto);
-      // ApexCharts.exec('chartGastos', 'updateSeries', this.politicos, true);
     },
     getObjGastos(responseGastos, nome) {
       const objGasto = { name: nome, data: [] };
@@ -107,7 +106,11 @@ export default {
         if (soma > 0) {
           const valor = soma + 33763;
           objGasto.data.push(valor.toFixed(2));
-        } else { objGasto.data.push(0); }
+        } else if (this.dataDeHojeEhMaior(ano, i)) {
+          objGasto.data.push((33763).toFixed(2));
+        } else {
+          objGasto.data.push(0);
+        }
       }
       return objGasto;
     },
@@ -116,6 +119,14 @@ export default {
       const url = `/PoliticoItems/${idPolitico}/gastos`;
       const responseGastos = await api.get(url);
       return responseGastos.data;
+    },
+    dataDeHojeEhMaior(ano, mes) {
+      const data = new Date();
+      const anoAtual = data.getFullYear();
+      if (anoAtual > ano) { return true; }
+      const mesAtual = data.getMonth();
+      if (mesAtual > mes) { return true; }
+      return false;
     },
   },
   async mounted() {
