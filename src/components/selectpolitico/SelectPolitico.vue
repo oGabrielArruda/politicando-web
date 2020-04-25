@@ -29,7 +29,7 @@ export default {
     return {
       options: [],
       selected: {},
-      lastValue: '',
+      lastValue: null,
     };
   },
   props: ['url', 'text'],
@@ -47,7 +47,11 @@ export default {
       }
     },
     onChange(event) {
-      this.$emit('onChange', { value: event, lastValue: this.lastValue });
+      if (event !== null) {
+        this.$emit('onChange', { value: event, lastValue: this.lastValue });
+      } else {
+        this.$emit('onDelete', this.lastValue);
+      }
       this.lastValue = event;
     },
   },
