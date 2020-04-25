@@ -33,26 +33,34 @@
         <th>Estado</th>
         <th>Gastos <span class="tooltip"
             ><i class="fa fa-info-circle" aria-hidden="true"></i>
-            <span class="tooltip-text">Os Gastos representam bla bla bla bla bla bla</span></span
-          ></th>
+            <span class="tooltip-text">Os gastos são todas as despesas, incluindo o salário
+              dos políticos. São inclídos gastos com combustível, gabinete, e etc. Para
+              saber mais, faça o login e visite a página de estátisticas.</span>
+              </span>
+          </th>
         <th>
           Faltas
           <span class="tooltip"
             ><i class="fa fa-info-circle" aria-hidden="true"></i>
-            <span class="tooltip-text">As Faltas representam bla bla bla bla bla bla</span></span
-          >
+            <span class="tooltip-text">As Faltas são avaliadas em todas as sessões, e não no dia.
+              Cada falta em uma sessão que estava na agenda de um político é registrada.</span>
+            </span>
         </th>
         <th>Presenças <span class="tooltip"
             ><i class="fa fa-info-circle" aria-hidden="true"></i>
-            <span class="tooltip-text">As Presenças representam bla bla bla bla bla bla</span></span
-          ></th>
+            <span class="tooltip-text">As Presenças são avaliadas em todas as sessões, e não no dia.
+              Cada presença em uma sessão que estava na agenda de um político é registrada.</span>
+              </span>
+        </th>
         <th>Propostas <span class="tooltip"
             ><i class="fa fa-info-circle" aria-hidden="true"></i>
-            <span class="tooltip-text">As Propostas representam bla bla bla bla bla bla</span></span
+            <span class="tooltip-text">As Propostas representam todos os tipos de preposições
+              realizadas por um político, como requerimentos, ementas e leis.</span></span
           ></th>
         <th>Processos <span class="tooltip"
             ><i class="fa fa-info-circle" aria-hidden="true"></i>
-            <span class="tooltip-text">Os Processos representam bla bla bla bla bla bla</span></span
+            <span class="tooltip-text">Os Processos representam todos os processos judiciais em
+              que o político se encontra como réu.</span></span
           ></th>
         <th></th>
       </thead>
@@ -219,16 +227,16 @@ export default {
     async filtroPoliticos() {
       try {
         const nextPageWithData = this.isNextPageWithData();
+        let { url } = this;
+        url += `&size=${this.size}`;
+        url += `&page=${this.page}`;
 
-        const url = `${this.url}
-        &size=${this.size}
-        &page=${this.page}
-        ${this.filtroNome}
-        ${this.filtroPartido}
-        ${this.filtroEstado}
-        ${this.filtroTipo}
-        ${this.filtroClasf}
-        `;
+        if (this.filtroNome) { url += this.filtroNome; }
+        if (this.filtroPartido) { url += this.filtroPartido; }
+        if (this.filtroEstado) { url += this.filtroEstado; }
+        if (this.filtroTipo) { url += this.filtroTipo; }
+        if (this.filtroClasf) { url += this.filtroClasf; }
+        console.log(url);
         const response = await api.get(url);
         this.isNextPageEnabled = await nextPageWithData;
 
