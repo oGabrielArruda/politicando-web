@@ -84,6 +84,7 @@ header {
   }
 
   @include for-phone-only {
+    margin-top: 0;
     height: 80vh;
     flex-direction: column;
     align-items: center;
@@ -157,41 +158,11 @@ header {
       flex-direction: column;
       margin-bottom: 40px;
 
-      #smallScreen{
-        display: none;
-        margin-top: 2vh;
-        color: #3e3f4b;
-      }
-
-      #smallScreenLandscape{
-        display: none;
-        margin-top: 2vh;
-        color: #3e3f4b;
-        
-        & > button {
-          border: none;
-            padding: 10px 15px;
-            border-radius: 3px;
-            color: #fff;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.3s;
-            background: #2751c5b9;
-            width: 13vh;
-            margin-top: 2vh;
-
-            &:hover {
-              background: #2751c5ef;
-            }
-        }
-      }
-
       @include for-phone-only {
         align-items: center;
         margin-bottom: 0;
 
-        #smallScreen{
+        #smallScreen {
           display: inline;
         }
       }
@@ -199,7 +170,7 @@ header {
         align-items: center;
         margin-bottom: 0;
 
-        #smallScreenLandscape{
+        #smallScreenLandscape {
           display: inline;
 
           & > button {
@@ -312,7 +283,7 @@ header {
             cursor: pointer;
             transition: background 0.3s;
             background: #2751c5b9;
-            width: 13vh;
+            width: 14vh;
             margin-top: 2vh;
 
             &:hover {

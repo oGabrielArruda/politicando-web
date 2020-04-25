@@ -5,10 +5,7 @@
         <h2>Olá!</h2>
         <h1>Que tal supervisionar</h1>
         <h4>quem você votou?</h4>
-        <h3 id="smallScreen">Clique no binóculo para criar sua conta!</h3>
-        <h3 id="smallScreenLandscape">
-          Clique <button @click="goToSignUp()">Aqui</button> para criar sua conta!
-        </h3>
+
       </div>
       <div class="list">
         <div class="item">

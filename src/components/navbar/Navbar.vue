@@ -2,10 +2,17 @@
   <nav>
     <img src="../../assets/initial/logo.png" />
     <div class="form-group">
-      <input name="email" type="text" placeholder="Endereço de email" />
-      <input name="senha" type="text" placeholder="Senha" />
-      <button>Entrar</button>
+      <a href="#open-modal"><button class="btnEntrar">Entrar</button></a>
+      <button class="btnCriar">Criar Conta</button>
+    </div>
 
+    <div id="open-modal" class="modal-window">
+      <div>
+        <a href="#" title="Close" class="modal-close"><i class="far fa-times-circle"></i> </a>
+
+        <input name="email" type="text" placeholder="Endereço de email" />
+            <input name="senha" type="text" placeholder="Senha" />
+      </div>
     </div>
   </nav>
 </template>
@@ -17,6 +24,11 @@ export default {
     return {
       logoSrc: '.',
     };
+  },
+  methods: {
+    signUp() {
+      this.$router.push({ name: 'Signup' });
+    },
   },
 };
 </script>
