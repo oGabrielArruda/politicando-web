@@ -5,7 +5,7 @@
     </button>
     <div class="content">
       <Carousel />
-      <GastosChart :politico="5322" />
+      <GastosChart :politico="this.$store.state.politicoCarrossel" :inserirMais="true" />
     </div>
   </div>
 </template>

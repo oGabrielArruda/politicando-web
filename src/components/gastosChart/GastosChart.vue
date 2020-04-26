@@ -9,14 +9,14 @@
      width="800"
      :options="chartOptions"
      :series="series" />
-     <div id="select" :key="i" v-for="i in qtdSelects" >
+     <div id="select" :key="i" v-for="i in qtdSelects" v-show="inserirMais">
       <SelectPolitico
       @onChange="addPolitico"
       @onDelete="removePolitico"
       :url="'/PoliticoItems/filtrado?size=5&page=1'"
       :text="'Selecione o político para comparar os gastos'" />
      </div>
-     <button @click="increaseQtdSelects(1)"> Adicionar </button>
+     <button @click="increaseQtdSelects(1)" v-show="inserirMais"> Adicionar </button>
   </div>
 </template>
 
@@ -77,6 +77,7 @@ export default {
       qtdSelects: 1,
     };
   },
+  props: ['politico', 'inserirMais'],
   components: {
     apexChart: VueApexCharts,
     SelectPolitico,
@@ -144,15 +145,15 @@ export default {
   async mounted() {
     try {
       const responseGastos = await
-      this.getGastosAPI(this.politicoCarrossel.id);
+      this.getGastosAPI(this.politicoPrincipal.id);
       this.updateChart(responseGastos,
-        this.politicoCarrossel.nome, this.politicoCarrossel.id);
+        this.politicoPrincipal.nome, this.politicoPrincipal.id);
     } catch (erro) {
       console.log(erro);
     }
   },
   computed: {
-    politicoCarrossel() { return this.$store.state.politicoCarrossel; },
+    politicoPrincipal() { return this.politico; },
   },
   watch: {
     ano: async function a() {
@@ -172,7 +173,7 @@ export default {
         console.log(erro);
       }
     },
-    politicoCarrossel: async function a(politico) {
+    politicoPrincipal: async function a(politico) {
       if (this.i === 0) { this.i += 1; return; } // se for a primeira vez carregando o componente
       try {
         const responseGastos = await this.getGastosAPI(politico.id);
