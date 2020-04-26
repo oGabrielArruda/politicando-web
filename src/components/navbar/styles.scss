@@ -54,11 +54,11 @@ nav {
     align-items: center;
   }
 
-  @include for-phone-one-landscape() {
+  @include for-phone-one-landscape {
     margin-top: 3vh;
   }
 
-  @include for-phone-two-landscape() {
+  @include for-phone-two-landscape {
     padding-top: 13vh;
   }
 
@@ -84,7 +84,6 @@ nav {
 
     button {
       border: none;
-      background: #27c55bb9;
       padding: 8px 8px;
       border-radius: 4px;
       width: 12vh;
@@ -93,29 +92,33 @@ nav {
       cursor: pointer;
       transition: background 0.2s;
 
-      @include for-phone-two() {
+      @include for-phone-two {
         width: 30vh;
       }
 
-      @include for-phone-two-landscape() {
+      @include for-phone-two-landscape {
         margin-top: 2vw;
         width: 30vw;
       }
 
-      @include for-phone-one-landscape() {
+      @include for-phone-one-landscape {
         width: 20vw;
       }
+    }
+
+    .button-signIn {
+      background: #27c55bb9;
 
       &:hover {
         background: rgb(14, 180, 89);
       }
     }
 
-    .btnCriar {
+    .button-signUp {
       background: #3776b4;
       margin-left: 2vh;
 
-      @include for-phone-two() {
+      @include for-phone-two {
         margin-left: 0;
         margin-top: 1vh;
       }
@@ -126,71 +129,176 @@ nav {
     }
   }
 
+  @-webkit-keyframes fadeIn {
+    from {
+      display: none;
+      opacity: 0;
+    }
+    to {
+      display: block;
+      opacity: 1;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      display: none;
+      opacity: 0;
+    }
+    to {
+      display: block;
+      opacity: 1;
+    }
+  }
+
+  @-webkit-keyframes fadeOut {
+    from {
+      display: block;
+      opacity: 1;
+    }
+    to {
+      display: none;
+      opacity: 0;
+    }
+  }
+  @keyframes fadeOut {
+    from {
+      display: block;
+      opacity: 1;
+    }
+    to {
+      display: none;
+      opacity: 0;
+    }
+  }
+
   .modal-window {
     position: fixed;
-    background-color: rgba(255, 255, 255, 0.25);
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    background-color: rgba(0, 0, 0, 0.507);
     z-index: 999;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
+    pointer-events: auto;
     transition: all 0.3s;
-    &:target {
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s;
+
+    /*&:target {
       visibility: visible;
       opacity: 1;
       pointer-events: auto;
-    }
+    }*/
+
     & > div {
-      width: 400px;
+      width: 100%;
+      max-width: 400px;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      padding: 2em;
+      padding: 3em 2em;
       background: #ffffff;
-    }
-
-    input {
-      border: none;
-      background: #e7e7e7;
-      padding: 8px 15px;
+      display: flex;
       border-radius: 4px;
 
-      @include default {
-        margin-right: 3%;
+      .button-close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        right: -16px;
+        top: -16px;
+        border: none;
+        border-radius: 50%;
+        font-size: 30px;
+        text-decoration: none;
+        background: #125e41d0;
+        color: rgba(255, 255, 255, 0.705);
+        cursor: pointer;
+        transition: all 0.2s;
+
+        @include for-phone-two {
+          top: 3px;
+          right: 3px;
+        }
+
+        @include for-phone-two-landscape {
+          top: 3px;
+          right: 3px;
+        }
+
+        &:hover {
+          color: rgba(255, 255, 255, 0.884);
+          background: #125e41f1;
+        }
       }
 
-      @include for-phone-one {
-        margin-right: 3%;
-      }
+      & > form {
+        width: 100%;
 
-      @include for-phone-two {
-        margin-bottom: 3%;
+        & > p {
+          margin-bottom: 5px;
+          font-weight: bold;
+          font-size: 18px;
+          color: #3e3f4b;
+        }
+
+        & > input {
+          border: 1px solid rgb(204, 204, 204);
+          background: #fff;
+          padding: 10px 15px;
+          border-radius: 4px;
+          width: 100%;
+          margin-bottom: 13px;
+          color: #3e3f4b;
+
+          @include default {
+            margin-right: 3%;
+          }
+
+          @include for-phone-one {
+            margin-right: 3%;
+          }
+
+          @include for-phone-two {
+            margin-bottom: 3%;
+          }
+        }
+
+        & > button {
+          width: 100%;
+          padding: 10px 15px;
+          margin-top: 25px;
+          border: none;
+          background: #27c55bb9;
+          color: #fff;
+          font-size: 18px;
+          font-weight: bold;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background 0.2s;
+
+          &:hover {
+            background: rgb(14, 180, 89);
+          }
+        }
+
+        ::placeholder {
+          /* Most modern browsers support this now. */
+          color: rgb(99, 99, 99);
+        }
       }
     }
-  
   }
 
-  .modal-close {
-    color: #aaa;
-    line-height: 50px;
-    font-size: 80%;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 0;
-    width: 70px;
-    text-decoration: none;
-    &:hover {
-      color: black;
-    }
-  }
-
-  ::placeholder {
-    /* Most modern browsers support this now. */
-    color: rgb(99, 99, 99);
+  .close {
+    /*-webkit-animation: fadeOut 0.2s;
+    animation: fadeOut 0.2s;
+    animation-fill-mode: both;*/
+    display: none;
+    pointer-events: none;
   }
 }

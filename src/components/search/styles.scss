@@ -44,7 +44,7 @@
 
       @include search-computer {
         width: 450px;
-        padding: 18px 15px;
+        padding: 12px 15px;
         border-radius: 6px;
         font-size: 15px;
         text-align: start;
@@ -52,28 +52,28 @@
 
       @include search-mobile-1 {
         width: 380px;
-        padding: 14px 15px;
+        padding: 12px 15px;
         border-radius: 6px;
         font-size: 13px;
       }
 
       @include search-mobile-2 {
         width: 300px;
-        padding: 13px 12px;
+        padding: 12px 12px;
         border-radius: 4px;
         font-size: 13px;
       }
 
       @include search-mobile-3 {
         width: 310px;
-        padding: 13px 12px;
+        padding: 12px 12px;
         border-radius: 4px;
         font-size: 13px;
       }
 
       @include search-mobile-4  {
         width: 250px;
-        padding: 13px 12px;
+        padding: 12px 12px;
         border-radius: 4px;
         font-size: 13px;
       }

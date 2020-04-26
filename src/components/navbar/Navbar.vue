@@ -2,16 +2,23 @@
   <nav>
     <img src="../../assets/initial/logo.png" />
     <div class="form-group">
-      <a href="#open-modal"><button class="btnEntrar">Entrar</button></a>
-      <button class="btnCriar">Criar Conta</button>
+      <button type="button" class="button-signIn" @click="signIn">Minha Conta</button>
+      <button type="button" class="button-signUp">Criar Conta</button>
     </div>
 
-    <div id="open-modal" class="modal-window">
+    <div class="modal-window" :class="{ 'close': !isOpen }">
       <div>
-        <a href="#" title="Close" class="modal-close"><i class="far fa-times-circle"></i> </a>
+        <button type="button" class="button-close" @click="signIn">
+          <i class="fas fa-times"></i>
+        </button>
 
-        <input name="email" type="text" placeholder="Endereço de email" />
-            <input name="senha" type="text" placeholder="Senha" />
+        <form>
+          <p>Seu e-mail</p>
+          <input name="email" type="text" placeholder="email@exemplo.com" />
+          <p>Sua senha</p>
+          <input name="senha" type="password" placeholder="exemplo123" />
+          <button type="button">Entrar</button>
+        </form>
       </div>
     </div>
   </nav>
@@ -22,12 +29,15 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      logoSrc: '.',
+      isOpen: false,
     };
   },
   methods: {
     signUp() {
       this.$router.push({ name: 'Signup' });
+    },
+    signIn() {
+      this.isOpen = !this.isOpen;
     },
   },
 };
