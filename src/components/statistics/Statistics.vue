@@ -9,6 +9,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Carousel from '../carousel/Carousel.vue';
 import GastosChart from '../gastosChart/GastosChart.vue';

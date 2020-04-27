@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-all">
     <Carousel3d
       :controls-visible="true"
       :listData="slides"

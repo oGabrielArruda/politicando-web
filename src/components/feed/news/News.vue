@@ -140,8 +140,21 @@ export default {
       this.likeClicked = false;
     },
   },
+  computed: {
+    politicoEscolhido() {
+      return this.$store.state.politicoCarrossel;
+    },
+  },
+  watch: {
+    politicoEscolhido() {
+      console.log(this.politicoEscolhido);
+    },
+  },
   created() {
     console.log(this.title);
+  },
+  mounted() {
+    console.log();
   },
 };
 </script>

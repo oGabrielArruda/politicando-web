@@ -1,31 +1,53 @@
-.carousel-3d-container{
-  width: 60vw;
+@mixin width-container-computer {
+  @media (min-width: 1231px) {
+    @content;
+  }
 }
 
-.carousel-3d-container figure {
-    margin:0;
-    border-style: none;
+@mixin width-container-mobile {
+  @media (max-width: 1230px) {
+    @content;
+  }
+}
+
+.container-all {
+  @include width-container-computer {
+    width: 55vw;
+  }
+
+  @include width-container-mobile {
+    width: 100%;
+  }
+
+  .carousel-3d-container{
+    width: 100%;
   }
   
-  .carousel-3d-container figcaption {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.336);
-    color: #fff;
-    bottom: 0;
-    position: absolute;
-    bottom: 0;
-    padding: 15px;
-    font-size: 12px;
-    min-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .carousel-3d-slide{
-    border-radius: 15px;
-    border: 0;
-  }
-
-  .carousel-3d-controls >>> .prev >>> .nx{
-    background-color:blue;
-  }
-
+  .carousel-3d-container figure {
+      margin:0;
+      border-style: none;
+    }
+    
+    .carousel-3d-container figcaption {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.336);
+      color: #fff;
+      bottom: 0;
+      position: absolute;
+      bottom: 0;
+      padding: 15px;
+      font-size: 12px;
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+  
+    .carousel-3d-slide{
+      border-radius: 15px;
+      border: 0;
+    }
+  
+    .carousel-3d-controls >>> .prev >>> .nx{
+      background-color:blue;
+    }
+  
+}

@@ -1,0 +1,126 @@
+@mixin event-computer {
+    @media (min-width: 740px) {
+        @content;
+    }
+}
+
+@mixin event-mobile-1 {
+    @media (max-width: 739px) and (min-width: 450px) {
+        @content;
+    }
+}
+
+@mixin event-mobile-2 {
+    @media (max-width: 449px) {
+        @content;
+    }
+}
+
+main {
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 10px;
+
+    @include event-computer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 15px;
+    }
+
+    @include event-mobile-1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+    }
+
+    @include event-mobile-2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .event-item {
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        width: 100%;
+        max-width: 350px;
+        background: #fff;
+        padding: 5px;
+        border-radius: 8px;
+        position: relative;
+
+        @include event-mobile-2 {
+            margin-bottom: 10px;
+        }
+
+        & > img {
+            width: 30%;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-left: 5px;
+
+            .title {
+                font-size: calc(0.6em + 0.6vw);
+                color: #2D4A64;
+                font-weight: 900;
+            }
+
+            .time {
+                font-size: calc(0.4em + 0.4vw);
+                color: rgb(92, 122, 148); 
+            }
+
+            & > button {
+                padding: 4px 10px;
+                border: none;
+                background: #D2485E;
+                color: #fff;
+                font-weight: bold;
+                border-radius: 3px;
+                transition: background .2s;
+                cursor: pointer;
+
+                &:hover {
+                    background: rgb(172, 54, 74);
+                }
+            }
+
+            .selected {
+                background: rgb(172, 54, 74);
+            }
+        }
+
+        .other {
+            position: absolute;
+            width: 100%;
+            bottom: -35px;
+            z-index: 99999;
+            background: #fff;
+            padding: 10px;
+            padding-top: 10px;
+            border-radius: 0 0 5px 5px;
+            opacity: 0;
+            transition: all .6s;
+            visibility: hidden;
+
+            & > p {
+                font-size: calc(0.4em + 0.4vw);
+                color: rgb(92, 122, 148); 
+            }
+        }
+
+        .other-open {
+            visibility: visible;
+            opacity: 0.8;
+            border-radius: 0 0 15px 15px;
+            transform: translateY(30px);
+            
+        }
+    }
+  }
