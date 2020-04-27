@@ -51,7 +51,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'ExtraInfo',
+};
 </script>
 
 <style lang="scss" src="./styles.scss" scoped />

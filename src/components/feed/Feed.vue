@@ -37,28 +37,7 @@
         </nav>
       </div>
       <Carousel />
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>asdsada</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
-      <h1>12</h1>
+      <router-view></router-view>
     </div>
     <ExtraInfo />
   </div>
@@ -77,9 +56,9 @@ export default {
       buttons: [
         {
           text: 'Notícias',
-          srcName: 'notice',
+          srcName: 'news',
           isActive: true,
-          classActive: 'selected-notice',
+          classActive: 'selected-news',
         },
         {
           text: 'Eventos',
@@ -103,7 +82,7 @@ export default {
   },
   methods: {
     handleView() {
-      this.mobileView = window.innerWidth <= 1125;
+      this.mobileView = window.innerWidth <= 1230;
     },
     showSidebar() {
       this.isOpenSidebar = !this.isOpenSidebar;
@@ -114,13 +93,13 @@ export default {
     pushRouter(i) {
       switch (i) {
         case 1:
-          // this.$router.push({ name: '' });
+          this.$router.push({ name: 'Eventos' });
           break;
         case 2:
-          // this.$router.push({ name: '' });
+          this.$router.push({ name: 'Votacoes' });
           break;
         default:
-          // this.$router.push({ name: '' });
+          this.$router.push({ name: 'Noticias' });
           break;
       }
     },
@@ -144,6 +123,7 @@ export default {
   created() {
     this.handleView();
     window.addEventListener('resize', this.handleView);
+    this.$router.push({ name: 'Noticias' });
   },
 };
 </script>

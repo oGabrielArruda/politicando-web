@@ -8,6 +8,10 @@ import Classification from '../components/classification/Classification.vue';
 import Statistics from '../components/statistics/Statistics.vue';
 import Profile from '../components/profile/Profile.vue';
 
+import News from '../components/feed/news/News.vue';
+import Events from '../components/feed/events/Events.vue';
+import Voting from '../components/feed/voting/Voting.vue';
+
 
 Vue.use(VueRouter);
 
@@ -31,6 +35,24 @@ const routes = [
         path: 'feed',
         name: 'Feed',
         component: Feed,
+        children: [
+          {
+            path: 'noticias',
+            name: 'Noticias',
+            component: News,
+            props: true,
+          },
+          {
+            path: 'eventos',
+            name: 'Eventos',
+            component: Events,
+          },
+          {
+            path: 'votacoes',
+            name: 'Votacoes',
+            component: Voting,
+          },
+        ],
       },
       {
         path: 'classificacao',

@@ -37,6 +37,7 @@ export default {
   created() {
     this.handleView();
     window.addEventListener('resize', this.handleView);
+    console.log(this.$store.state.politicoCarrossel);
   },
 };
 </script>

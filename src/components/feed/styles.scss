@@ -1,5 +1,5 @@
 @mixin feed-mobile {
-  @media (min-width: 861px) and (max-width: 1125px) {
+  @media (min-width: 861px) and (max-width: 1230px) {
     @content;
   }
 }
@@ -62,6 +62,15 @@
     position: relative;
     padding-top: 20px;
 
+    @include feed-mobile {
+      width: 80vw;
+    }
+
+    @include feed-mobile-2 {
+      width: 100vw;
+      min-height: 80vh;
+    }
+
     @-webkit-keyframes initial {
       from {
         transform: translateY(-45px);
@@ -86,14 +95,14 @@
       align-items: center;
       //width: 100%;
       //max-width: 1100px;
-      width: 60vw;
+      width: 30vw;
       background: #fff;
       border-radius: 0 0 15px 15px;
       position: absolute;
       height: 100%;
       max-height: 80px;
       z-index: 99999;
-      left: calc(50% - 30vw);
+      left: calc(50% - 15vw);
       top: -45px;
       padding: 0 15px;
       transition: transform 0.6s;
@@ -101,8 +110,8 @@
       animation: initial .8s;
 
       @include feed-mobile-2 {
-        width: 80vw;
-        left: calc(50% - 40vw);
+        width: 60vw;
+        left: calc(50% - 30vw);
       }
 
       & > nav {
@@ -162,7 +171,7 @@
           }
         }
 
-        .notice {
+        .news {
           &:hover {
             background: rgba(68, 116, 237, 0.089);
             border-color: #4473ed;
@@ -173,7 +182,7 @@
           }
         }
 
-        .selected-notice {
+        .selected-news {
           background: rgba(68, 116, 237, 0.089);
           border-color: #4473ed;
           color: #4473ed;
@@ -248,15 +257,6 @@
 
     .move-navbar {
       transform: translateY(45px);
-    }
-
-    @include feed-mobile {
-      width: 80vw;
-    }
-
-    @include feed-mobile-2 {
-      width: 100vw;
-      min-height: 80vh;
     }
   }
 

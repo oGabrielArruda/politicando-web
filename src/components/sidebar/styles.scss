@@ -1,5 +1,5 @@
 @mixin nav-mobile {
-  @media (max-width: 1125px) {
+  @media (max-width: 1230px) {
     @content;
   }
 }
