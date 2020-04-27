@@ -44,8 +44,8 @@ export default {
       profileIsActive: false,
       buttons: [
         {
-          text: 'Feed de Notícias',
-          srcName: 'feed',
+          text: 'Início',
+          srcName: 'home',
           isActive: true,
         },
         {

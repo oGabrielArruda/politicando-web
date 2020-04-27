@@ -2,7 +2,6 @@
   <div class="container">
     <Sidebar />
     <router-view></router-view>
-    <Pagination />
   </div>
 </template>
 
