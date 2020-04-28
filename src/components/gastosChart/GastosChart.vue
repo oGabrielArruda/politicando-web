@@ -74,7 +74,12 @@ export default {
         },
         tooltip: {
           y: {
-            formatter: (val) => `R$ ${val}`,
+            formatter: (val) => {
+              const valInt = parseInt(val, 10);
+              const valor = valInt.toFixed(2).split('.');
+              valor[0] = `R$ ${valor[0].split(/(?=(?:...)*$)/).join('.')}`;
+              return `R$ ${valor.join(',')}`;
+            },
           },
         },
       },

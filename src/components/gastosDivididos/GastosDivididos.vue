@@ -29,16 +29,20 @@ export default {
                 value: {
                   show: true,
                   formatter: (val) => {
-                    let valor = val + 1;
-                    valor -= 1;
-                    return `R$ ${valor.toLocaleString('pt-BR')}`;
+                    const valInt = parseInt(val, 10);
+                    const valor = valInt.toFixed(2).split('.');
+                    valor[0] = `R$ ${valor[0].split(/(?=(?:...)*$)/).join('.')}`;
+                    return `R$ ${valor.join(',')}`;
                   },
                 },
                 total: {
                   show: true,
                   formatter: (val) => {
                     const valor = val.globals.seriesTotals.reduce((a, b) => a + b, 0);
-                    return `R$ ${valor.toLocaleString('pt-BR')}`;
+                    const valInt = parseInt(valor, 10);
+                    const valorParaExibir = valInt.toFixed(2).split('.');
+                    valorParaExibir[0] = `R$ ${valorParaExibir[0].split(/(?=(?:...)*$)/).join('.')}`;
+                    return `R$ ${valorParaExibir.join(',')}`;
                   },
                 },
               },

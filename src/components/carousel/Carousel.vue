@@ -43,7 +43,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await api.get('/PoliticoItems/filtrado?size=15&page=1&tipo=1');
+      const response = await api.get('/PoliticoItems/filtrado?size=15&page=1&tipo=2');
       this.slides = response.data;
       this.$store.dispatch('changePoliticoCarrossel', this.slides[0]);
       console.log(response.data);
