@@ -4,7 +4,7 @@
       <i class="fas fa-bars"></i>
     </button>
     <div class="content">
-      <div class="container-nav" :class="{ 'move-navbar': isOpenNavbar }" >
+      <div class="container-nav" :class="{ 'move-navbar': isOpenNavbar }">
         <nav>
           <div>
             <button
@@ -15,22 +15,26 @@
               @click="enableButton(index)"
             >
               <p>{{ button.text }}</p>
-              <img :src="require(`../../assets/sidebar/${button.srcName}.svg`)"
-                   :class="{ 'size-image': isOpenNavbar }" />
+              <img
+                :src="require(`../../assets/sidebar/${button.srcName}.svg`)"
+                :class="{ 'size-image': isOpenNavbar }"
+              />
             </button>
           </div>
           <button @click="showNavbar">
-            <img src="../../assets/sidebar/arrow.svg" :class="{ 'rotate-arrow': isOpenNavbar }" >
+            <img src="../../assets/sidebar/arrow.svg" :class="{ 'rotate-arrow': isOpenNavbar }" />
           </button>
         </nav>
       </div>
       <Carousel />
       <router-view></router-view>
     </div>
+    <ExtraInfo />
   </div>
 </template>
 <script>
 import Carousel from '../carousel/Carousel.vue';
+import ExtraInfo from '../extraInfo/ExtraInfo.vue';
 
 export default {
   name: 'Feed',
@@ -39,6 +43,7 @@ export default {
       mobileView: false,
       isOpenSidebar: false,
       isOpenNavbar: false,
+      isOpenInfo: false,
       buttons: [
         {
           text: 'Notícias',
@@ -64,6 +69,7 @@ export default {
   },
   components: {
     Carousel,
+    ExtraInfo,
   },
   methods: {
     handleView() {
@@ -74,6 +80,9 @@ export default {
     },
     showNavbar() {
       this.isOpenNavbar = !this.isOpenNavbar;
+    },
+    showInfo() {
+      this.isOpenInfo = !this.isOpenInfo;
     },
     pushRouter(i) {
       switch (i) {

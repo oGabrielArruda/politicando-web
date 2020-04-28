@@ -78,7 +78,7 @@
       min-height: 100vh;
     }
 
-    @-webkit-keyframes initial {
+    @-webkit-keyframes initialNavbar {
       from {
         transform: translateY(-45px);
       }
@@ -86,7 +86,7 @@
         transform: translateY(0);
       }
     }
-    @keyframes initial {
+    @keyframes initialNavbar {
       from {
         transform: translateY(-45px);
       }
@@ -113,8 +113,8 @@
       top: -45px;
       padding: 0 15px;
       transition: transform 0.6s;
-      -webkit-animation: initial 1s;
-      animation: initial 0.8s;
+      -webkit-animation: initialNavbar 1s;
+      animation: initialNavbar 0.8s;
 
       @include feed-mobile-2 {
         width: 60vw;
@@ -266,7 +266,7 @@
       transform: translateY(45px);
     }
   }
-
+  
   @include scrollbar-computer {
     /* SCROLLBAR */
 

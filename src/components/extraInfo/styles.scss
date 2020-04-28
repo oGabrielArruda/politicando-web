@@ -1,0 +1,100 @@
+@mixin info-mobile {
+    @media (max-width: 680px) {
+        @content;
+    }
+}
+
+.container-info {
+    position: fixed;
+    bottom: -155px;
+    right: 5%;
+    background: rgba(255, 255, 255, 0.555);
+    width: 250px;
+    padding: 10px 15px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 1s;
+    -webkit-box-shadow: -1px 0px 22px -12px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 0px 22px -12px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 0px 22px -12px rgba(0, 0, 0, 0.75);
+
+    @include info-mobile {
+        right: calc(50% - 125px);
+    }
+
+    & > header {
+        & > p {
+            font-weight: 900;
+            font-size: 17px;
+            color: rgba(56, 56, 56, 0.575);
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 2px double rgba(238, 238, 238, 0.596);
+        }
+    }
+
+    & > main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & > img {
+            width: 60px;
+            border-radius: 15%;
+        }
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0;
+
+            & > h1 {
+                font-size: 18px;
+                color: rgb(56, 56, 56);
+            }
+
+            & > div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 10px;
+                padding-left: 10px;
+                //border: 1px dashed rgb(88, 88, 88);
+                border-radius: 6px;
+                padding: 3px;
+
+                & > img {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                }
+
+                & > p {
+                    font-size: 13px;
+                    color: rgb(88, 88, 88);
+                }
+            }
+        }
+
+        & > p {
+            font-size: 13px;
+            color: rgb(88, 88, 88);
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 2px double #eee;
+        }
+    }
+
+    /*img {
+      width: 20px; 
+    }*/
+}
+
+.open-info {
+    transform: translateY(-155px);
+    background: rgba(255, 255, 255, 0.897);
+}
