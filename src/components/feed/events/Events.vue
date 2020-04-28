@@ -22,63 +22,6 @@
         </p>
       </div>
     </div>
-    <div class="event-item">
-      <img src="../../../assets/events/calendarEvent.svg" />
-      <div class="content">
-        <p class="title">Sessão Deliberativa</p>
-        <p class="time">23 de abril de 2020</p>
-        <button @click="changeEvent(1)" :class="{ 'selected': isOpen2 }">Ver mais...</button>
-      </div>
-      <div class="other" :class="{ 'other-open': isOpen2 }">
-        <p>
-          <span>Horario:</span> 14:00h
-        </p>
-        <p>
-          <span>Local:</span> Plenário da Câmara dos Deputados
-        </p>
-        <p>
-          <span>Situação:</span> Encerrada
-        </p>
-      </div>
-    </div>
-    <div class="event-item">
-      <img src="../../../assets/events/calendarEvent.svg" />
-      <div class="content">
-        <p class="title">Sessão Deliberativa</p>
-        <p class="time">23 de abril de 2020</p>
-        <button @click="changeEvent(1)" :class="{ 'selected': isOpen2 }">Ver mais...</button>
-      </div>
-      <div class="other" :class="{ 'other-open': isOpen2 }">
-        <p>
-          <span>Horario:</span> 14:00h
-        </p>
-        <p>
-          <span>Local:</span> Plenário da Câmara dos Deputados
-        </p>
-        <p>
-          <span>Situação:</span> Encerrada
-        </p>
-      </div>
-    </div>
-    <div class="event-item">
-      <img src="../../../assets/events/calendarEvent.svg" />
-      <div class="content">
-        <p class="title">Sessão Deliberativa</p>
-        <p class="time">23 de abril de 2020</p>
-        <button @click="changeEvent(1)" :class="{ 'selected': isOpen2 }">Ver mais...</button>
-      </div>
-      <div class="other" :class="{ 'other-open': isOpen2 }">
-        <p>
-          <span>Horario:</span> 14:00h
-        </p>
-        <p>
-          <span>Local:</span> Plenário da Câmara dos Deputados
-        </p>
-        <p>
-          <span>Situação:</span> Encerrada
-        </p>
-      </div>
-    </div>
   </main>
 </template>
 

@@ -1,19 +1,19 @@
 <template>
   <div class="container-info" @click="showInfo()" :class="{ 'open-info': isOpenInfo }">
     <header>
-      <p>Partido de Acir Gurgacz</p>
+      <p>SOBRE O PARTIDO</p>
     </header>
     <main>
-      <img src="http://www.camara.leg.br/internet/Deputado/img/partidos/AVANTE.gif" />
+      <img :src="partido.urlLogo" />
       <div>
         <h1>Liderança</h1>
         <div>
-          <img src="http://www.camara.gov.br/internet/deputado/bandep/160510.jpg" />
+          <img :src="partido.status.lider.foto" />
           <p>Luis Tibé</p>
         </div>
       </div>
       <p>
-        <span>No momento possuem 7 membros</span>
+        <span>No momento possuem {{ partido.status.totalMembros }} membros</span>
       </p>
     </main>
   </div>
@@ -22,6 +22,7 @@
 <script>
 export default {
   name: 'ExtraInfo',
+  props: ['partido'],
   data() {
     return {
       isOpenInfo: false,

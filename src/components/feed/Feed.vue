@@ -29,12 +29,13 @@
       <Carousel />
       <router-view></router-view>
     </div>
-    <ExtraInfo />
+    <ExtraInfo :partido="getPartido" />
   </div>
 </template>
 <script>
 import Carousel from '../carousel/Carousel.vue';
 import ExtraInfo from '../extraInfo/ExtraInfo.vue';
+import api from '../../config/api';
 
 export default {
   name: 'Feed',
@@ -65,6 +66,7 @@ export default {
         },
       ],
       buttonSelected: 0,
+      partido: {},
     };
   },
   components: {
@@ -112,6 +114,25 @@ export default {
         return this.buttons[i].classActive;
       }
       return '';
+    },
+    async searchPartido({ partido }) {
+      const response = await api.get(`/Partidos/${partido}`);
+
+      this.partido = response.data;
+      console.log(this.partido);
+    },
+  },
+  computed: {
+    politicoEscolhido() {
+      return this.$store.state.politicoCarrossel;
+    },
+    getPartido() {
+      return this.partido;
+    },
+  },
+  watch: {
+    politicoEscolhido() {
+      this.searchPartido(this.politicoEscolhido);
     },
   },
   created() {

@@ -1,118 +1,39 @@
 <template>
   <main>
-    <div class="news-item">
-      <img src="http://images.impresa.pt/expresso/2020-03-24-expressomeianoite2.jpg/fb/wm" />
+    <div class="news-item" v-for="(n, index) in news" :key="n.idNoticia" v-bind="n">
+      <img :src="n.urlImg" v-if="n.imageExists" />
       <div class="news-content">
         <header>
           <p class="title">
-            Expresso da Meia Noite sobre o impacto da Covid-19:
-            Qual é a relação custo-benefício da quarentena?
+            {{ n.titulo }}
           </p>
           <p class="description">
-            Não há modelos económicos para este problema.
-            Vai ser possível continuar a pagar salários se as empresas estiverem
-            fechadas e não houver procura? O pequeno empresário vai endividar-se
-            para não despedir? As medidas de apoio às empresas
-            são suficientes?
+            {{ n.descricao }}
           </p>
         </header>
         <footer>
           <div>
             <div class="group-buttons">
               <div class="like">
-                <button @click="eventLike()" :class="{ 'selected-like': likeClicked }">
+                <button @click="eventLike(index)"
+                :class="{ 'selected-like': n.likeClicked }">
                   <i class="fas fa-thumbs-up"></i>
                 </button>
-                <span :class="{ 'press-like': likeClicked }">+1</span>
-                <p>1 mil</p>
+                <span :class="{ 'press-like': n.likeClicked }">+1</span>
+                <p>{{ n.qtdLikes }}</p>
               </div>
               <div class="dislike">
-                <button @click="eventDislike()" :class="{ 'selected-dislike': dislikeClicked }">
+                <button @click="eventDislike(index)"
+                :class="{ 'selected-dislike': n.dislikeClicked }">
                   <i class="fas fa-thumbs-down"></i>
                 </button>
-                <span :class="{ 'press-dislike': dislikeClicked }">+1</span>
-                <p>120</p>
+                <span :class="{ 'press-dislike': n.dislikeClicked }">+1</span>
+                <p>{{ n.qtdDislikes }}</p>
               </div>
             </div>
             <div class="informations">
-              <p>Expresso.pt</p>
-              <p>24 de novembro de 2020</p>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
-    <div class="news-item">
-      <img src="https://i0.statig.com.br/bancodeimagens/01/gp/6p/01gp6pfvdgil03v46nfvx47rd.jpg" />
-      <div class="news-content">
-        <header>
-          <p class="title">PGR denuncia deputado Paulinho da Força por propina da Odebrecht</p>
-          <p class="description">
-            A Procuradoria-Geral da República (PGR) denunciou o deputado Paulinho
-            da Força (SD-SP) por corrupção ao receber R$ 1,8 milhão propina da
-            Oderbrecht.
-          </p>
-        </header>
-        <footer>
-          <div>
-            <div class="group-buttons">
-              <div class="like">
-                <button>
-                  <i class="fas fa-thumbs-up"></i>
-                </button>
-                <p>735</p>
-              </div>
-              <div class="dislike">
-                <button>
-                  <i class="fas fa-thumbs-down"></i>
-                </button>
-                <p>27</p>
-              </div>
-            </div>
-            <div class="informations">
-              <p>Ig.com.br</p>
-              <p>06 de abril de 2020</p>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
-    <div class="news-item">
-      <img
-        src="https://www.diariodocentrodomundo.com.br/wp-content/uploads/2020/03/image_processing20200313-5121-gcoq4g.jpg"
-      />
-      <div class="news-content">
-        <header>
-          <p class="title">
-            Marielle, Bolsonaro e a milícia: os fatos que escancaram o
-            submundo do presidente. Por Igor Carvalho
-          </p>
-          <p class="description">
-            Publicado no Brasil de Fato: Por Igor Carvalho Neste sábado (14),
-            a execução da vereadora Marielle Franco (PSOL) e de seu motorista,
-            Anderson Gomes, completa dois anos. Neste período, a apuração do crime
-            avançou em alguns aspectos, mesmo que lentamente. No ma…
-          </p>
-        </header>
-        <footer>
-          <div>
-            <div class="group-buttons">
-              <div class="like">
-                <button>
-                  <i class="fas fa-thumbs-up"></i>
-                </button>
-                <p>984</p>
-              </div>
-              <div class="dislike">
-                <button>
-                  <i class="fas fa-thumbs-down"></i>
-                </button>
-                <p>3 mil</p>
-              </div>
-            </div>
-            <div class="informations">
-              <p>Diariodocentrodomundo.com.br</p>
-              <p>14 de março de 2020</p>
+              <p>{{ n.autoria }}</p>
+              <p>{{ n.dateFormatted }}</p>
             </div>
           </div>
         </footer>
@@ -122,22 +43,76 @@
 </template>
 
 <script>
+
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import api from '../../../config/api';
+
 export default {
   name: 'News',
   data() {
     return {
-      likeClicked: false,
-      dislikeClicked: false,
+      news: [],
     };
   },
   methods: {
-    eventLike() {
-      this.likeClicked = !this.likeClicked;
-      this.dislikeClicked = false;
+    eventLike(i) {
+      if (this.news[i].likeClicked) {
+        this.news[i].qtdLikes -= 1;
+      } else {
+        this.news[i].qtdLikes += 1;
+      }
+
+      this.news[i].likeClicked = !this.news[i].likeClicked;
+
+      if (this.news[i].dislikeClicked) {
+        this.news[i].dislikeClicked = false;
+        this.news[i].qtdDislikes -= 1;
+      }
     },
-    eventDislike() {
-      this.dislikeClicked = !this.dislikeClicked;
-      this.likeClicked = false;
+    eventDislike(i) {
+      if (this.news[i].dislikeClicked) {
+        this.news[i].qtdDislikes -= 1;
+      } else {
+        this.news[i].qtdDislikes += 1;
+      }
+
+      this.news[i].dislikeClicked = !this.news[i].dislikeClicked;
+
+      if (this.news[i].likeClicked) {
+        this.news[i].likeClicked = false;
+        this.news[i].qtdLikes -= 1;
+      }
+    },
+    async getNews({ id }) {
+      const { initialDate, finalDate } = this.getDateFormatted();
+
+      const response = await api.get(`/News/${id}/${initialDate}/${finalDate}`);
+
+      const data = response.data.map((news) => ({
+        ...news,
+        likeClicked: false,
+        dislikeClicked: false,
+        dateFormatted: format(new Date(news.dataPublicacao), "d 'de' MMMM 'de' yyyy", { locale: pt }),
+        imageExists: !!news.urlImg,
+      }));
+
+      this.news = data;
+    },
+    getDateFormatted() {
+      const date = new Date();
+
+      const finalMonth = date.getMonth() + 1;
+      const finalDate = `${date.getFullYear()}-${finalMonth < 10 ? `0${finalMonth}` : finalMonth}-${date.getDate()}`;
+
+      date.setDate(date.getDate() - 30);
+      const initialMonth = date.getMonth() + 1;
+      const initialDate = `${date.getFullYear()}-${initialMonth < 10 ? `0${initialMonth}` : initialMonth}-${date.getDate()}`;
+
+      return {
+        initialDate,
+        finalDate,
+      };
     },
   },
   computed: {
@@ -147,14 +122,8 @@ export default {
   },
   watch: {
     politicoEscolhido() {
-      console.log(this.politicoEscolhido);
+      this.getNews(this.politicoEscolhido);
     },
-  },
-  created() {
-    console.log(this.title);
-  },
-  mounted() {
-    console.log();
   },
 };
 </script>
