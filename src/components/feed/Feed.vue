@@ -29,7 +29,7 @@
       <Carousel />
       <router-view></router-view>
     </div>
-    <ExtraInfo :partido="getPartido" />
+    <ExtraInfo :partido="getPartido" :loading="getLoading" />
   </div>
 </template>
 <script>
@@ -67,6 +67,7 @@ export default {
       ],
       buttonSelected: 0,
       partido: {},
+      loadingPartido: false,
     };
   },
   components: {
@@ -119,6 +120,7 @@ export default {
       const response = await api.get(`/Partidos/${partido}`);
 
       this.partido = response.data;
+      this.loadingPartido = false;
       console.log(this.partido);
     },
   },
@@ -129,9 +131,13 @@ export default {
     getPartido() {
       return this.partido;
     },
+    getLoading() {
+      return !this.loadingPartido;
+    },
   },
   watch: {
     politicoEscolhido() {
+      this.loadingPartido = true;
       this.searchPartido(this.politicoEscolhido);
     },
   },

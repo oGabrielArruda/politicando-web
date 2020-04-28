@@ -3,7 +3,7 @@
     <header>
       <p>SOBRE O PARTIDO</p>
     </header>
-    <main>
+    <main v-if="loading">
       <img :src="partido.urlLogo" @error="replaceByDefault" />
       <div>
         <h1>Liderança</h1>
@@ -16,6 +16,9 @@
         <span>No momento possuem {{ partido.status.totalMembros }} membros</span>
       </p>
     </main>
+    <div class="fa-2x loading" v-else>
+      <i class="fas fa-sync fa-spin"></i>
+    </div>
   </div>
 </template>
 
@@ -24,7 +27,7 @@ import img from '../../assets/feed/no-photo.svg';
 
 export default {
   name: 'ExtraInfo',
-  props: ['partido'],
+  props: ['partido', 'loading'],
   data() {
     return {
       isOpenInfo: false,
