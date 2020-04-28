@@ -4,7 +4,7 @@
       <p>SOBRE O PARTIDO</p>
     </header>
     <main>
-      <img :src="partido.urlLogo" />
+      <img :src="partido.urlLogo" @error="replaceByDefault" />
       <div>
         <h1>Liderança</h1>
         <div>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import img from '../../assets/feed/no-photo.svg';
+
 export default {
   name: 'ExtraInfo',
   props: ['partido'],
@@ -31,6 +33,9 @@ export default {
   methods: {
     showInfo() {
       this.isOpenInfo = !this.isOpenInfo;
+    },
+    replaceByDefault(e) {
+      e.target.src = img;
     },
   },
 };
