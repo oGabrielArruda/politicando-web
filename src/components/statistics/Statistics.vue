@@ -6,6 +6,7 @@
     <div class="content">
       <Carousel />
       <GastosChart :politico="this.$store.state.politicoCarrossel" :inserirMais="true" />
+      <GastosDivididos :politico="this.$store.state.politicoCarrossel"/>
     </div>
   </div>
 </template>
@@ -13,6 +14,7 @@
 <script>
 import Carousel from '../carousel/Carousel.vue';
 import GastosChart from '../gastosChart/GastosChart.vue';
+import GastosDivididos from '../gastosDivididos/GastosDivididos.vue';
 
 export default {
   name: 'Statistics',
@@ -25,6 +27,7 @@ export default {
   components: {
     Carousel,
     GastosChart,
+    GastosDivididos,
   },
   methods: {
     handleView() {
