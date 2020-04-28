@@ -49,6 +49,7 @@ main {
         padding: 5px;
         border-radius: 8px;
         position: relative;
+        
 
         @include event-mobile-2 {
             margin-bottom: 10px;
@@ -56,6 +57,12 @@ main {
 
         & > img {
             width: 30%;
+            filter: blur(0px);
+            transition: blur .5s;
+        }
+
+        .image-blur {
+            filter: blur(2px);
         }
 
         .content {
@@ -64,6 +71,8 @@ main {
             justify-content: space-between;
             align-items: flex-start;
             margin-left: 5px;
+            filter: blur(0px);
+            transition: blur .5s;
 
             .title {
                 font-size: calc(0.6em + 0.6vw);
@@ -96,31 +105,106 @@ main {
             }
         }
 
+        .content-blur {
+            filter: blur(2px);
+        }
+
         .other {
             position: absolute;
             width: 100%;
-            bottom: -35px;
+            height: 100%;
+            bottom: 0;
             z-index: 99999;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.568);
             padding: 10px;
             padding-top: 10px;
             border-radius: 0 0 5px 5px;
             opacity: 0;
             transition: all .6s;
             visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            //transform: rotateX(-80deg);
+            
 
             & > p {
-                font-size: calc(0.4em + 0.4vw);
-                color: rgb(92, 122, 148); 
+                //font-size: calc(0.4em + 0.4vw);
+                color: rgb(69, 92, 112); 
+
+                @include event-computer {
+                    font-size: calc(0.4em + 0.4vw);
+                }
+
+                @include event-mobile-1 {
+                    font-size: calc(0.5em + 0.5vw);
+                }
+
+                @include event-mobile-2 {
+                    font-size: calc(0.65em + 0.65vw);
+                }
+
+                & > span {
+                    font-weight: bold;
+                    color: rgb(51, 83, 110);
+
+                    
+                    @include event-computer {
+                        font-size: calc(0.45em + 0.45vw);
+                    }
+
+                    @include event-mobile-1 {
+                        font-size: calc(0.55em + 0.55vw);
+                    }
+
+                    @include event-mobile-2 {
+                        font-size: calc(0.7em + 0.7vw);
+                    }
+                }
             }
+
+            .button-close {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                width: 26px;
+                height: 26px;
+                right: -12px;
+                top: -12px;
+                border: none;
+                border-radius: 50%;
+                font-size: 20px;
+                text-decoration: none;
+                background: rgba(210, 72, 95, 0.603);
+                color: rgba(255, 255, 255, 0.705);
+                cursor: pointer;
+                transition: all 0.2s;
+        
+                /*@include for-phone-two {
+                  top: 3px;
+                  right: 3px;
+                }
+        
+                @include for-phone-two-landscape {
+                  top: 3px;
+                  right: 3px;
+                }*/
+        
+                &:hover {
+                  color: rgba(255, 255, 255, 0.959);
+                  background: rgba(196, 68, 89, 0.863);
+                }
+              }
         }
 
         .other-open {
             visibility: visible;
-            opacity: 0.8;
+            opacity: 1;
             border-radius: 0 0 15px 15px;
-            transform: translateY(30px);
-            
+            //transform: translateY(30px);
+            transform: rotateX(0);
         }
     }
   }

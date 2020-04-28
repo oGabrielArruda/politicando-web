@@ -7,18 +7,6 @@
       <div class="container-nav" :class="{ 'move-navbar': isOpenNavbar }" >
         <nav>
           <div>
-            <!--<button class="notice selected-notice">
-              <p>Notícias</p>
-              <img src="../../assets/sidebar/feed.svg" />
-            </button>
-            <button class="event selected-event">
-              <p>Eventos</p>
-              <img src="../../assets/sidebar/events.svg" />
-            </button>
-            <button class="voting selected-voting">
-              <p>Votações</p>
-              <img src="../../assets/sidebar/voting.svg" />
-            </button>-->
             <button
               v-for="(button, index) in buttons"
               :key="index"
@@ -39,12 +27,10 @@
       <Carousel />
       <router-view></router-view>
     </div>
-    <ExtraInfo />
   </div>
 </template>
 <script>
 import Carousel from '../carousel/Carousel.vue';
-import ExtraInfo from '../extraInfo/ExtraInfo.vue';
 
 export default {
   name: 'Feed',
@@ -78,7 +64,6 @@ export default {
   },
   components: {
     Carousel,
-    ExtraInfo,
   },
   methods: {
     handleView() {
