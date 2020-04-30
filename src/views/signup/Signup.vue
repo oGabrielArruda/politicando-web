@@ -103,6 +103,7 @@ export default {
           idSen: this.idSen,
         };
         const response = await api.post('/Users/signup', objPost);
+        this.$router.push({ name: 'Initial' });
         console.log(response.data);
       } catch (erro) {
         console.log(erro);

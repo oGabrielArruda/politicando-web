@@ -3,7 +3,7 @@
     <img src="../../assets/initial/logo.png" />
     <div class="form-group">
       <button type="button" class="button-signIn" @click="signIn">Minha Conta</button>
-      <button type="button" class="button-signUp">Criar Conta</button>
+      <button type="button" class="button-signUp" @click="signUp">Criar Conta</button>
     </div>
 
     <div class="modal-window" :class="{ 'close': !isOpen }">
@@ -52,8 +52,9 @@ export default {
         };
         const response = await api.post('/Users/login', objLogin);
         const user = response.data;
+
+        this.$store.dispatch('changeUser', user);
         this.$router.push({ name: 'Home' });
-        console.log(user);
       } catch (erro) {
         console.log(erro);
       }

@@ -2,12 +2,16 @@
   <nav>
     <div class="content">
       <div class="profile">
-        <img
-          src="https://avatars2.githubusercontent.com/u/47468017?s=400&u=55cae324327ac3651093aace03e997ac44f2c9f5&v=4"
+        <img v-if="usuario.imgPerfil !== null"
+          :src="usuario.imgPerfil"
+          alt="User"
+        />
+        <img v-else
+          src="../../assets/signup/user.svg"
           alt="User"
         />
         <div>
-          <h1>Pedro Nunes</h1>
+          <h1> {{ this.usuario.nome }}</h1>
           <button
             type="button"
             @click="goToProfile()"
@@ -62,6 +66,7 @@ export default {
       buttonSelected: 0,
     };
   },
+  props: ['usuario'],
   methods: {
     pushRouter(i) {
       switch (i) {

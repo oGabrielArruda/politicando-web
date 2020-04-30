@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Sidebar />
+    <Sidebar :usuario="user" />
     <router-view></router-view>
   </div>
 </template>
@@ -12,10 +12,16 @@ import Sidebar from '../../components/sidebar/Sidebar.vue';
 export default {
   name: 'Home',
   data() {
-    return {};
+    return {
+    };
   },
   components: {
     Sidebar,
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
   },
   created() {
     this.$router.push({ name: 'Feed' });
