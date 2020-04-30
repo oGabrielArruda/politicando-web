@@ -56,7 +56,7 @@ export default {
       sobrenome: '',
       email: '',
       senha: '',
-      img: '',
+      imgSrc: '',
       idDep: 0,
       idSen: 0,
     };
@@ -76,10 +76,10 @@ export default {
 
         fileReader.addEventListener('load', () => {
           image.setAttribute('src', fileReader.result);
+          this.imgSrc = fileReader.result;
         });
 
         fileReader.readAsDataURL(file);
-        this.img = file;
       }
     },
     changeDep(values) {
@@ -88,35 +88,17 @@ export default {
     changeSen(values) {
       this.idSen = values.value.id;
     },
-    convertToByteArray() {
-      const reader = new FileReader();
-      const fileByteArray = [];
-      reader.readAsArrayBuffer(this.img);
-      reader.onloadend = function (evt) {
-        if (evt.target.readyState === FileReader.DONE) {
-          const arrayBuffer = evt.target.result;
-          const array = new Uint8Array(arrayBuffer);
-          for (let i = 0; i < array.length; i += 1) {
-            fileByteArray.push(array[i]);
-          }
-        }
-      };
-      return fileByteArray;
-    },
     async submit(event) {
       event.preventDefault();
       console.log('submit');
-
-      let byteArray = '';
-      if (this.img !== '') { byteArray = this.convertToByteArray(this.img); }
-      console.log(byteArray);
+      console.log(this.imgSrc);
       try {
         const objPost = {
           email: this.email,
           senha: this.senha,
           nome: this.nome,
-          imgPerfil: byteArray,
           sobrenome: this.sobrenome,
+          imgPerfil: this.imgSrc,
           idDep: this.idDep,
           idSen: this.idSen,
         };

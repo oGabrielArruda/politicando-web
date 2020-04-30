@@ -12,12 +12,12 @@
           <i class="fas fa-times"></i>
         </button>
 
-        <form>
+        <form @submit="logar">
           <p>Seu e-mail</p>
-          <input name="email" type="text" placeholder="email@exemplo.com" />
+          <input name="email" type="text" placeholder="email@exemplo.com" v-model="email" />
           <p>Sua senha</p>
-          <input name="senha" type="password" placeholder="exemplo123" />
-          <button type="button">Entrar</button>
+          <input name="senha" type="password" placeholder="exemplo123" v-model="senha" />
+          <button type="submit">Entrar</button>
         </form>
       </div>
     </div>
@@ -25,11 +25,15 @@
 </template>
 
 <script>
+import api from '../../config/api';
+
 export default {
   name: 'Navbar',
   data() {
     return {
       isOpen: false,
+      email: '',
+      senha: '',
     };
   },
   methods: {
@@ -38,6 +42,21 @@ export default {
     },
     signIn() {
       this.isOpen = !this.isOpen;
+    },
+    async logar(event) {
+      event.preventDefault();
+      try {
+        const objLogin = {
+          email: this.email,
+          senha: this.senha,
+        };
+        const response = await api.post('/Users/login', objLogin);
+        const user = response.data;
+        this.$router.push({ name: 'Home' });
+        console.log(user);
+      } catch (erro) {
+        console.log(erro);
+      }
     },
   },
 };
