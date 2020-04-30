@@ -3,25 +3,27 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 80px;
+    max-width: 60px;
     margin-bottom: 20px;
     margin-top: -10px;
 
     .dot {
-        width: 18px;
-        height: 18px;
+        width: 14px;
+        height: 14px;
         border-radius: 50%;
-        background:#4070EC;
 
         &:nth-child(1) {
+            background:#4070EC;
             animation: flow .4s ease 0s infinite alternate;
         }
 
         &:nth-child(2) {
+            background: #D84158;
             animation: flow .4s ease .2s infinite alternate;
         }
         
         &:nth-child(3) {
+            background: #58BE93;
             animation: flow .4s ease .4s infinite alternate;
         }
 
@@ -29,10 +31,12 @@
             from {
                 opacity: 1;
                 transform: scale(1.2);
+                transform: translateY(4px);
             }
             to {
                 opacity: .20;
                 transform: scale(.75);
+                transform: translateY(-4px);
             }
         }
     }

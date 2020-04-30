@@ -159,6 +159,39 @@
             transition: background 0.5s;
             transition: border 0.2s;
 
+            &:nth-child(1) {
+              &:hover {
+                background: rgba(68, 116, 237, 0.089);
+                border-color: #4473ed;
+              }
+
+              & > p {
+                color: #4473ed;
+              }
+            }
+
+            &:nth-child(2) {
+              &:hover {
+                background: rgba(203, 41, 68, 0.089);
+                border-color: #cb2944;
+              }
+
+              & > p {
+                color: #cb2944;
+              }
+            }
+
+            &:nth-child(3) {
+              &:hover {
+                background: #57be911f;
+                border-color: #57be92;
+              }
+
+              & > p {
+                color: #57be92;
+              }
+            }
+
             & > p {
               font-weight: bold;
               margin-bottom: 5px;
@@ -176,57 +209,26 @@
               transform: translateY(0);
             }
           }
-        }
 
-        .news {
-          &:hover {
-            background: rgba(68, 116, 237, 0.089);
-            border-color: #4473ed;
+          .selected {
+            &:nth-child(1) {
+              background: rgba(68, 116, 237, 0.089);
+              border-color: #4473ed;
+              color: #4473ed;
+            }
+
+            &:nth-child(2) {
+              background: rgba(203, 41, 68, 0.089);
+              border-color: #cb2944;
+              color: #cb2944;
+            }
+
+            &:nth-child(3) {
+              background: #57be911f;
+              border-color: #57be92;
+              color: #57be92;
+            }
           }
-
-          & > p {
-            color: #4473ed;
-          }
-        }
-
-        .selected-news {
-          background: rgba(68, 116, 237, 0.089);
-          border-color: #4473ed;
-          color: #4473ed;
-        }
-
-        .event {
-          &:hover {
-            background: rgba(203, 41, 68, 0.089);
-            border-color: #cb2944;
-          }
-
-          & > p {
-            color: #cb2944;
-          }
-        }
-
-        .selected-event {
-          background: rgba(203, 41, 68, 0.089);
-          border-color: #cb2944;
-          color: #cb2944;
-        }
-
-        .voting {
-          &:hover {
-            background: #57be911f;
-            border-color: #57be92;
-          }
-
-          & > p {
-            color: #57be92;
-          }
-        }
-
-        .selected-voting {
-          background: #57be911f;
-          border-color: #57be92;
-          color: #57be92;
         }
 
         & > button {
@@ -266,7 +268,7 @@
       transform: translateY(45px);
     }
   }
-  
+
   @include scrollbar-computer {
     /* SCROLLBAR */
 
