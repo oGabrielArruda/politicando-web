@@ -160,6 +160,14 @@ export default {
         this.getNews(this.politicoId);
       }
     },
+    resetVariables() {
+      this.loading = true;
+      this.loadingMore = false;
+
+      this.page = 1;
+      this.requested = 0;
+      this.news = [];
+    },
   },
   computed: {
     politicoEscolhido() {
@@ -174,26 +182,16 @@ export default {
   },
   watch: {
     politicoEscolhido() {
-      this.loading = true;
-      this.loadingMore = false;
+      this.resetVariables();
 
-      this.page = 1;
-      this.requested = 0;
-      this.news = [];
       this.politicoId = this.politicoEscolhido;
-
       this.getNews(this.politicoId);
     },
   },
   created() {
-    this.loading = true;
-    this.loadingMore = false;
+    this.resetVariables();
 
-    this.page = 1;
-    this.requested = 0;
-    this.news = [];
     this.politicoId = this.politicoEscolhido;
-
     this.getNews(this.politicoId);
   },
 };

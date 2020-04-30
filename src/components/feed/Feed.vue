@@ -11,7 +11,7 @@
               v-for="(button, index) in buttons"
               :key="index"
               v-bind="button"
-              :class="[getDefaultClass(index), getActiveClass(index)]"
+              :class="{ 'selected': button.isActive }"
               @click="enableButton(index)"
             >
               <p>{{ button.text }}</p>
@@ -50,19 +50,16 @@ export default {
           text: 'Notícias',
           srcName: 'news',
           isActive: true,
-          classActive: 'selected-news',
         },
         {
           text: 'Eventos',
           srcName: 'event',
           isActive: false,
-          classActive: 'selected-event',
         },
         {
           text: 'Votações',
           srcName: 'voting',
           isActive: false,
-          classActive: 'selected-voting',
         },
       ],
       buttonSelected: 0,
@@ -106,15 +103,6 @@ export default {
       this.buttonSelected = i;
 
       this.pushRouter(i);
-    },
-    getDefaultClass(i) {
-      return this.buttons[i].srcName;
-    },
-    getActiveClass(i) {
-      if (this.buttonSelected === i) {
-        return this.buttons[i].classActive;
-      }
-      return '';
     },
     async searchPartido({ partido }) {
       const response = await api.get(`/Partidos/${partido}`);
