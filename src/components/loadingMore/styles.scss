@@ -1,0 +1,39 @@
+.loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 80px;
+    margin-bottom: 20px;
+    margin-top: -10px;
+
+    .dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background:#4070EC;
+
+        &:nth-child(1) {
+            animation: flow .4s ease 0s infinite alternate;
+        }
+
+        &:nth-child(2) {
+            animation: flow .4s ease .2s infinite alternate;
+        }
+        
+        &:nth-child(3) {
+            animation: flow .4s ease .4s infinite alternate;
+        }
+
+        @keyframes flow {
+            from {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            to {
+                opacity: .20;
+                transform: scale(.75);
+            }
+        }
+    }
+}

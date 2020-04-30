@@ -36,102 +36,10 @@
         </footer>
       </div>
     </div>
+    <LoadingMore v-if="isLoadingMore" />
+    <Observer v-on:intersect="intersected" />
   </main>
-  <main v-else style="overflow: hidden;">
-    <div class="loading-news">
-      <div class="image"></div>
-      <div class="content">
-        <div class="texts">
-          <div class="title-line"></div>
-          <div class="title-line"></div>
-          <div class="title-line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-        <div class="footer">
-          <div class="icons">
-            <div>
-              <i class="fas fa-thumbs-up"></i>
-              <div class="line"></div>
-            </div>
-            <div>
-              <i class="fas fa-thumbs-down"></i>
-              <div class="line"></div>
-            </div>
-          </div>
-          <div class="infos">
-            <div class="line"></div>
-            <div class="line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="loading-news">
-      <div class="image"></div>
-      <div class="content">
-        <div class="texts">
-          <div class="title-line"></div>
-          <div class="title-line"></div>
-          <div class="title-line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-        <div class="footer">
-          <div class="icons">
-            <div>
-              <i class="fas fa-thumbs-up"></i>
-              <div class="line"></div>
-            </div>
-            <div>
-              <i class="fas fa-thumbs-down"></i>
-              <div class="line"></div>
-            </div>
-          </div>
-          <div class="infos">
-            <div class="line"></div>
-            <div class="line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="loading-news">
-      <div class="image"></div>
-      <div class="content">
-        <div class="texts">
-          <div class="title-line"></div>
-          <div class="title-line"></div>
-          <div class="title-line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-        <div class="footer">
-          <div class="icons">
-            <div>
-              <i class="fas fa-thumbs-up"></i>
-              <div class="line"></div>
-            </div>
-            <div>
-              <i class="fas fa-thumbs-down"></i>
-              <div class="line"></div>
-            </div>
-          </div>
-          <div class="infos">
-            <div class="line"></div>
-            <div class="line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+  <LoadingTemplate v-else />
 </template>
 
 <script>
@@ -139,13 +47,27 @@ import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import api from '../../../config/api';
 
+import Observer from '../../observer/Observer.vue';
+import LoadingTemplate from './loadingTemplate/LoadingTemplate.vue';
+import LoadingMore from '../../loadingMore/LoadingMore.vue';
+
 export default {
   name: 'News',
   data() {
     return {
       news: [],
       loading: false,
+      loadingMore: false,
+      page: 1,
+      totalPages: 1,
+      requested: 0,
+      politicoId: null,
     };
+  },
+  components: {
+    Observer,
+    LoadingTemplate,
+    LoadingMore,
   },
   methods: {
     eventLike(i) {
@@ -176,12 +98,23 @@ export default {
         this.news[i].qtdLikes -= 1;
       }
     },
-    async getNews({ id }) {
-      const { initialDate, finalDate } = this.getDateFormatted();
+    async getNews(id) {
+      const { initialDate, finalDate } = this.getDateFormatted(360);
 
-      const response = await api.get(`/News/${id}/${initialDate}/${finalDate}`);
+      const response = await api.get(
+        `/News/${id}/${initialDate}/${finalDate}`,
+        {
+          params: {
+            page: this.page,
+          },
+        },
+      );
 
-      const data = response.data.map((news) => ({
+      if (this.page === 1) {
+        this.totalPages = response.data.totalPages;
+      }
+
+      const data = response.data.noticias.map((news) => ({
         ...news,
         likeClicked: false,
         dislikeClicked: false,
@@ -193,18 +126,18 @@ export default {
         imageExists: !!news.urlImg,
       }));
 
-      this.news = data;
+      this.news = [...this.news, ...data];
+
       this.loading = false;
+      this.loadingMore = false;
+      this.requested = 0;
     },
-    getDateFormatted() {
+    getDateFormatted(offset) {
       const date = new Date();
 
-      const finalMonth = date.getMonth() + 1;
-      const finalDate = `${date.getFullYear()}-${
-        finalMonth < 10 ? `0${finalMonth}` : finalMonth
-      }-${date.getDate()}`;
+      const finalDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
-      date.setDate(date.getDate() - 30);
+      date.setDate(date.getDate() - offset);
       const initialMonth = date.getMonth() + 1;
       const initialDate = `${date.getFullYear()}-${
         initialMonth < 10 ? `0${initialMonth}` : initialMonth
@@ -215,20 +148,53 @@ export default {
         finalDate,
       };
     },
+    intersected() {
+      this.requested += 1;
+      if (this.requested === 1) {
+        this.page += 1;
+        if (this.page > this.totalPages) {
+          return;
+        }
+
+        this.loadingMore = true;
+        this.getNews(this.politicoId);
+      }
+    },
   },
   computed: {
     politicoEscolhido() {
-      return this.$store.state.politicoCarrossel;
+      return this.$store.state.politicoCarrossel.id;
     },
     isLoading() {
       return !this.loading;
+    },
+    isLoadingMore() {
+      return this.loadingMore;
     },
   },
   watch: {
     politicoEscolhido() {
       this.loading = true;
-      this.getNews(this.politicoEscolhido);
+      this.loadingMore = false;
+
+      this.page = 1;
+      this.requested = 0;
+      this.news = [];
+      this.politicoId = this.politicoEscolhido;
+
+      this.getNews(this.politicoId);
     },
+  },
+  created() {
+    this.loading = true;
+    this.loadingMore = false;
+
+    this.page = 1;
+    this.requested = 0;
+    this.news = [];
+    this.politicoId = this.politicoEscolhido;
+
+    this.getNews(this.politicoId);
   },
 };
 </script>

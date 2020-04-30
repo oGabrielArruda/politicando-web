@@ -10,7 +10,7 @@
       :height="139"
       @after-slide-change="onAfterSlideChange"
     >
-      <slide v-bind:key="slide" v-for="(slide, i) in slides" :index="i">
+      <slide v-bind:key="slide.id" v-for="(slide, i) in slides" :index="i">
         <figure>
           <img :src="slide.foto" />
           <figcaption>
@@ -46,7 +46,6 @@ export default {
       const response = await api.get('/PoliticoItems/filtrado?size=15&page=1&tipo=2');
       this.slides = response.data;
       this.$store.dispatch('changePoliticoCarrossel', this.slides[0]);
-      console.log(response.data);
     } catch (erro) {
       console.log(`Erro:${erro}`);
     }

@@ -121,7 +121,6 @@ export default {
 
       this.partido = response.data;
       this.loadingPartido = false;
-      console.log(this.partido);
     },
   },
   computed: {

@@ -9,7 +9,7 @@
         <h1>Liderança</h1>
         <div>
           <img :src="partido.status.lider.foto" />
-          <p>Luis Tibé</p>
+          <p>{{ partido.status.lider.nome }}</p>
         </div>
       </div>
       <p>
