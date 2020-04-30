@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <img id="logo" src="../../assets/initial/logo2.png" />
-    <form>
+    <form @submit="submit">
       <div class="input-container">
         <div class="file-group">
           <div class="image-container">
@@ -15,22 +15,25 @@
           <input type="file" name="seletorArquivo" id="seletorArquivo" @change="changePhoto()"/>
         </div>
         <div class="input-group">
-          <input class="margin-style" type="text" name="nome" placeholder="Nome" />
-          <input type="text" name="sobrenome" placeholder="Sobrenome" />
+          <input class="margin-style" type="text" name="nome" placeholder="Nome" v-model="nome" />
+          <input type="text" name="sobrenome" placeholder="Sobrenome" v-model="sobrenome"/>
         </div>
-        <input type="email" name="email" placeholder="Email" />
+        <input type="email" name="email" placeholder="Email" v-model="email"/>
         <div class="input-group">
-          <input class="margin-style" type="password" name="senha" placeholder="Senha" />
+          <input class="margin-style" type="password" name="senha" placeholder="Senha"
+           v-model="senha" />
           <input type="password" name="confirma" placeholder="Confirme a senha" />
         </div>
         <div class="select-group">
-          <SelectPolitico :url="urlDeputados" :text="'Selecione o deputado em que você votou!'" />
-          <SelectPolitico :url="urlSenadores" :text="'Selecione o senador em que você votou!'" />
+          <SelectPolitico :url="urlDeputados" :text="'Selecione o deputado em que você votou!'"
+           @onChange="changeDep" @onDelete=" idDep = 0" />
+          <SelectPolitico :url="urlSenadores" :text="'Selecione o senador em que você votou!'"
+          @onChange="changeSen" @onDelete="idSen = 0"/>
         </div>
       </div>
       <div class="button-group">
         <button type="button" id="button-haveAccount">Já tenho uma conta</button>
-        <button type="button" id="button-register">Cadastrar</button>
+        <button type="submit" id="button-register">Cadastrar</button>
       </div>
       <div class="warning-group">
         <img src="../../assets/signup/rotate.svg" alt="User-Icon" />
@@ -41,6 +44,7 @@
 </template>
 <script>
 import SelectPolitico from '../../components/selectpolitico/SelectPolitico.vue';
+import api from '../../config/api';
 
 export default {
   data() {
@@ -48,6 +52,13 @@ export default {
       options: [],
       urlDeputados: '/PoliticoItems/filtrado?tipo=1&size=5&page=1',
       urlSenadores: '/PoliticoItems/filtrado?tipo=2&size=5&page=1',
+      nome: '',
+      sobrenome: '',
+      email: '',
+      senha: '',
+      img: '',
+      idDep: 0,
+      idSen: 0,
     };
   },
   components: {
@@ -68,6 +79,51 @@ export default {
         });
 
         fileReader.readAsDataURL(file);
+        this.img = file;
+      }
+    },
+    changeDep(values) {
+      this.idDep = values.value.id;
+    },
+    changeSen(values) {
+      this.idSen = values.value.id;
+    },
+    convertToByteArray() {
+      const reader = new FileReader();
+      const fileByteArray = [];
+      reader.readAsArrayBuffer(this.img);
+      reader.onloadend = function (evt) {
+        if (evt.target.readyState === FileReader.DONE) {
+          const arrayBuffer = evt.target.result;
+          const array = new Uint8Array(arrayBuffer);
+          for (let i = 0; i < array.length; i += 1) {
+            fileByteArray.push(array[i]);
+          }
+        }
+      };
+      return fileByteArray;
+    },
+    async submit(event) {
+      event.preventDefault();
+      console.log('submit');
+
+      let byteArray = '';
+      if (this.img !== '') { byteArray = this.convertToByteArray(this.img); }
+      console.log(byteArray);
+      try {
+        const objPost = {
+          email: this.email,
+          senha: this.senha,
+          nome: this.nome,
+          imgPerfil: byteArray,
+          sobrenome: this.sobrenome,
+          idDep: this.idDep,
+          idSen: this.idSen,
+        };
+        const response = await api.post('/Users/signup', objPost);
+        console.log(response.data);
+      } catch (erro) {
+        console.log(erro);
       }
     },
   },
