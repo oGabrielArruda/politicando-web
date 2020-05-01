@@ -2,10 +2,17 @@
   <div class="container">
     <form>
       <img
-        src="https://avatars2.githubusercontent.com/u/47468017?s=400&u=55cae324327ac3651093aace03e997ac44f2c9f5&v=4"
+        v-if="user.imgPerfil !== ''"
+        :src="user.imgPerfil"
         alt=""
         class="usersImage"
-      /> <br>
+      />
+      <img
+      v-else
+      src="../../assets/signup/user.svg"
+      alt=""
+      class="usersImage" />
+      <br>
       <div class="select-file-container">
         <label for="seletorArquivo">
         Alterar foto de perfil
@@ -14,13 +21,13 @@
       </div>
       <div class="input-group">
         <label>Nome : </label>
-        <input type="text" name="usersName" id="usersName">
+        <input type="text" name="usersName" id="usersName" :value="user.nome">
 
         <label>Email : </label>
-        <input type="email" name="usersEmail" id="usersEmail">
+        <input type="email" name="usersEmail" id="usersEmail" :value="user.email">
 
         <label>Senha : </label>
-        <input type="password" name="usersPassword" id="usersPassword">
+        <input type="password" name="usersPassword" id="usersPassword" :value="user.senha">
 
         <label id="seg">Seguindo {{ numPoliticosSeguindo }} políticos</label>
       </div>
@@ -40,6 +47,11 @@ export default {
     return {
       numPoliticosSeguindo: 10,
     };
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
   },
 };
 </script>
