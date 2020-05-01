@@ -2,7 +2,7 @@
   <nav>
     <div class="content">
       <div class="profile">
-        <img v-if="usuario.imgPerfil !== ''"
+        <img v-if="usuario.imgPerfil !== '' && usuario.imgPerfil !== null"
           :src="usuario.imgPerfil"
           alt="User"
         />
