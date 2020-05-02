@@ -5,30 +5,57 @@
       <div class="input-container">
         <div class="file-group">
           <div class="image-container">
-            <img src="../../assets/signup/user.svg" alt="User-Icon" id="imgUser"/>
+            <img src="../../assets/signup/user.svg" alt="User-Icon" id="imgUser" />
           </div>
           <div class="select-file-container">
             <label for="seletorArquivo">
               <i class="fas fa-plus"></i>
             </label>
           </div>
-          <input type="file" name="seletorArquivo" id="seletorArquivo" @change="changePhoto()"/>
+          <input type="file" name="seletorArquivo" id="seletorArquivo" @change="changePhoto()" />
         </div>
         <div class="input-group">
-          <input class="margin-style" type="text" name="nome" placeholder="Nome" v-model="nome" />
-          <input type="text" name="sobrenome" placeholder="Sobrenome" v-model="sobrenome"/>
+          <input
+            class="margin-style"
+            type="text"
+            name="nome"
+            placeholder="Nome"
+            v-model="nome"
+            required
+          />
+          <input
+            type="text"
+            name="sobrenome"
+            placeholder="Sobrenome"
+            v-model="sobrenome"
+            required
+          />
         </div>
-        <input type="email" name="email" placeholder="Email" v-model="email"/>
+        <input type="email" name="email" placeholder="Email" v-model="email" required />
         <div class="input-group">
-          <input class="margin-style" type="password" name="senha" placeholder="Senha"
-           v-model="senha" />
-          <input type="password" name="confirma" placeholder="Confirme a senha" />
+          <input
+            class="margin-style"
+            type="password"
+            name="senha"
+            placeholder="Senha"
+            v-model="senha"
+            required
+          />
+          <input type="password" name="confirma" placeholder="Confirme a senha" required />
         </div>
         <div class="select-group">
-          <SelectPolitico :url="urlDeputados" :text="'Selecione o deputado em que você votou!'"
-           @onChange="changeDep" @onDelete=" idDep = 0" />
-          <SelectPolitico :url="urlSenadores" :text="'Selecione o senador em que você votou!'"
-          @onChange="changeSen" @onDelete="idSen = 0"/>
+          <SelectPolitico
+            :url="urlDeputados"
+            :text="'Selecione o deputado em que você votou!'"
+            @onChange="changeDep"
+            @onDelete=" idDep = 0"
+          />
+          <SelectPolitico
+            :url="urlSenadores"
+            :text="'Selecione o senador em que você votou!'"
+            @onChange="changeSen"
+            @onDelete="idSen = 0"
+          />
         </div>
       </div>
       <div class="button-group">

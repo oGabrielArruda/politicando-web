@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import api from '../../../config/api';
@@ -170,9 +171,9 @@ export default {
     },
   },
   computed: {
-    politicoEscolhido() {
-      return this.$store.state.politicoCarrossel.id;
-    },
+    ...mapGetters({
+      politicoSelected: 'carousel/politicoSelected',
+    }),
     isLoading() {
       return !this.loading;
     },
@@ -181,10 +182,11 @@ export default {
     },
   },
   watch: {
-    politicoEscolhido() {
+    politicoSelected() {
       this.resetVariables();
 
-      this.politicoId = this.politicoEscolhido;
+      this.politicoId = (this.politicoSelected).id;
+      console.log(this.politicoId);
       this.getNews(this.politicoId);
     },
   },

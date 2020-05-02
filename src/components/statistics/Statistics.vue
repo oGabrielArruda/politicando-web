@@ -5,13 +5,14 @@
     </button>
     <div class="content">
       <Carousel />
-      <GastosChart :politico="this.$store.state.politicoCarrossel" :inserirMais="true" />
-      <GastosDivididos :politico="this.$store.state.politicoCarrossel"/>
+      <GastosChart :politico="politicoSelected" :inserirMais="true" />
+      <GastosDivididos :politico="politicoSelected"/>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Carousel from '../carousel/Carousel.vue';
 import GastosChart from '../gastosChart/GastosChart.vue';
 import GastosDivididos from '../gastosDivididos/GastosDivididos.vue';
@@ -37,6 +38,11 @@ export default {
     showNav() {
       this.isOpen = !this.isOpen;
     },
+  },
+  computed: {
+    ...mapGetters({
+      politicoSelected: 'carousel/politicoSelected',
+    }),
   },
   created() {
     this.handleView();

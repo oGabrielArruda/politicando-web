@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import beforeEach from './beforeEach';
+
 import Initial from '../views/initial/Initial.vue';
 import Signup from '../views/signup/Signup.vue';
 import Home from '../views/home/Home.vue';
@@ -75,7 +77,10 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes,
 });
+
+router.beforeEach(beforeEach);
 
 export default router;

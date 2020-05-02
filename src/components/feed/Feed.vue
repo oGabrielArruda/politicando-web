@@ -33,6 +33,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 import Carousel from '../carousel/Carousel.vue';
 import ExtraInfo from '../extraInfo/ExtraInfo.vue';
 import api from '../../config/api';
@@ -112,9 +113,9 @@ export default {
     },
   },
   computed: {
-    politicoEscolhido() {
-      return this.$store.state.politicoCarrossel;
-    },
+    ...mapGetters({
+      politicoSelected: 'carousel/politicoSelected',
+    }),
     getPartido() {
       return this.partido;
     },
@@ -123,9 +124,9 @@ export default {
     },
   },
   watch: {
-    politicoEscolhido() {
+    politicoSelected() {
       this.loadingPartido = true;
-      this.searchPartido(this.politicoEscolhido);
+      this.searchPartido(this.politicoSelected);
     },
   },
   created() {

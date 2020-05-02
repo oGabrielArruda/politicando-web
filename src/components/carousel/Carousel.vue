@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 import api from '../../config/api';
 
@@ -33,8 +34,11 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      changeSelected: 'carousel/changeSelected',
+    }),
     onAfterSlideChange(index) {
-      this.$store.dispatch('changePoliticoCarrossel', this.slides[index]);
+      this.changeSelected(this.slides[index]);
     },
   },
   components: {
@@ -45,7 +49,7 @@ export default {
     try {
       const response = await api.get('/PoliticoItems/filtrado?size=15&page=1&tipo=2');
       this.slides = response.data;
-      this.$store.dispatch('changePoliticoCarrossel', this.slides[0]);
+      this.changeSelected(this.slides[0]);
     } catch (erro) {
       console.log(`Erro:${erro}`);
     }

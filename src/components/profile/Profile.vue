@@ -37,7 +37,7 @@
         </div>
 
         <div class="button-group">
-          <button id="btnAlterar" :disabled="false" @click="update">Salvar alterações</button>
+          <button id="btnAlterar" :disabled="false">Salvar alterações</button>
           <button id="btnDesconectar">Desconectar</button>
         </div>
       </form>
@@ -46,7 +46,8 @@
 </template>
 
 <script>
-import api from '../../config/api';
+import { mapGetters } from 'vuex';
+// import api from '../../config/api';
 
 export default {
   name: 'Profile',
@@ -54,19 +55,10 @@ export default {
     return {
       numPoliticosSeguindo: 10,
       saveEnabled: false,
-      user: {},
+      objUser: {},
       mobileView: false,
       isOpen: false,
     };
-  },
-  mounted() {
-    this.changePhoto();
-    this.user = JSON.parse(JSON.stringify(this.stateUser));
-  },
-  computed: {
-    stateUser() {
-      return this.$store.state.user;
-    },
   },
   methods: {
     changePhoto() {
@@ -80,13 +72,13 @@ export default {
 
         fileReader.addEventListener('load', () => {
           image.setAttribute('src', fileReader.result);
-          this.user.imgPerfil = fileReader.result;
+          this.objUser.imgPerfil = fileReader.result;
         });
 
         fileReader.readAsDataURL(file);
       }
     },
-    async update(event) {
+    /* async update(event) {
       event.preventDefault();
 
       try {
@@ -96,7 +88,7 @@ export default {
       } catch (erro) {
         console.log(erro);
       }
-    },
+    }, */
     handleView() {
       this.mobileView = window.innerWidth <= 1125;
       console.log(this.mobileView);
@@ -105,10 +97,22 @@ export default {
       this.isOpen = !this.isOpen;
     },
   },
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
+    /* stateUser() {
+      return this.$store.state.user;
+    }, */
+  },
   created() {
     this.handleView();
     window.addEventListener('resize', this.handleView);
     console.log(this.$store.state.politicoCarrossel);
+  },
+  mounted() {
+    this.changePhoto();
+    this.objUser = this.user;
   },
 };
 </script>

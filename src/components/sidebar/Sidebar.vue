@@ -33,13 +33,15 @@
         </button>
       </div>
     </div>
-    <button type="button">
+    <button type="button" @click="disconnectUser">
       <i class="fas fa-door-open"></i>
     </button>
   </nav>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'Sidebar',
   components: {},
@@ -68,6 +70,9 @@ export default {
   },
   props: ['usuario'],
   methods: {
+    ...mapActions({
+      signOut: 'auth/signOut',
+    }),
     pushRouter(i) {
       switch (i) {
         case 1:
@@ -99,6 +104,10 @@ export default {
       this.buttonSelected = -1;
 
       this.$router.push({ name: 'Profile' });
+    },
+    async disconnectUser() {
+      await this.signOut();
+      this.$router.push({ name: 'Initial' });
     },
   },
 };

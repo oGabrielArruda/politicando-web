@@ -6,8 +6,9 @@
 </template>
 
 <script>
-import Sidebar from '../../components/sidebar/Sidebar.vue';
+import { mapGetters } from 'vuex';
 
+import Sidebar from '../../components/sidebar/Sidebar.vue';
 
 export default {
   name: 'Home',
@@ -19,10 +20,9 @@ export default {
     Sidebar,
   },
   computed: {
-    user() {
-      console.log(this.$store.state.user);
-      return this.$store.state.user;
-    },
+    ...mapGetters({
+      user: 'auth/user',
+    }),
   },
   created() {
     this.$router.push({ name: 'Feed' });
