@@ -1,107 +1,240 @@
+@mixin profile-mobile {
+    @media (min-width: 861px) and (max-width: 1230px) {
+        @content;
+    }
+}
+
+@mixin profile-mobile-2 {
+    @media (min-width: 403px) and (max-width: 860px) {
+        @content;
+    }
+}
+
+@mixin profile-mobile-3 {
+    @media (max-width: 402px) {
+        @content;
+    }
+}   
+
 .container{
-    width: 85vw;
-    min-height: 90vh;
-    padding: 10px 0;
-    transition: transform 0.5s;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    display: flex;
-    justify-content: center;
     
-    form {
-        text-align: center;
-        
-        .usersImage{
-            margin-top: 5vh;
-            min-width: 200px;
-            min-height: 200px;
-            max-width: 200px;
-            max-height: 200px;
-            width: 200px;
-            height: 200px ;
-            border-radius:560px;
+    display: flex;
+    flex-direction: row;
+    transition: transform 0.5s;
+
+    @include profile-mobile {
+        z-index: 999;
+    }
+
+    @include profile-mobile-2 {
+        z-index: 999;
+        flex-direction: column;
+        height: 100vh;
+    }
+    
+    @include profile-mobile-3 {
+        z-index: 999;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    &.move {
+        transform: translate(200px);
+    }
+
+    & > button {
+        position: absolute;
+        left: 4px;
+        top: 4px;
+        border: none;
+        background: transparent;
+        padding: 4px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: transform 0.2s;
+
+        &.show {
+            display: none;
         }
-        .select-file-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10vh;
 
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+    
+    .content {
+        width: 85vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-y: scroll;
+        overflow-x: hidden;
 
-            label {
-              cursor: pointer;
-              color: #648FFF;
-              text-align: start;
-            }
+        @include profile-mobile {
+            width: 100vw;
+            padding: 0vw 10vw;
+        }
+
+        @include profile-mobile-2 {
+            width: 100vw;
+            min-height: 100vh;
+            padding: 0vw 10vw;
+        }
+
+        @include profile-mobile-3 {
+            width: 100vw;
+            min-height: 100vh;
+            padding: 0vw 10vw;
+        }
+
+        form {
+            text-align: center;
             
-            input{
-                display: none;
+            .usersImage{
+                margin-top: 5vh;
+                min-width: 200px;
+                min-height: 200px;
+                max-width: 200px;
+                max-height: 200px;
+                width: 200px;
+                height: 200px ;
+                border-radius:560px;
             }
-
-        }
-
-        .input-group{
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
-            grid-gap: 3vh;
-            label{
-                grid-column: 1/2;
-                color: #A0A0A0;
-                font-size: 25px;
-                margin-bottom: 3vh;
-            }
-
-            #seg{
-                text-align: left;
-                grid-column: 1/4;
-            }
-
-            input{
-                border-radius: 10px;
-                border-style: none;
-                grid-column:2/11;
-                font-size: 20px;
-                margin-bottom: 3vh;
-            }
-            
-        }
-
-        .button-group{
-            text-align: right;
-
-            button{
-                width: 17vh;
-                height: 5vh;
-                border-radius: 10px;
-                border-style: none;
-                font-size: 15px;
-                cursor: pointer;
-            }
-
-            #btnAlterar{
-                background-color: #1FC468;
-                color: white;
-                margin-right: 5vh;
-                transition: 0.5s;
-
-                &:hover{
-                    background-color: rgb(10, 167, 81);
-                    transition: 0.5s;
+            .select-file-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10vh;
+    
+    
+                label {
+                  cursor: pointer;
+                  color: #648FFF;
+                  text-align: start;
                 }
+                
+                input{
+                    display: none;
+                }
+    
             }
+    
+            .input-group{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+                grid-gap: 3vh;
+                label{
+                    grid-column: 1/2;
+                    color: #A0A0A0;
+                    font-size: 1.5vw;
+                    margin-bottom: 3vh;
+                    text-align: left;
 
+                    @include profile-mobile{
+                        font-size: 2.5vw;
+                    }
 
+                    @include profile-mobile-2{
+                        font-size: 2.5vh;
+                    }
 
-            #btnDesconectar{
-                background-color: #FF0000;
-                color: white;
-                transition: 0.5s;
+                    @include profile-mobile-3{
+                        font-size: 2.5vh;
+                    }
+                }
+    
+                #seg{
+                    text-align: left;
+                    grid-column: 1/4;
+                }
+    
+                input{
+                    padding-left: 1vh;
+                    border-radius: 10px;
+                    border-style: none;
+                    grid-column:2/8;
+                    font-size: 1vw;
+                    margin-bottom: 3vh;
 
-                &:hover{
-                    background-color: rgb(184, 17, 17);
+                    @include profile-mobile {
+                        font-size: 2vw;
+                    }
+
+                    @include profile-mobile-2 {
+                        font-size: 3vw;
+                    }
+
+                    @include profile-mobile-3{
+                        font-size: 4vw;
+                    }
+                }
+                
+            }
+    
+            .button-group{
+                text-align: right;
+    
+                @include profile-mobile {
+                    text-align: center;
+                }
+
+                @include profile-mobile-2 {
+                    text-align: center;
+                }
+
+                @include profile-mobile-3 {
+                    text-align: center;
+                }
+
+                button{
+                    width: 16vh;
+                    height: 5vh;
+                    border-radius: 10px;
+                    border-style: none;
+                    font-size: 1vw;
+                    cursor: pointer;
+
+                    @include profile-mobile {
+                        font-size: 2vw;
+                    }
+
+                    @include profile-mobile-2 {
+                        font-size: 2vh;
+                    }
+
+                    @include profile-mobile-3 {
+                        font-size: 1.7vh;
+                        width: 14vh;
+                    }
+                }
+    
+                #btnAlterar{
+                    background-color: #1FC468;
+                    color: white;
+                    margin-right: 5vh;
                     transition: 0.5s;
+    
+                    &:hover{
+                        background-color: rgb(10, 167, 81);
+                        transition: 0.5s;
+                    }
+                }
+    
+    
+    
+                #btnDesconectar{
+                    background-color: #FF0000;
+                    color: white;
+                    transition: 0.5s;
+    
+                    &:hover{
+                        background-color: rgb(184, 17, 17);
+                        transition: 0.5s;
+                    }
                 }
             }
         }
     }
+    
 }

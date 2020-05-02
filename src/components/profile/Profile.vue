@@ -1,47 +1,47 @@
 <template>
-  <div class="container">
-    <form>
-      <img
-        v-if="user.imgPerfil !== '' && user.imgPerfil !== null"
-        :src="user.imgPerfil"
-        alt=""
-        class="usersImage"
-        id="imgUser"
-      />
-      <img
-      v-else
-      src="../../assets/signup/user.svg"
-      alt=""
-      class="usersImage"
-      id="imgUser" />
-      <br>
-      <div class="select-file-container">
-        <label for="seletorArquivo">
-        Alterar foto de perfil
-        </label>
-        <input type="file" name="seletorArquivo" id="seletorArquivo" @change="changePhoto()" />
-      </div>
-      <div class="input-group">
-        <label>Nome : </label>
-        <input type="text" name="usersName" id="usersName" v-model="user.nome">
+  <div class="container" :class="{ move: isOpen }">
+    <button :class="{ show: !mobileView }" @click="showNav">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="content">
+      <form>
+        <img
+          v-if="user.imgPerfil !== '' && user.imgPerfil !== null"
+          :src="user.imgPerfil"
+          alt=""
+          class="usersImage"
+          id="imgUser"
+        />
+        <img v-else src="../../assets/signup/user.svg" alt="" class="usersImage" id="imgUser" />
+        <br />
+        <div class="select-file-container">
+          <label for="seletorArquivo">
+            Alterar foto de perfil
+          </label>
+          <input type="file" name="seletorArquivo" id="seletorArquivo" @change="changePhoto()" />
+        </div>
+        <div class="input-group">
+          <label>Nome: </label>
+          <input type="text" name="usersName" id="usersName" v-model="user.nome" />
 
-        <label>Sobrenome : </label>
-        <input type="text" name="usersSurname" id="usersSurname" v-model="user.sobrenome">
+          <label>Sobrenome: </label>
+          <input type="text" name="usersSurname" id="usersSurname" v-model="user.sobrenome" />
 
-        <label>Email : </label>
-        <input type="email" name="usersEmail" id="usersEmail" v-model="user.email">
+          <label>Email: </label>
+          <input type="email" name="usersEmail" id="usersEmail" v-model="user.email" />
 
-        <label>Senha : </label>
-        <input type="password" name="usersPassword" id="usersPassword" v-model="user.senha">
+          <label>Senha: </label>
+          <input type="password" name="usersPassword" id="usersPassword" v-model="user.senha" />
 
-        <label id="seg">Seguindo {{ numPoliticosSeguindo }} políticos</label>
-      </div>
+          <label id="seg">Seguindo {{ numPoliticosSeguindo }} políticos</label>
+        </div>
 
-      <div class="button-group">
-        <button id="btnAlterar" :disabled="false" @click="update">Salvar alterações</button>
-        <button id="btnDesconectar">Desconectar</button>
-      </div>
-    </form>
+        <div class="button-group">
+          <button id="btnAlterar" :disabled="false" @click="update">Salvar alterações</button>
+          <button id="btnDesconectar">Desconectar</button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -55,6 +55,8 @@ export default {
       numPoliticosSeguindo: 10,
       saveEnabled: false,
       user: {},
+      mobileView: false,
+      isOpen: false,
     };
   },
   mounted() {
@@ -95,6 +97,18 @@ export default {
         console.log(erro);
       }
     },
+    handleView() {
+      this.mobileView = window.innerWidth <= 1125;
+      console.log(this.mobileView);
+    },
+    showNav() {
+      this.isOpen = !this.isOpen;
+    },
+  },
+  created() {
+    this.handleView();
+    window.addEventListener('resize', this.handleView);
+    console.log(this.$store.state.politicoCarrossel);
   },
 };
 </script>
