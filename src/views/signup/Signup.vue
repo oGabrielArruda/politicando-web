@@ -43,6 +43,48 @@
           />
           <input type="password" name="confirma" placeholder="Confirme a senha" required />
         </div>
+        <div class="input-group">
+          <input
+            class="margin-style"
+            type="text"
+            name="cep"
+            placeholder="Cep"
+            v-model="cep"
+            required
+            v-mask="'#####-###'"
+            @input="fetchCep"
+          />
+        </div>
+        <div class="input-group">
+          <input
+            class="margin-style"
+            type="text"
+            name="estado"
+            placeholder="Estado"
+            v-model="estado"
+            required
+            disabled
+          />
+          <input
+            class="margin-style"
+            type="text"
+            name="cidade"
+            placeholder="Cidade"
+            v-model="cidade"
+            required
+            disabled
+          />
+        </div>
+        <div class="input-group">
+          <input
+            class="margin-style"
+            type="date"
+            name="data"
+            placeholder="Data de Nascimento"
+            v-model="dataNasc"
+            required
+          />
+        </div>
         <div class="select-group">
           <SelectPolitico
             :url="urlDeputados"
@@ -70,6 +112,8 @@
   </div>
 </template>
 <script>
+import { mask } from 'vue-the-mask';
+import axios from 'axios';
 import SelectPolitico from '../../components/selectpolitico/SelectPolitico.vue';
 import api from '../../config/api';
 
@@ -84,9 +128,15 @@ export default {
       email: '',
       senha: '',
       imgSrc: '',
+      estado: '',
+      cidade: '',
+      dataNasc: '',
       idDep: 0,
       idSen: 0,
     };
+  },
+  directives: {
+    mask,
   },
   components: {
     SelectPolitico,
@@ -115,6 +165,17 @@ export default {
     changeSen(values) {
       this.idSen = values.value.id;
     },
+    async fetchCep(event) {
+      if (event.target.value.length !== 9) { return; }
+      try {
+        const response = await axios
+          .get(`https://api.postmon.com.br/v1/cep/${event.target.value}`);
+        this.cidade = response.data.cidade;
+        this.estado = response.data.estado;
+      } catch (erro) {
+        console.log(erro);
+      }
+    },
     async submit(event) {
       event.preventDefault();
       console.log('submit');
@@ -125,6 +186,9 @@ export default {
           senha: this.senha,
           nome: this.nome,
           sobrenome: this.sobrenome,
+          siglaUf: this.estado,
+          municipio: this.cidade,
+          dataNasc: this.dataNasc,
           imgPerfil: this.imgSrc,
           idDep: this.idDep,
           idSen: this.idSen,
