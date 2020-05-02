@@ -30,6 +30,16 @@
           <label>Email: </label>
           <input type="email" name="usersEmail" id="usersEmail" v-model="user.email" />
 
+          <label>Cep: </label>
+          <input type="text" name="usersCep" id="usersCep"
+          v-model="user.cep" v-mask="'#####-###'" @input="changeCep"/>
+
+          <label>Cidade: </label>
+          <input type="text" name="usersCidade" id="usersCidade" v-model="cidadeFetch"  disabled />
+
+          <label>Estadp: </label>
+          <input type="text" name="usersEstado" id="usersEstado" v-model="estadoFetch" disabled />
+
           <label>Senha: </label>
           <input type="password" name="usersPassword" id="usersPassword" v-model="user.senha" />
 
@@ -47,6 +57,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mask } from 'vue-the-mask';
+import axios from 'axios';
 // import api from '../../config/api';
 
 export default {
@@ -55,10 +67,15 @@ export default {
     return {
       numPoliticosSeguindo: 10,
       saveEnabled: false,
-      objUser: {},
+      user: {},
       mobileView: false,
       isOpen: false,
+      cidadeFetch: '',
+      estadoFetch: '',
     };
+  },
+  directives: {
+    mask,
   },
   methods: {
     changePhoto() {
@@ -72,10 +89,27 @@ export default {
 
         fileReader.addEventListener('load', () => {
           image.setAttribute('src', fileReader.result);
-          this.objUser.imgPerfil = fileReader.result;
+          this.user.imgPerfil = fileReader.result;
         });
 
         fileReader.readAsDataURL(file);
+      }
+    },
+    async changeCep(event) {
+      if (event.target.value.length !== 9) {
+        this.cidadeFetch = '';
+        this.estadoFetch = '';
+      }
+      await this.fetchCep(event.target.value);
+    },
+    async fetchCep(cep) {
+      try {
+        const responseCep = await axios
+          .get(`https://api.postmon.com.br/v1/cep/${cep}`);
+        this.cidadeFetch = responseCep.data.cidade;
+        this.estadoFetch = responseCep.data.estado;
+      } catch (erro) {
+        console.log(erro);
       }
     },
     /* async update(event) {
@@ -99,7 +133,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: 'auth/user',
+      userState: 'auth/user',
     }),
     /* stateUser() {
       return this.$store.state.user;
@@ -110,9 +144,10 @@ export default {
     window.addEventListener('resize', this.handleView);
     console.log(this.$store.state.politicoCarrossel);
   },
-  mounted() {
+  async mounted() {
     this.changePhoto();
-    this.objUser = this.user;
+    this.user = JSON.parse(JSON.stringify(this.userState));
+    await this.fetchCep(this.user.cep);
   },
 };
 </script>
