@@ -196,6 +196,15 @@ export default {
           idSen: this.idSen,
         };
         const response = await api.post('/Users/signup', objPost);
+        await api.post('/Users/follow', {
+          idUser: response.data.user.id,
+          idPolitico: this.idSen,
+        });
+        await api.post('/Users/follow', {
+          idUser: response.data.user.id,
+          idPolitico: this.idDep,
+        });
+
         this.$router.push({ name: 'Initial' });
         console.log(response.data);
       } catch (erro) {
