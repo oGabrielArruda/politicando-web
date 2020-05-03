@@ -5,8 +5,8 @@
     </button>
     <div class="content">
       <Carousel />
-      <GastosChart :politico="politicoSelected" :inserirMais="true" />
-      <GastosDivididos :politico="politicoSelected"/>
+      <GastosChart :politico="getObj" :inserirMais="true" />
+      <GastosDivididos :politico="getObj"/>
     </div>
   </div>
 </template>
@@ -23,6 +23,7 @@ export default {
     return {
       mobileView: false,
       isOpen: false,
+      obj: {},
     };
   },
   components: {
@@ -33,7 +34,6 @@ export default {
   methods: {
     handleView() {
       this.mobileView = window.innerWidth <= 1125;
-      console.log(this.mobileView);
     },
     showNav() {
       this.isOpen = !this.isOpen;
@@ -43,12 +43,24 @@ export default {
     ...mapGetters({
       politicoSelected: 'carousel/politicoSelected',
     }),
+    getObj() {
+      return this.politicoSelected;
+    },
   },
+  /* watch: {
+    politicoSelected() {
+      this.obj = this.politicoSelected;
+    },
+  }, */
   created() {
     this.handleView();
     window.addEventListener('resize', this.handleView);
-    console.log(this.$store.state.politicoCarrossel);
+    // console.log(this.$store.state.politicoCarrossel);
   },
+  /* mounted() {
+    this.obj = this.politicoSelected;
+    console.log(this.obj);
+  }, */
 };
 </script>
 

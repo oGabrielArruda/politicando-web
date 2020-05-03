@@ -1,5 +1,6 @@
 <template>
-  <div class="container-info" @click="showInfo()" :class="{ 'open-info': isOpenInfo }">
+  <div class="container-info" @click="showInfo()"
+  :class="{ 'open-info': isOpenInfo }" >
     <header>
       <p>SOBRE O PARTIDO</p>
     </header>

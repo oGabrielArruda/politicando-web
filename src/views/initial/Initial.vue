@@ -1,6 +1,5 @@
 <template>
   <div class="background">
-    <Loading />
     <div class="header">
       <Navbar />
       <Header />
@@ -11,7 +10,6 @@
       <Search :size="10" :showBorder="true" />
     </main>
     <Footer />
-
   </div>
 </template>
 

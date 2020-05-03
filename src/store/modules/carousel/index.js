@@ -5,7 +5,6 @@ export default {
   },
   getters: {
     politicoSelected(state) {
-      console.log('entrou');
       return state.selected;
     },
   },

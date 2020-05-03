@@ -29,7 +29,7 @@
       <Carousel />
       <router-view></router-view>
     </div>
-    <ExtraInfo :partido="getPartido" :loading="getLoading" />
+    <ExtraInfo :partido="getPartido" :loading="getLoading" v-if="getFirstTime" />
   </div>
 </template>
 <script>
@@ -66,6 +66,7 @@ export default {
       buttonSelected: 0,
       partido: {},
       loadingPartido: false,
+      firstTime: true,
     };
   },
   components: {
@@ -106,10 +107,15 @@ export default {
       this.pushRouter(i);
     },
     async searchPartido({ partido }) {
-      const response = await api.get(`/Partidos/${partido}`);
+      try {
+        const response = await api.get(`/Partidos/${partido}`);
+        this.partido = response.data;
+        this.loadingPartido = false;
+      } catch (err) {
+        console.log(err);
+      }
 
-      this.partido = response.data;
-      this.loadingPartido = false;
+      this.firstTime = false;
     },
   },
   computed: {
@@ -121,6 +127,9 @@ export default {
     },
     getLoading() {
       return !this.loadingPartido;
+    },
+    getFirstTime() {
+      return !this.firstTime;
     },
   },
   watch: {

@@ -1,6 +1,6 @@
 <template>
   <main v-if="isLoading">
-    <div class="news-item" v-for="(n, index) in news" :key="n.idNoticia" v-bind="n">
+    <div class="news-item" v-for="(n, index) in news" :key="n.id" v-bind="n">
       <img :src="n.urlImg" v-if="n.imageExists" />
       <div class="news-content">
         <header>
@@ -63,6 +63,7 @@ export default {
       totalPages: 1,
       requested: 0,
       politicoId: null,
+      updating: false,
     };
   },
   components: {
@@ -183,18 +184,26 @@ export default {
   },
   watch: {
     politicoSelected() {
+      if (!this.updating) {
+        this.resetVariables();
+
+        this.politicoId = (this.politicoSelected).id;
+        this.getNews(this.politicoId);
+      }
+    },
+  },
+  beforeMount() {
+    if (this.politicoSelected) {
+      this.updating = true;
+    }
+  },
+  mounted() {
+    if (this.updating) {
       this.resetVariables();
 
       this.politicoId = (this.politicoSelected).id;
-      console.log(this.politicoId);
       this.getNews(this.politicoId);
-    },
-  },
-  created() {
-    this.resetVariables();
-
-    this.politicoId = (this.politicoSelected).id;
-    this.getNews(this.politicoId);
+    }
   },
 };
 </script>

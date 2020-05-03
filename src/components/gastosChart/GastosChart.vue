@@ -101,10 +101,8 @@ export default {
       try {
         const responseGastos = await this.getGastosAPI(values.value.id);
         this.updateChart(responseGastos, values.value.nome, values.value.id);
-        console.log('ENTROU NO ADD');
         if (values.lastValue !== null) {
           // se o usuário sobrepos o select
-          console.log('SOBREPOS');
           this.removePolitico(values.lastValue);
         }
       } catch (erro) {
@@ -158,7 +156,6 @@ export default {
         return true;
       }
       const mesAtual = data.getMonth() + 1;
-      console.log(mesAtual);
       if (mesAtual >= mes) {
         return true;
       }

@@ -116,7 +116,6 @@ export default {
         this.limparSeries();
         const url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
         const response = await api.get(url);
-        console.log(response.data);
         for (let i = 0; i < response.data.length; i += 1) {
           const data = response.data[i];
           data.tipoDespesa = this.tipoDespesa(data.tipoDespesa);
