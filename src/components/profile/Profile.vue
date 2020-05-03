@@ -37,7 +37,7 @@
           <label>Cidade: </label>
           <input type="text" name="usersCidade" id="usersCidade" v-model="cidadeFetch"  disabled />
 
-          <label>Estadp: </label>
+          <label>Estado: </label>
           <input type="text" name="usersEstado" id="usersEstado" v-model="estadoFetch" disabled />
 
           <label>Senha: </label>

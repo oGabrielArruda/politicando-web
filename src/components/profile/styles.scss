@@ -16,6 +16,19 @@
     }
 }   
 
+@mixin profile-mobile-landscape {
+    @media (min-width: 861px) and (max-width: 1230px) and (orientation: landscape) {
+        @content;
+    }
+}
+
+@mixin profile-mobile-2-landscape {
+    @media (min-width: 403px) and (max-width: 860px) and (orientation: landscape) {
+        @content;
+    }
+}
+
+
 .container{
     
     display: flex;
@@ -87,6 +100,10 @@
             min-height: 100vh;
             padding: 0vw 10vw;
         }
+
+        
+
+
 
         form {
             text-align: center;
@@ -194,18 +211,33 @@
                     border-style: none;
                     font-size: 1vw;
                     cursor: pointer;
+                    margin-bottom: 1vw;
 
                     @include profile-mobile {
                         font-size: 2vw;
+                        margin-bottom: 2vw;
                     }
 
                     @include profile-mobile-2 {
                         font-size: 2vh;
+                        margin-bottom: 5vw;
                     }
 
                     @include profile-mobile-3 {
                         font-size: 1.7vh;
                         width: 14vh;
+                        margin-bottom: 5vw;
+                    }
+
+                    @include profile-mobile-landscape {
+                        border-radius: 10px;
+                        font-size: 1.5vw;
+                    }
+                    @include profile-mobile-2-landscape {
+                        border-radius: 5px;
+                        height: 7vh;
+                        width: 15vw;
+                        font-size: 1.5vw;
                     }
                 }
     
