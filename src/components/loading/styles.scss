@@ -1,0 +1,57 @@
+@-webkit-keyframes fadeInBG {
+    from {
+        background: rgba(0, 0, 0, 0);
+    }
+    to {
+        background: rgba(0, 0, 0, 0.658);
+    }
+}
+@keyframes fadeInBG {
+    from {
+        background: rgba(0, 0, 0, 0);
+    }
+    to {
+        background: rgba(0, 0, 0, 0.658);
+    }
+}
+
+.wrapper {
+    z-index: 99999999;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.658);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-animation: fadeInBG .3s;
+    animation: fadeInBG .5s;
+
+    .spinner {
+        position: absolute;
+        width: 8rem;
+        height: 8rem;
+        display: inline-block;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: 1s spin infinite ease-in-out;
+        -webkit-animation: 1s spin infinite ease-in-out;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}

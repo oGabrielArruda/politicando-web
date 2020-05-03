@@ -21,22 +21,28 @@
         </form>
       </div>
     </div>
+    <Loading v-if="loading" />
   </nav>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Loading from '../loading/Loading.vue';
 
 export default {
   name: 'Navbar',
   data() {
     return {
       isOpen: false,
+      isLoading: false,
       form: {
         email: '',
         senha: '',
       },
     };
+  },
+  components: {
+    Loading,
   },
   methods: {
     ...mapActions({
@@ -54,19 +60,28 @@ export default {
       }
     },
     async submit() {
+      this.isLoading = true;
+
       try {
         await this.signIn(this.form);
-        console.log('deu certo');
+
+        this.isLoading = false;
+        this.$toast.success(`Seja bem-vindo ${(this.user).nome}`);
         this.$router.push({ name: 'Home' });
       } catch (err) {
-        console.log('deu errado');
+        this.isLoading = false;
+        this.$toast.error('E-mail ou senha incorretos');
       }
     },
   },
   computed: {
     ...mapGetters({
       authenticated: 'auth/authenticated',
+      user: 'auth/user',
     }),
+    loading() {
+      return this.isLoading;
+    },
   },
 };
 </script>

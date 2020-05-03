@@ -5,7 +5,6 @@
         <h2>Olá!</h2>
         <h1>Que tal supervisionar</h1>
         <h4>quem você votou?</h4>
-
       </div>
       <div class="list">
         <div class="item">

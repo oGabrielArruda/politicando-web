@@ -193,7 +193,7 @@ export default {
   created() {
     this.resetVariables();
 
-    this.politicoId = this.politicoEscolhido;
+    this.politicoId = (this.politicoSelected).id;
     this.getNews(this.politicoId);
   },
 };

@@ -15,16 +15,19 @@
         &:nth-child(1) {
             background:#4070EC;
             animation: flow .4s ease 0s infinite alternate;
+            -webkit-animation: flow .4s ease 0s infinite alternate;
         }
 
         &:nth-child(2) {
             background: #D84158;
             animation: flow .4s ease .2s infinite alternate;
+            -webkit-animation: flow .4s ease 0s infinite alternate;
         }
         
         &:nth-child(3) {
             background: #58BE93;
             animation: flow .4s ease .4s infinite alternate;
+            -webkit-animation: flow .4s ease 0s infinite alternate;
         }
 
         @keyframes flow {
@@ -37,6 +40,12 @@
                 opacity: .20;
                 transform: scale(.75);
                 transform: translateY(-4px);
+            }
+        }
+
+        @-webkit-keyframes flow {
+            to {
+                transform: rotate(360deg);
             }
         }
     }
