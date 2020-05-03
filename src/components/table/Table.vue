@@ -82,16 +82,11 @@
           <td data-label="Presenças" class="label-exists">{{ politico.presencas }}</td>
           <td data-label="Propostas" class="label-exists">{{ politico.propostas }}</td>
           <td data-label="Processos" class="label-exists">{{ politico.processos }}</td>
-          <td data-label class="follow-button" v-if="politico.seguindo === false">
+          <td data-label class="follow-button">
             <div>
-              <button type="button" @click="follow(politico.id, index)">
-                {{ politico.text }}
-              </button>
-            </div>
-          </td>
-          <td data-label class="follow-button" v-else>
-            <div>
-              <button type="button" @click="unfollow(politico.id, index)">
+              <button type="button"
+              :class="{ 'following': politico.seguindo }"
+              @click="changeFollow(politico, index)">
                 {{ politico.text }}
               </button>
             </div>
@@ -158,31 +153,34 @@ export default {
   },
 
   methods: {
-    async follow(idPolitico, index) {
+    async changeFollow(politico, index) {
       try {
         const objFollow = {
           idUser: this.user.id,
-          idPolitico,
+          idPolitico: politico.id,
         };
-        await api.post('/Users/follow', objFollow);
-
-        this.filtroPoliticos[index].text = 'Deixar de seguir';
+        if (politico.seguindo === false) {
+          this.follow(objFollow, index);
+        } else {
+          this.unfollow(objFollow, index);
+        }
       } catch (erro) {
         console.log(erro);
       }
     },
-    async unfollow(idPolitico, index) {
-      try {
-        const objUnfollow = {
-          idUser: this.user.id,
-          idPolitico,
-        };
-        await api.delete('/Users/unfollow', objUnfollow);
-
-        this.filtroPoliticos[index].text = 'Seguir';
-      } catch (erro) {
-        console.log(erro);
-      }
+    async follow(obj, i) {
+      await api.post('/Users/follow', obj);
+      this.filtroPoliticos[i].text = 'Deixar de seguir';
+    },
+    async unfollow(obj, i) {
+      await api.post('/Users/unfollow', obj);
+      this.filtroPoliticos[i].text = 'Seguir';
+    },
+    ehPoliticoFixo(politico) {
+      if (this.user === null) { return false; }
+      if (this.user.idSen === politico.id) { return true; }
+      if (this.user.idDep === politico.id) { return true; }
+      return false;
     },
     changeTipo(event) {
       switch (event.target.value) {
@@ -276,7 +274,7 @@ export default {
         if (this.filtroEstado) { url += this.filtroEstado; }
         if (this.filtroTipo) { url += this.filtroTipo; }
         if (this.filtroClasf) { url += this.filtroClasf; }
-        if (this.user.id) { url += `&idUser=${this.user.id}`; }
+        if (this.user) { url += `&idUser=${this.user.id}`; }
         console.log(url);
         const response = await api.get(url);
         this.isNextPageEnabled = await nextPageWithData;
