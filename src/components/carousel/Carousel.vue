@@ -63,19 +63,9 @@ export default {
   },
   async mounted() {
     try {
-      const senadorAsync = api.get(`/PoliticoItems/senadores/${this.user.idSen}`);
-      const deputadoAsync = api.get(`/PoliticoItems/deputados/${this.user.idDep}`);
-      const outrosPoliticosAsync = api.get(`/Users/following/${this.user.id}`);
-
-      const senador = await senadorAsync;
-      this.slides.push(senador.data);
-      const deputado = await deputadoAsync;
-      this.slides.push(deputado.data);
-
-      const outrosPoliticos = await outrosPoliticosAsync;
-      if (outrosPoliticos.data.seguindo > 2) {
-        this.slides = this.slides.concat(outrosPoliticos.data.politicos);
-      }
+      const politicosAsync = api.get(`/Users/following/${this.user.id}`);
+      const politicos = await politicosAsync;
+      this.slides = politicos.data.politicos;
 
       this.preencherSlides();
 

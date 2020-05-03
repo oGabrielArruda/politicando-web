@@ -84,13 +84,16 @@
           <td data-label="Processos" class="label-exists">{{ politico.processos }}</td>
           <td data-label class="follow-button" v-if="politico.seguindo === false">
             <div>
-              <button type="button" @click="follow(politico.id)">Seguir</button>
+              <button type="button" @click="follow(politico.id, index)">
+                {{ politico.text }}
+              </button>
             </div>
           </td>
           <td data-label class="follow-button" v-else>
             <div>
-              <button type="button" @click="unfollow(politico.id)" disabled>
-                Deixar de seguir</button>
+              <button type="button" @click="unfollow(politico.id, index)">
+                {{ politico.text }}
+              </button>
             </div>
           </td>
         </tr>
@@ -155,24 +158,28 @@ export default {
   },
 
   methods: {
-    async follow(idPolitico) {
+    async follow(idPolitico, index) {
       try {
         const objFollow = {
           idUser: this.user.id,
           idPolitico,
         };
         await api.post('/Users/follow', objFollow);
+
+        this.filtroPoliticos[index].text = 'Deixar de seguir';
       } catch (erro) {
         console.log(erro);
       }
     },
-    async unfollow(idPolitico) {
+    async unfollow(idPolitico, index) {
       try {
         const objUnfollow = {
           idUser: this.user.id,
           idPolitico,
         };
         await api.delete('/Users/unfollow', objUnfollow);
+
+        this.filtroPoliticos[index].text = 'Seguir';
       } catch (erro) {
         console.log(erro);
       }
@@ -259,7 +266,7 @@ export default {
   asyncComputed: {
     async filtroPoliticos() {
       try {
-        //   const nextPageWithData = this.isNextPageWithData();
+        const nextPageWithData = this.isNextPageWithData();
         let { url } = this;
         url += `&size=${this.size}`;
         url += `&page=${this.page}`;
@@ -272,10 +279,16 @@ export default {
         if (this.user.id) { url += `&idUser=${this.user.id}`; }
         console.log(url);
         const response = await api.get(url);
-        //   this.isNextPageEnabled = await nextPageWithData;
-        console.log(response);
+        this.isNextPageEnabled = await nextPageWithData;
 
-        return response.data;
+
+        const data = response.data.map((t) => {
+          if (t.seguindo === false) {
+            return { ...t, text: 'Seguir' };
+          }
+          return { ...t, text: 'Deixar de seguir' };
+        });
+        return data;
       } catch (erro) {
         this.page = 1;
         return null;
