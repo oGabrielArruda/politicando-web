@@ -49,7 +49,6 @@ export default {
     preencherSlides() {
       while (this.slides.length < 3) {
         this.slides.push('');
-        console.log(this.slides);
       }
     },
   },
@@ -66,7 +65,7 @@ export default {
     try {
       const senadorAsync = api.get(`/PoliticoItems/senadores/${this.user.idSen}`);
       const deputadoAsync = api.get(`/PoliticoItems/deputados/${this.user.idDep}`);
-      const outrosPoliticosAsync = api.get('/Users/following');
+      const outrosPoliticosAsync = api.get(`/Users/following/${this.user.id}`);
 
       const senador = await senadorAsync;
       this.slides.push(senador.data);

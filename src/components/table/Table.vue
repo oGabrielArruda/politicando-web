@@ -82,9 +82,15 @@
           <td data-label="Presenças" class="label-exists">{{ politico.presencas }}</td>
           <td data-label="Propostas" class="label-exists">{{ politico.propostas }}</td>
           <td data-label="Processos" class="label-exists">{{ politico.processos }}</td>
-          <td data-label class="follow-button">
+          <td data-label class="follow-button" v-if="politico.seguindo === false">
             <div>
-              <button type="button">Seguir</button>
+              <button type="button" @click="follow(politico.id)">Seguir</button>
+            </div>
+          </td>
+          <td data-label class="follow-button" v-else>
+            <div>
+              <button type="button" @click="unfollow(politico.id)" disabled>
+                Deixar de seguir</button>
             </div>
           </td>
         </tr>
@@ -107,6 +113,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import api from '../../config/api';
 
 export default {
@@ -148,6 +155,28 @@ export default {
   },
 
   methods: {
+    async follow(idPolitico) {
+      try {
+        const objFollow = {
+          idUser: this.user.id,
+          idPolitico,
+        };
+        await api.post('/Users/follow', objFollow);
+      } catch (erro) {
+        console.log(erro);
+      }
+    },
+    async unfollow(idPolitico) {
+      try {
+        const objUnfollow = {
+          idUser: this.user.id,
+          idPolitico,
+        };
+        await api.delete('/Users/unfollow', objUnfollow);
+      } catch (erro) {
+        console.log(erro);
+      }
+    },
     changeTipo(event) {
       switch (event.target.value) {
         case 'Deputados':
@@ -222,11 +251,15 @@ export default {
       }
     },
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
+  },
   asyncComputed: {
     async filtroPoliticos() {
       try {
-        const nextPageWithData = this.isNextPageWithData();
+        //   const nextPageWithData = this.isNextPageWithData();
         let { url } = this;
         url += `&size=${this.size}`;
         url += `&page=${this.page}`;
@@ -236,9 +269,11 @@ export default {
         if (this.filtroEstado) { url += this.filtroEstado; }
         if (this.filtroTipo) { url += this.filtroTipo; }
         if (this.filtroClasf) { url += this.filtroClasf; }
+        if (this.user.id) { url += `&idUser=${this.user.id}`; }
         console.log(url);
         const response = await api.get(url);
-        this.isNextPageEnabled = await nextPageWithData;
+        //   this.isNextPageEnabled = await nextPageWithData;
+        console.log(response);
 
         return response.data;
       } catch (erro) {
