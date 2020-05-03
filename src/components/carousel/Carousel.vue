@@ -12,8 +12,9 @@
     >
       <slide v-bind:key="slide.id" v-for="(slide, i) in slides" :index="i">
         <figure>
-          <img :src="slide.foto" @error="replaceByDefault" />
-          <figcaption>
+          <img v-if="slide !== ''" :src="slide.foto" @error="replaceByDefault" />
+          <img v-else src="../../assets/carousel/no-photo-follow.jpg" />
+          <figcaption v-if="slide !== ''">
                    {{slide.nome}}<br>
           </figcaption>
         </figure>
@@ -22,7 +23,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { Carousel3d, Slide } from 'vue-carousel-3d';
 import api from '../../config/api';
 
@@ -45,6 +46,17 @@ export default {
     replaceByDefault(e) {
       e.target.src = img;
     },
+    preencherSlides() {
+      while (this.slides.length < 3) {
+        this.slides.push('');
+        console.log(this.slides);
+      }
+    },
+  },
+  computed: {
+    ...mapGetters({
+      user: 'auth/user',
+    }),
   },
   components: {
     Carousel3d,
@@ -52,9 +64,22 @@ export default {
   },
   async mounted() {
     try {
-      const response = await api.get('/PoliticoItems/filtrado?size=15&page=1&tipo=2');
+      const senadorAsync = api.get(`/PoliticoItems/senadores/${this.user.idSen}`);
+      const deputadoAsync = api.get(`/PoliticoItems/deputados/${this.user.idDep}`);
+      const outrosPoliticosAsync = api.get('/Users/following');
 
-      this.slides = response.data;
+      const senador = await senadorAsync;
+      this.slides.push(senador.data);
+      const deputado = await deputadoAsync;
+      this.slides.push(deputado.data);
+
+      const outrosPoliticos = await outrosPoliticosAsync;
+      if (outrosPoliticos.data.seguindo > 2) {
+        this.slides = this.slides.concat(outrosPoliticos.data.politicos);
+      }
+
+      this.preencherSlides();
+
       this.changeSelected(this.slides[0]);
     } catch (erro) {
       console.log(`Erro:${erro}`);
