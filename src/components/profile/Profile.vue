@@ -3,55 +3,75 @@
     <button :class="{ show: !mobileView }" @click="showNav">
       <i class="fas fa-bars"></i>
     </button>
-    <div class="content">
-      <form>
-        <img
-          v-if="user.imgPerfil !== '' && user.imgPerfil !== null"
-          :src="user.imgPerfil"
-          alt=""
-          class="usersImage"
-          id="imgUser"
-        />
-        <img v-else src="../../assets/signup/user.svg" alt="" class="usersImage" id="imgUser" />
-        <br />
-        <div class="select-file-container">
-          <label for="seletorArquivo">
-            Alterar foto de perfil
-          </label>
-          <input type="file" name="seletorArquivo" id="seletorArquivo" @change="changePhoto()" />
-        </div>
+    <form>
+      <div class="file-container">
+        <label for="select-file">
+          <img
+            :src="user.imgPerfil || require('../../assets/signup/user.svg')"
+            alt
+            class="usersImage"
+            id="imgUser"
+          />
+        </label>
+        <input type="file" id="select-file" @change="changePhoto()" />
+      </div>
+      <div class="input-container">
         <div class="input-group">
-          <label>Nome: </label>
-          <input type="text" name="usersName" id="usersName" v-model="user.nome" />
-
-          <label>Sobrenome: </label>
-          <input type="text" name="usersSurname" id="usersSurname" v-model="user.sobrenome" />
-
-          <label>Email: </label>
-          <input type="email" name="usersEmail" id="usersEmail" v-model="user.email" />
-
-          <label>Cep: </label>
-          <input type="text" name="usersCep" id="usersCep"
-          v-model="user.cep" v-mask="'#####-###'" @input="changeCep"/>
-
-          <label>Cidade: </label>
-          <input type="text" name="usersCidade" id="usersCidade" v-model="cidadeFetch"  disabled />
-
-          <label>Estado: </label>
-          <input type="text" name="usersEstado" id="usersEstado" v-model="estadoFetch" disabled />
-
-          <label>Senha: </label>
-          <input type="password" name="usersPassword" id="usersPassword" v-model="user.senha" />
-
-          <label id="seg">Seguindo {{ numPoliticosSeguindo }} políticos</label>
+          <div>
+            <label>Nome</label>
+            <input type="text" name="name" v-model="user.nome" />
+          </div>
+          <div>
+            <label>Sobrenome</label>
+            <input type="text" name="surname" v-model="user.sobrenome" />
+          </div>
         </div>
 
-        <div class="button-group">
-          <button id="btnAlterar" :disabled="false">Salvar alterações</button>
-          <button id="btnDesconectar">Desconectar</button>
+        <hr />
+
+        <div class="input-group">
+          <div>
+            <label>Nova senha</label>
+            <input type="password" name="newPassword" v-model="user.senha" />
+          </div>
+          <div>
+            <label>Confirmar nova senha</label>
+            <input type="password" name="newPassword" v-model="user.senha" />
+          </div>
         </div>
-      </form>
-    </div>
+
+        <hr />
+
+        <div class="input-group">
+          <div>
+            <label>Cep:</label>
+            <input
+              type="text"
+              name="usersCep"
+              id="usersCep"
+              v-model="user.cep"
+              v-mask="'#####-###'"
+              @input="changeCep"
+            />
+          </div>
+
+          <div>
+            <label>Cidade:</label>
+            <input type="text" name="usersCidade" id="usersCidade" v-model="cidadeFetch" disabled />
+          </div>
+
+          <div>
+            <label>Estado:</label>
+            <input type="text" name="usersEstado" id="usersEstado" v-model="estadoFetch" disabled />
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="button-group">
+        <button id="btnAlterar" :disabled="false">Editar</button>
+        <button id="btnDesconectar">Desconectar</button>
+      </div>
+    </form>
   </div>
 </template>
 

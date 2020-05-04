@@ -1,3 +1,10 @@
+@mixin scrollbar-computer {
+    @media (min-width: 992px) {
+      @content;
+    }
+  }
+
+
 @mixin profile-mobile {
     @media (min-width: 861px) and (max-width: 1230px) {
         @content;
@@ -5,50 +12,53 @@
 }
 
 @mixin profile-mobile-2 {
-    @media (min-width: 403px) and (max-width: 860px) {
-        @content;
-    }
-}
-
-@mixin profile-mobile-3 {
-    @media (max-width: 402px) {
-        @content;
-    }
-}   
-
-@mixin profile-mobile-landscape {
-    @media (min-width: 861px) and (max-width: 1230px) and (orientation: landscape) {
+    @media (min-width: 555px) and (max-width: 860px) {
         @content;
     }
 }
 
 @mixin profile-mobile-2-landscape {
-    @media (min-width: 403px) and (max-width: 860px) and (orientation: landscape) {
+    @media (max-width: 860px) and (orientation: landscape) {
         @content;
     }
 }
 
+@mixin profile-mobile-3 {
+    @media (max-width: 554px) {
+        @content;
+    }
+}   
 
-.container{
-    
+.container {
+    width: 85vw;
+    height: 100vh;
+    // border: 1px solid red;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     transition: transform 0.5s;
+    // border: 1px solid red;
+    padding: 15px;
+    overflow-y: scroll;
 
     @include profile-mobile {
         z-index: 999;
+        width: 100vw;
     }
 
     @include profile-mobile-2 {
         z-index: 999;
-        flex-direction: column;
-        height: 100vh;
+        width: 100vw;
+    }
+
+    @include profile-mobile-2-landscape {
+        align-items: flex-start;
     }
     
     @include profile-mobile-3 {
         z-index: 999;
-        flex-direction: column;
-        height: 100vh;
+        width: 100vw;
+        align-items: flex-start;
     }
 
     &.move {
@@ -74,199 +84,171 @@
             transform: scale(0.9);
         }
     }
-    
-    .content {
-        width: 85vw;
+
+    & > form {
+        //border: 1px solid red;
+        // margin: 0 auto;
+        width: 100%;
+        max-width: 900px;
+        // min-height: 750px;
+
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
-        overflow-y: scroll;
-        overflow-x: hidden;
 
-        @include profile-mobile {
-            width: 100vw;
-            padding: 0vw 10vw;
+        background: #fff;
+        border-radius: 15px;
+        padding: 15px;
+
+        & > hr {
+            border: 1px double #eee;
+            width: 100%;
+            margin-bottom: 10px;
         }
 
-        @include profile-mobile-2 {
-            width: 100vw;
-            min-height: 100vh;
-            padding: 0vw 10vw;
-        }
+        .file-container {
+            // border: 1px solid red;
 
-        @include profile-mobile-3 {
-            width: 100vw;
-            min-height: 100vh;
-            padding: 0vw 10vw;
-        }
-
-        
-
-
-
-        form {
-            text-align: center;
-            
-            .usersImage{
-                margin-top: 5vh;
-                min-width: 200px;
-                min-height: 200px;
-                max-width: 200px;
-                max-height: 200px;
-                width: 200px;
-                height: 200px ;
-                border-radius:560px;
-            }
-            .select-file-container {
+            & > label {
                 display: flex;
-                align-items: center;
                 justify-content: center;
-                margin-bottom: 10vh;
-    
-    
-                label {
-                  cursor: pointer;
-                  color: #648FFF;
-                  text-align: start;
+                align-items: center;
+                border: 1px dashed rgb(179, 179, 179);
+                border-radius: 50%;
+                padding: 1px;
+                cursor: pointer;
+
+                & > img {
+                    width: 150px;
+                    height: 150px;
+                    
+                    &:hover {
+                        filter: invert(10%);
+                    }
                 }
-                
-                input{
-                    display: none;
-                }
-    
             }
-    
-            .input-group{
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-                grid-gap: 3vh;
-                label{
-                    grid-column: 1/2;
-                    color: #A0A0A0;
-                    font-size: 1.5vw;
-                    margin-bottom: 3vh;
-                    text-align: left;
 
-                    @include profile-mobile{
-                        font-size: 2.5vw;
-                    }
-
-                    @include profile-mobile-2{
-                        font-size: 2.5vh;
-                    }
-
-                    @include profile-mobile-3{
-                        font-size: 2.5vh;
-                    }
-                }
-    
-                #seg{
-                    text-align: left;
-                    grid-column: 1/4;
-                }
-    
-                input{
-                    padding-left: 1vh;
-                    border-radius: 10px;
-                    border-style: none;
-                    grid-column:2/8;
-                    font-size: 1vw;
-                    margin-bottom: 3vh;
-
-                    @include profile-mobile {
-                        font-size: 2vw;
-                    }
-
-                    @include profile-mobile-2 {
-                        font-size: 3vw;
-                    }
-
-                    @include profile-mobile-3{
-                        font-size: 4vw;
-                    }
-                }
-                
+            & > input {
+                display: none;
             }
-    
-            .button-group{
-                text-align: right;
-    
-                @include profile-mobile {
-                    text-align: center;
-                }
+        }
 
-                @include profile-mobile-2 {
-                    text-align: center;
-                }
+        .input-container {
+            width: 100%;
+            height: 100%;
+            max-height: 500px;
+            max-width: 650px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
 
-                @include profile-mobile-3 {
-                    text-align: center;
-                }
+            & > hr {
+                border: 1px double #eee;
+                margin: 20px 0;
+            }
+            
+            .input-group {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
 
-                button{
-                    width: 16vh;
-                    height: 5vh;
-                    border-radius: 10px;
-                    border-style: none;
-                    font-size: 1vw;
-                    cursor: pointer;
-                    margin-bottom: 1vw;
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
 
-                    @include profile-mobile {
-                        font-size: 2vw;
-                        margin-bottom: 2vw;
+                    & > label {
+                        color: rgb(41, 41, 41);
+                        font-size: 15px;
                     }
 
-                    @include profile-mobile-2 {
-                        font-size: 2vh;
-                        margin-bottom: 5vw;
-                    }
+                    & > input {
+                        border: 1px solid rgb(218, 218, 218);
+                        padding: 5px 10px;
+                        border-radius: 4px;
+                        margin-bottom: 5px;
+                        // margin-bottom: px;
 
-                    @include profile-mobile-3 {
-                        font-size: 1.7vh;
-                        width: 14vh;
-                        margin-bottom: 5vw;
-                    }
-
-                    @include profile-mobile-landscape {
-                        border-radius: 10px;
-                        font-size: 1.5vw;
-                    }
-                    @include profile-mobile-2-landscape {
-                        border-radius: 5px;
-                        height: 7vh;
-                        width: 15vw;
-                        font-size: 1.5vw;
+                        &:disabled {
+                            background: rgba(165, 165, 165, 0.185);
+                        }
                     }
                 }
-    
-                #btnAlterar{
-                    background-color: #1FC468;
-                    color: white;
-                    margin-right: 5vh;
-                    transition: 0.5s;
-    
-                    &:hover{
-                        background-color: rgb(10, 167, 81);
-                        transition: 0.5s;
+            }
+        }
+
+        .button-group {
+            align-self: flex-end;
+            width: 100%;
+            max-width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+
+            & > button {
+                padding: 8px 5px;
+                width: 120px;
+                border: none;
+                border-radius: 4px;
+                color: #fff;
+                font-weight: bold;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background .2s;
+
+                &:nth-child(1) {
+                    background: #21cc85;
+
+                    &:hover {
+                        background: #1aaa6e;
                     }
                 }
-    
-    
-    
-                #btnDesconectar{
-                    background-color: #FF0000;
-                    color: white;
-                    transition: 0.5s;
-    
-                    &:hover{
-                        background-color: rgb(184, 17, 17);
-                        transition: 0.5s;
+
+                &:nth-child(2) {
+                    background: #dd1e2e;
+
+                    &:hover {
+                        background: #b91724;
                     }
                 }
             }
         }
     }
-    
 }
+
+@include scrollbar-computer {
+    /* SCROLLBAR */
+
+    /* total width */
+    .container::-webkit-scrollbar {
+      background-color: #f1f1f1;
+      width: 16px;
+    }
+
+    /* background of the scrollbar except button or resizer */
+    .container::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+    }
+    .container::-webkit-scrollbar-track:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* scrollbar itself */
+    .container::-webkit-scrollbar-thumb {
+      background-color: #babac0;
+      border-radius: 16px;
+      border: 5px solid #f1f1f1;
+    }
+    .container::-webkit-scrollbar-thumb:hover {
+      background-color: #a0a0a5;
+      border: 4px solid #f1f1f1;
+    }
+
+    /* set button(top and bottom of the scrollbar) */
+    .container::-webkit-scrollbar-button {
+      display: none;
+    }
+  }
