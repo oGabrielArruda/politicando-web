@@ -1,8 +1,24 @@
 <template>
-  <div class="container" :class="{ move: isOpen }">
+  <div class="container" :class="{ move: open }">
     <button :class="{ show: !mobileView }" @click="showNav">
       <i class="fas fa-bars"></i>
     </button>
+    <div class="modal-window" :class="{ close: !isOpen }">
+      <div>
+
+        <button type="button" class="button-close" @click="alterarInformacoes">
+          <i class="fas fa-times"></i>
+        </button>
+
+        <form @submit.prevent="submit">
+          <p>Seu e-mail</p>
+          <input name="email" type="text" placeholder="email@exemplo.com" />
+          <p>Sua senha</p>
+          <input name="senha" type="password" placeholder="exemplo123" />
+          <button type="submit">Entrar</button>
+        </form>
+      </div>
+    </div>
     <form>
       <div class="file-container">
         <label for="select-file">
@@ -13,17 +29,31 @@
             id="imgUser"
           />
         </label>
-        <input type="file" id="select-file" @change="changePhoto()" />
+        <input type="file" id="select-file" @change="changePhoto()" disabled  />
       </div>
       <div class="input-container">
         <div class="input-group">
           <div>
             <label>Nome</label>
-            <input type="text" name="name" v-model="user.nome" />
+            <input
+              type="text"
+              id="nome"
+              name="name"
+              v-model="user.nome"
+              disabled
+
+            />
           </div>
           <div>
             <label>Sobrenome</label>
-            <input type="text" name="surname" v-model="user.sobrenome" />
+            <input
+              type="text"
+              id="sobrenome"
+              name="surname"
+              v-model="user.sobrenome"
+              disabled
+
+            />
           </div>
         </div>
 
@@ -32,11 +62,18 @@
         <div class="input-group">
           <div>
             <label>Nova senha</label>
-            <input type="password" name="newPassword" v-model="user.senha" />
+            <input
+              type="password"
+              id="novaSenha"
+              name="newPassword"
+              v-model="user.senha"
+              disabled
+
+            />
           </div>
           <div>
             <label>Confirmar nova senha</label>
-            <input type="password" name="newPassword" v-model="user.senha" />
+            <input type="password" id="confirma" name="newPassword" disabled  />
           </div>
         </div>
 
@@ -52,6 +89,8 @@
               v-model="user.cep"
               v-mask="'#####-###'"
               @input="changeCep"
+              disabled
+
             />
           </div>
 
@@ -66,10 +105,12 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr />
       <div class="button-group">
-        <button id="btnAlterar" :disabled="false">Editar</button>
-        <button id="btnDesconectar">Desconectar</button>
+        <button id="btnAlterar" :disabled="false" @click="alterarInformacoes()" type="button">
+          Editar
+        </button>
+        <button id="btnDesconectar" type="button" @click="excluirConta()">Desconectar</button>
       </div>
     </form>
   </div>
@@ -85,13 +126,14 @@ export default {
   name: 'Profile',
   data() {
     return {
-      numPoliticosSeguindo: 10,
       saveEnabled: false,
       user: {},
       mobileView: false,
       isOpen: false,
       cidadeFetch: '',
       estadoFetch: '',
+      editing: false,
+      open: false,
     };
   },
   directives: {
@@ -115,6 +157,51 @@ export default {
         fileReader.readAsDataURL(file);
       }
     },
+    alterarInformacoes() {
+      const foto = document.querySelector('#select-file');
+      const nome = document.querySelector('#nome');
+      const sobrenome = document.querySelector('#sobrenome');
+      const novaSenha = document.querySelector('#novaSenha');
+      const confirmar = document.querySelector('#confirma');
+      const Cep = document.querySelector('#usersCep');
+
+
+      const btnDesconectar = document.querySelector('#btnDesconectar');
+      const btnSalvar = document.querySelector('#btnAlterar');
+
+      if (this.editing) {
+        if (!this.isOpen && this.authenticated) {
+          console.log('autenticado');
+          this.$router.push({ path: 'home/feed/noticias' });
+        } else {
+          this.isOpen = !this.isOpen;
+        }
+      } else {
+        nome.disabled = false;
+        sobrenome.disabled = false;
+        novaSenha.disabled = false;
+        confirmar.disabled = false;
+        Cep.disabled = false;
+        foto.disabled = false;
+
+
+        this.editing = true;
+        btnDesconectar.textContent = 'Excluir Conta';
+        btnSalvar.textContent = 'Salvar';
+      }
+    },
+    excluirConta() {
+      if (this.editing) {
+        if (!this.isOpen && this.authenticated) {
+          console.log('autenticado');
+          this.$router.push({ path: 'home/feed/noticias' });
+        } else {
+          this.isOpen = !this.isOpen;
+        }
+      } else {
+        console.log('as');
+      }
+    },
     async changeCep(event) {
       if (event.target.value.length !== 9) {
         this.cidadeFetch = '';
@@ -124,8 +211,7 @@ export default {
     },
     async fetchCep(cep) {
       try {
-        const responseCep = await axios
-          .get(`https://api.postmon.com.br/v1/cep/${cep}`);
+        const responseCep = await axios.get(`https://api.postmon.com.br/v1/cep/${cep}`);
         this.cidadeFetch = responseCep.data.cidade;
         this.estadoFetch = responseCep.data.estado;
       } catch (erro) {
