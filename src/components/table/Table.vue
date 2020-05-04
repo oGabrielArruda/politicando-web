@@ -95,11 +95,15 @@
             </div>
           </td>
         </tr>
+        <Loading v-if="loading" />
       </tbody>
     </table>
     <center>
       <div class="pagination">
-        <button @click="changePageDown" class="btnPage" :disabled="page == 1">
+        <button @click="page = 1" class="btnPage" :disabled="page === 1">
+          <i class="fas fa-angle-double-left"></i>
+        </button>
+        <button @click="changePageDown" class="btnPage" :disabled="page === 1">
           <i class="fas fa-chevron-left"></i>
         </button>
         <div class="actual-page">
@@ -107,6 +111,9 @@
         </div>
         <button @click="changePageUp" class="btnPage" :disabled="page === totalPages">
           <i class="fas fa-chevron-right"></i>
+        </button>
+        <button @click="page = totalPages" class="btnPage" :disabled="page === totalPages">
+          <i class="fas fa-angle-double-right"></i>
         </button>
       </div>
     </center>
@@ -116,6 +123,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import api from '../../config/api';
+import Loading from '../loading/Loading.vue';
 
 export default {
   name: 'Table',
@@ -141,9 +149,13 @@ export default {
       filtroClasf: '',
       page: 1,
       totalPages: 1,
+      loading: false,
     };
   },
   props: ['filtroNome', 'size', 'showBorder'],
+  components: {
+    Loading,
+  },
   async mounted() {
     try {
       const responsePartidos = await api.get('/Partidos');
@@ -205,8 +217,7 @@ export default {
       }
     },
     valueClasf(clasfStr) {
-      let clasfSemAcento = clasfStr.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      if (clasfStr === 'Presenças') { clasfSemAcento = 'Presencas'; }
+      const clasfSemAcento = clasfStr.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
       return clasfSemAcento.toLowerCase();
     },
@@ -239,6 +250,7 @@ export default {
   },
   asyncComputed: {
     async filtroPoliticos() {
+      this.loading = true;
       try {
         const response = await api.get(this.url, {
           params: this.queryParams,
@@ -248,12 +260,16 @@ export default {
           ...t,
           text: t.seguindo ? 'Seguindo' : 'Seguir',
         }));
-
         return data;
       } catch (erro) {
         this.page = 1;
         return null;
       }
+    },
+  },
+  watch: {
+    filtroPoliticos: function a() {
+      this.loading = false;
     },
   },
 };
