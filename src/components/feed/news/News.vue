@@ -1,7 +1,7 @@
 <template>
   <main v-if="isLoading">
     <div class="news-item" v-for="(n, index) in news" :key="n.id" v-bind="n">
-      <img :src="n.urlImg" v-if="n.imageExists" />
+      <img :src="n.urlImg" v-if="n.imageExists" @error="replaceByDefault(index)" />
       <div class="news-content">
         <header>
           <p class="title">{{ n.titulo }}</p>
@@ -66,6 +66,7 @@ export default {
       updating: false,
     };
   },
+  props: ['filtroNome', 'size', 'showBorder'],
   components: {
     Observer,
     LoadingTemplate,
@@ -174,6 +175,9 @@ export default {
       this.requested = 0;
       this.news = [];
     },
+    replaceByDefault(i) {
+      this.news[i].imageExists = false;
+    },
   },
   computed: {
     ...mapGetters({
@@ -183,7 +187,7 @@ export default {
       return !this.loading;
     },
     isLoadingMore() {
-      return true;
+      return this.loadingMore;
     },
   },
   watch: {

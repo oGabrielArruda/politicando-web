@@ -146,13 +146,18 @@ export default {
 
       const responseEstados = await api.get('/estados');
       this.estados = responseEstados.data;
-    } catch (erro) {
-      console.log(erro);
+    } catch (err) {
+      console.log(err);
     }
   },
 
   methods: {
     async follow(i) {
+      if (!this.authenticated) {
+        this.$toast.info('Você precisa criar uma conta antes!');
+        return;
+      }
+
       try {
         await api.post('/Users/follow', {
           idUser: this.user.id,
@@ -263,13 +268,13 @@ export default {
   computed: {
     ...mapGetters({
       user: 'auth/user',
+      authenticated: 'auth/authenticated',
     }),
   },
   asyncComputed: {
     async filtroPoliticos() {
       try {
         const nextPageWithData = this.isNextPageWithData();
-        console.log(this.url);
         let { url } = this;
         url += `&size=${this.size}`;
         url += `&page=${this.page}`;
@@ -280,7 +285,6 @@ export default {
         if (this.filtroTipo) { url += this.filtroTipo; }
         if (this.filtroClasf) { url += this.filtroClasf; }
         if (this.user) { url += `&idUser=${this.user.id}`; }
-        console.log(url);
         const response = await api.get(url);
         this.isNextPageEnabled = await nextPageWithData;
 
@@ -290,7 +294,6 @@ export default {
           text: t.seguindo ? 'Seguindo' : 'Seguir',
         }));
 
-        console.log(data);
         return data;
       } catch (erro) {
         this.page = 1;

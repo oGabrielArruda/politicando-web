@@ -23,11 +23,11 @@
 
 .container-info {
     position: fixed;
-    bottom: -170px;
+    bottom: -220px;
     right: 5%;
     background: rgba(255, 255, 255, 0.555);
     width: 250px;
-    height: 200px;
+    height: 250px;
     padding: 10px 15px;
     border-radius: 15px 15px 0 0;
     display: flex;
@@ -66,12 +66,26 @@
         //border: 1px solid red;
         height: 100%;
 
-        & > img {
-            width: 40px;
-            border-radius: 15%;
+        .header {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+
+            & > p {
+                font-size: 15px;
+                    color: rgb(88, 88, 88);
+                    font-weight: 900;
+                    text-align: center;
+            }
+    
+            & > img {
+                width: 50px;
+                border-radius: 15%;
+            }
         }
 
-        & > div {
+        .content {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -127,6 +141,6 @@
 }
 
 .open-info {
-    transform: translateY(-170px);
+    transform: translateY(-220px);
     background: rgba(255, 255, 255, 0.897);
 }

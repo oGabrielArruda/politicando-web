@@ -106,8 +106,8 @@ export default {
       this.$router.push({ name: 'Profile' });
     },
     async disconnectUser() {
-      await this.signOut();
       this.$router.push({ name: 'Initial' });
+      await this.signOut();
     },
   },
 };

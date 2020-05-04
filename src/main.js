@@ -23,7 +23,9 @@ Vue.use(AsyncComputed);
 Vue.use(VueAxios, axios);
 Vue.use(Carousel3d);
 Vue.use(vSelect);
-Vue.use(Toast);
+Vue.use(Toast, {
+  timeout: 3000,
+});
 
 Vue.config.productionTip = false;
 

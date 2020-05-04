@@ -1,12 +1,14 @@
 <template>
-  <div class="container-info" @click="showInfo()"
-  :class="{ 'open-info': isOpenInfo }" >
+  <div class="container-info" @click="showInfo()" :class="{ 'open-info': isOpenInfo }">
     <header>
       <p>SOBRE O PARTIDO</p>
     </header>
     <main v-if="loading">
-      <img :src="partido.urlLogo" @error="replaceByDefault" />
-      <div>
+      <div class="header">
+        <p>{{ partido.nome }}</p>
+        <img :src="partido.urlLogo" @error="replaceByDefault" />
+      </div>
+      <div class="content">
         <h1>Liderança</h1>
         <div>
           <img :src="partido.status.lider.foto" />
