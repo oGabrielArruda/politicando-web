@@ -60,8 +60,12 @@ export default {
       }
     },
     async submit() {
-      this.isLoading = true;
+      if (!this.form.email || !this.form.senha) {
+        this.$toast.error('Preencha todos os campos!');
+        return;
+      }
 
+      this.isLoading = true;
       try {
         await this.signIn(this.form);
 
