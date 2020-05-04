@@ -82,11 +82,10 @@
           <td data-label="Presenças" class="label-exists">{{ politico.presencas }}</td>
           <td data-label="Propostas" class="label-exists">{{ politico.propostas }}</td>
           <td data-label="Processos" class="label-exists">{{ politico.processos }}</td>
-          <td data-label class="follow-button">
+          <td data-label class="follow-button" :class="{ 'following': politico.seguindo }">
             <div>
               <button type="button"
-              :class="{ 'following': politico.seguindo }"
-              @click="changeFollow(politico, index)">
+              @click="politico.seguindo ? unfollow(index) : follow(index)">
                 {{ politico.text }}
               </button>
             </div>
@@ -153,28 +152,33 @@ export default {
   },
 
   methods: {
-    async changeFollow(politico, index) {
+    async follow(i) {
       try {
-        const objFollow = {
+        await api.post('/Users/follow', {
           idUser: this.user.id,
-          idPolitico: politico.id,
-        };
-        if (politico.seguindo === false) {
-          this.follow(objFollow, index);
-        } else {
-          this.unfollow(objFollow, index);
-        }
-      } catch (erro) {
-        console.log(erro);
+          idPolitico: this.filtroPoliticos[i].id,
+        });
+
+        this.filtroPoliticos[i].text = 'Seguindo';
+        this.filtroPoliticos[i].seguindo = true;
+        this.$toast.success(`Você seguiu ${this.filtroPoliticos[i].nome}`);
+      } catch (err) {
+        console.log(err);
       }
     },
-    async follow(obj, i) {
-      await api.post('/Users/follow', obj);
-      this.filtroPoliticos[i].text = 'Deixar de seguir';
-    },
-    async unfollow(obj, i) {
-      await api.post('/Users/unfollow', obj);
-      this.filtroPoliticos[i].text = 'Seguir';
+    async unfollow(i) {
+      try {
+        await api.post('/Users/unfollow', {
+          idUser: this.user.id,
+          idPolitico: this.filtroPoliticos[i].id,
+        });
+
+        this.filtroPoliticos[i].text = 'Seguir';
+        this.filtroPoliticos[i].seguindo = false;
+        this.$toast.success(`Você deixou de seguir ${this.filtroPoliticos[i].nome}`);
+      } catch (err) {
+        console.log(err);
+      }
     },
     ehPoliticoFixo(politico) {
       if (this.user === null) { return false; }
@@ -265,6 +269,7 @@ export default {
     async filtroPoliticos() {
       try {
         const nextPageWithData = this.isNextPageWithData();
+        console.log(this.url);
         let { url } = this;
         url += `&size=${this.size}`;
         url += `&page=${this.page}`;
@@ -280,12 +285,12 @@ export default {
         this.isNextPageEnabled = await nextPageWithData;
 
 
-        const data = response.data.map((t) => {
-          if (t.seguindo === false) {
-            return { ...t, text: 'Seguir' };
-          }
-          return { ...t, text: 'Deixar de seguir' };
-        });
+        const data = response.data.map((t) => ({
+          ...t,
+          text: t.seguindo ? 'Seguindo' : 'Seguir',
+        }));
+
+        console.log(data);
         return data;
       } catch (erro) {
         this.page = 1;

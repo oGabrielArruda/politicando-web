@@ -21,13 +21,13 @@
         &:nth-child(2) {
             background: #D84158;
             animation: flow .4s ease .2s infinite alternate;
-            -webkit-animation: flow .4s ease 0s infinite alternate;
+            -webkit-animation: flow .4s ease .2s infinite alternate;
         }
         
         &:nth-child(3) {
             background: #58BE93;
             animation: flow .4s ease .4s infinite alternate;
-            -webkit-animation: flow .4s ease 0s infinite alternate;
+            -webkit-animation: flow .4s ease .4s infinite alternate;
         }
 
         @keyframes flow {

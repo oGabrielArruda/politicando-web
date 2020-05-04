@@ -133,6 +133,10 @@ export default {
       this.loading = false;
       this.loadingMore = false;
       this.requested = 0;
+
+      if (this.updating) {
+        this.updating = false;
+      }
     },
     getDateFormatted(offset) {
       const date = new Date();
@@ -179,7 +183,7 @@ export default {
       return !this.loading;
     },
     isLoadingMore() {
-      return this.loadingMore;
+      return true;
     },
   },
   watch: {
