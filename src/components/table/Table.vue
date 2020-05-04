@@ -2,25 +2,28 @@
   <div class="table-container" :class="{ 'border': showBorder }">
     <div class="header">
       <div class="filter-group">
-        <select @change="changeTipo($event)">
+        <select v-model="filtroTipo">
           <option value disabled selected>Tipo de Político</option>
-          <option value="0">Todos</option>
-          <option :key="tipo.value" v-for="tipo in tiposDePolitico">{{ tipo }}</option>
+          <option value="">Todos</option>
+          <option :value="index+1" :key="tipo.value" v-for="(tipo, index) in tiposDePolitico">
+            {{ tipo }}
+          </option>
         </select>
-        <select @change="changeEstado($event)">
+        <select v-model="filtroEstado">
           <option value disabled selected>Estado</option>
-          <option value="0">Todos</option>
+          <option value="">Todos</option>
           <option :key="estado.value" v-for="estado in estados">{{ estado.sigla }}</option>
         </select>
-        <select @change="changePartido($event)">
+        <select v-model="filtroPartido">
           <option value disabled selected>Partido</option>
-          <option value="0">Todos</option>
+          <option value="">Todos</option>
           <option :key="partido.value" v-for="partido in partidos">{{ partido.sigla }}</option>
         </select>
-        <select @change="changeClasf($event)">
+        <select v-model="filtroClasf">
           <option value disabled selected>Classificar por</option>
-          <option value="0">Alfabeto</option>
-          <option :key="clasf.value" v-for="clasf in classificativos">{{ clasf }}</option>
+          <option :value="valueClasf(clasf)" :key="clasf.value" v-for="clasf in classificativos">
+            {{ clasf }}
+          </option>
         </select>
       </div>
     </div>
@@ -82,7 +85,8 @@
           <td data-label="Presenças" class="label-exists">{{ politico.presencas }}</td>
           <td data-label="Propostas" class="label-exists">{{ politico.propostas }}</td>
           <td data-label="Processos" class="label-exists">{{ politico.processos }}</td>
-          <td data-label class="follow-button" :class="{ 'following': politico.seguindo }">
+          <td v-if="ehPoliticoFixo(politico) === false" data-label class="follow-button"
+          :class="{ 'following': politico.seguindo }">
             <div>
               <button type="button"
               @click="politico.seguindo ? unfollow(index) : follow(index)">
@@ -95,13 +99,13 @@
     </table>
     <center>
       <div class="pagination">
-        <button @click="changePageDown" class="btnPage" :disabled="this.page == 1">
+        <button @click="changePageDown" class="btnPage" :disabled="page == 1">
           <i class="fas fa-chevron-left"></i>
         </button>
         <div class="actual-page">
           {{ page }}
         </div>
-        <button @click="changePageUp" class="btnPage" :disabled="!isNextPageEnabled">
+        <button @click="changePageUp" class="btnPage" :disabled="page === totalPages">
           <i class="fas fa-chevron-right"></i>
         </button>
       </div>
@@ -121,6 +125,7 @@ export default {
       partidos: [],
       estados: [],
       classificativos: [
+        'Alfabeto',
         'Mais Gastos',
         'Menos Gastos',
         'Faltas',
@@ -129,13 +134,13 @@ export default {
         'Processos',
       ],
       politicos: '',
-      url: '/PoliticoItems/filtrado?',
+      url: '/PoliticoItems/filtrado',
       filtroEstado: '',
       filtroPartido: '',
       filtroTipo: '',
       filtroClasf: '',
       page: 1,
-      isNextPageEnabled: true,
+      totalPages: 1,
     };
   },
   props: ['filtroNome', 'size', 'showBorder'],
@@ -191,51 +196,6 @@ export default {
       if (this.user.idDep === politico.id) { return true; }
       return false;
     },
-    changeTipo(event) {
-      switch (event.target.value) {
-        case 'Deputados':
-          this.filtroTipo = '&tipo=1';
-          break;
-        case 'Senadores':
-          this.filtroTipo = '&tipo=2';
-          break;
-        default:
-          this.filtroTipo = '';
-      }
-      console.log(this.filtroPartido);
-    },
-    changeEstado(event) {
-      if (event.target.value !== '0') this.filtroEstado = `&estado=${event.target.value}`;
-      else this.filtroEstado = '';
-    },
-    changePartido(event) {
-      if (event.target.value !== '0') this.filtroPartido = `&partido=${event.target.value}`;
-      else this.filtroPartido = '';
-    },
-    changeClasf(event) {
-      switch (event.target.value) {
-        case '0':
-          this.filtroClasf = '';
-          break;
-        case 'Mais Gastos':
-          this.filtroClasf = '&clasf=mais%20gastos';
-          break;
-        case 'Menos Gastos':
-          this.filtroClasf = '&clasf=menos%20gastos';
-          break;
-        case 'Presenças':
-          this.filtroClasf = '&clasf=presencas';
-          break;
-        case 'Faltas':
-          this.filtroClasf = '&clasf=faltas';
-          break;
-        case 'Propostas':
-          this.filtroClasf = '&clasf=propostas';
-          break;
-        default:
-          this.filtroClasf = '&clasf=processos';
-      }
-    },
     changePageUp() {
       this.page += 1;
     },
@@ -244,25 +204,11 @@ export default {
         this.page -= 1;
       }
     },
-    async isNextPageWithData() {
-      try {
-        const url = `${this.url}
-        &size=${this.size}
-        &page=${this.page + 1}
-        ${this.filtroNome}
-        ${this.filtroPartido}
-        ${this.filtroEstado}
-        ${this.filtroTipo}
-        ${this.filtroClasf}
-        `;
-        const response = await api.get(url);
-        if (response) {
-          return true;
-        }
-        return true;
-      } catch (erro) {
-        return false;
-      }
+    valueClasf(clasfStr) {
+      let clasfSemAcento = clasfStr.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      if (clasfStr === 'Presenças') { clasfSemAcento = 'Presencas'; }
+
+      return clasfSemAcento.toLowerCase();
     },
   },
   computed: {
@@ -270,26 +216,35 @@ export default {
       user: 'auth/user',
       authenticated: 'auth/authenticated',
     }),
+    queryParams() {
+      let objQry = {
+        page: this.page,
+        size: this.size,
+        nome: this.filtroNome,
+        tipo: this.filtroTipo,
+        estado: this.filtroEstado,
+        partido: this.filtroPartido,
+        clasf: this.filtroClasf,
+      };
+
+      if (this.user) {
+        objQry = {
+          ...objQry,
+          idUser: this.user.id,
+        };
+      }
+      console.log(objQry);
+      return objQry;
+    },
   },
   asyncComputed: {
     async filtroPoliticos() {
       try {
-        const nextPageWithData = this.isNextPageWithData();
-        let { url } = this;
-        url += `&size=${this.size}`;
-        url += `&page=${this.page}`;
-
-        if (this.filtroNome) { url += this.filtroNome; }
-        if (this.filtroPartido) { url += this.filtroPartido; }
-        if (this.filtroEstado) { url += this.filtroEstado; }
-        if (this.filtroTipo) { url += this.filtroTipo; }
-        if (this.filtroClasf) { url += this.filtroClasf; }
-        if (this.user) { url += `&idUser=${this.user.id}`; }
-        const response = await api.get(url);
-        this.isNextPageEnabled = await nextPageWithData;
-
-
-        const data = response.data.map((t) => ({
+        const response = await api.get(this.url, {
+          params: this.queryParams,
+        });
+        this.totalPages = response.data.totalPages;
+        const data = response.data.politicos.map((t) => ({
           ...t,
           text: t.seguindo ? 'Seguindo' : 'Seguir',
         }));

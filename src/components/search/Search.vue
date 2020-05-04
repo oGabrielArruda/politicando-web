@@ -8,7 +8,7 @@
         type="text"
         name="Search"
         placeholder="Digite o nome do político..."
-        v-on:input="changeNome($event)"
+        v-model="filtroNome"
       />
       <!--<button type="button">Pesquisar</button>-->
     </div>
@@ -30,12 +30,6 @@ export default {
     Table,
   },
   props: ['size', 'showBorder'],
-  methods: {
-    changeNome(event) {
-      this.filtroNome = `&nome=${event.target.value.replace(' ', '%20')}`;
-      console.log(this.filtroNome);
-    },
-  },
 };
 </script>
 
