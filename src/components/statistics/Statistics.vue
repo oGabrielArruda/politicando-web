@@ -13,11 +13,16 @@
         :multiple="true"
       />
       </div>
-      <GastosChart :politico="getObj" :politicos="politicos" :inserirMais="true" />
+      <GastosChart :politico="getObj" :politicos="politicos"  />
       <div class="donut-graph">
-        <img :src="politicoSelected.foto"/>
+        <img :src="politicoSelected.foto" />
         <h1> {{ politicoSelected.nome }} </h1>
-        <GastosDivididos :politico="getObj"/>
+        <GastosDivididos :politico="getObj" />
+      </div>
+      <div class="donut-graph" :key="politico.id" v-for="politico in politicosComp">
+        <img :src="politico.foto" />
+        <h1> {{ politico.nome }} </h1>
+        <GastosDivididos :politico="politico" />
       </div>
     </div>
   </div>
@@ -63,6 +68,9 @@ export default {
     }),
     getObj() {
       return this.politicoSelected;
+    },
+    politicosComp() {
+      return this.politicos;
     },
   },
   /* watch: {

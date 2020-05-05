@@ -114,6 +114,7 @@ export default {
   watch: {
     politico: async function a() {
       try {
+        console.log('aaaaaa');
         this.limparSeries();
         const url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
         const response = await api.get(url);

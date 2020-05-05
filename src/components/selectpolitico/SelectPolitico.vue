@@ -64,7 +64,6 @@ export default {
       }
     },
     onChange(event) {
-      console.log('ENTROU');
       this.$emit('onChange', event);
     },
   },

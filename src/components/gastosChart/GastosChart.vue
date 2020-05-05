@@ -82,7 +82,7 @@ export default {
       lastSave: [],
     };
   },
-  props: ['politico', 'inserirMais', 'politicos'],
+  props: ['politico', 'politicos'],
   components: {
     apexChart: VueApexCharts,
   },
