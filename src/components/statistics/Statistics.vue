@@ -5,7 +5,24 @@
     </button>
     <div class="content">
       <Carousel />
-      <GastosChart :politico="getObj" :inserirMais="true" />
+      <div class="select-group">
+      <SelectPolitico
+        @onChange="handlePolitico"
+        :url="'/PoliticoItems/filtrado?size=5&page=1'"
+        :text="'Selecione o político para comparar os gastos'"
+      />
+      <SelectPolitico
+        @onChange="handlePolitico"
+        :url="'/PoliticoItems/filtrado?size=5&page=1'"
+        :text="'Selecione o político para comparar os gastos'"
+      />
+      <SelectPolitico
+        @onChange="handlePolitico"
+        :url="'/PoliticoItems/filtrado?size=5&page=1'"
+        :text="'Selecione o político para comparar os gastos'"
+      />
+      </div>
+      <GastosChart :politico="getObj" :politicos="politicos" :inserirMais="true" />
       <GastosDivididos :politico="getObj"/>
     </div>
   </div>
@@ -14,6 +31,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import Carousel from '../carousel/Carousel.vue';
+import SelectPolitico from '../selectpolitico/SelectPolitico.vue';
 import GastosChart from '../gastosChart/GastosChart.vue';
 import GastosDivididos from '../gastosDivididos/GastosDivididos.vue';
 
@@ -24,12 +42,14 @@ export default {
       mobileView: false,
       isOpen: false,
       obj: {},
+      politicos: [],
     };
   },
   components: {
     Carousel,
     GastosChart,
     GastosDivididos,
+    SelectPolitico,
   },
   methods: {
     handleView() {
@@ -37,6 +57,30 @@ export default {
     },
     showNav() {
       this.isOpen = !this.isOpen;
+    },
+    handlePolitico(values) {
+      if (values.value === null) { // se removeu o político
+        this.removePolitico(values.lastValue);
+      } else { // se adicionou o político
+        this.substituiPolitico(values.lastValue, values.value);
+      }
+    },
+    substituiPolitico(antigoP, novoP) {
+      if (antigoP === null) {
+        this.addPolitico(novoP);
+      } else {
+        this.politicos = this.politicos.map((t) => {
+          if (t.id !== antigoP.id) { return t; }
+          return novoP;
+        });
+      }
+    },
+    addPolitico(politico) {
+      this.politicos.push(politico);
+    },
+    removePolitico(politico) {
+      if (politico === null) { return; }
+      this.politicos = this.politicos.filter((t) => t.id !== politico.id);
     },
   },
   computed: {

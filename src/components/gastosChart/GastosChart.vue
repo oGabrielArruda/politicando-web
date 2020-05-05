@@ -4,22 +4,12 @@
       <option :key="ano" v-for="ano in anos">{{ano}}</option>
     </select>
     <apexChart type="bar" height="350" width="800" :options="chartOptions" :series="series" />
-    <div id="select" :key="i" v-for="i in qtdSelects" v-show="inserirMais">
-      <SelectPolitico
-        @onChange="addPolitico"
-        @onDelete="removePolitico"
-        :url="'/PoliticoItems/filtrado?size=5&page=1'"
-        :text="'Selecione o político para comparar os gastos'"
-      />
-    </div>
-    <button @click="increaseQtdSelects(1)" v-show="inserirMais">Adicionar</button>
   </div>
 </template>
 
 <script>
 import VueApexCharts from 'vue-apexcharts';
 import ApexCharts from 'apexcharts';
-import SelectPolitico from '../selectpolitico/SelectPolitico.vue';
 import api from '../../config/api';
 
 export default {
@@ -85,39 +75,35 @@ export default {
       },
       ano: 2019,
       anos: [2019, 2020],
-      politicos: [],
+      gastosArr: [],
       idPoliticos: [],
       i: 0,
       qtdSelects: 1,
+      lastSave: [],
     };
   },
-  props: ['politico', 'inserirMais'],
+  props: ['politico', 'inserirMais', 'politicos'],
   components: {
     apexChart: VueApexCharts,
-    SelectPolitico,
   },
   methods: {
-    async addPolitico(values) {
+    async addPolitico(politico) {
       try {
-        const responseGastos = await this.getGastosAPI(values.value.id);
-        this.updateChart(responseGastos, values.value.nome, values.value.id);
-        if (values.lastValue !== null) {
-          // se o usuário sobrepos o select
-          this.removePolitico(values.lastValue);
-        }
+        const responseGastos = await this.getGastosAPI(politico.id);
+        this.updateChart(responseGastos, politico.nome, politico.id);
       } catch (erro) {
         console.log(erro);
       }
     },
     removePolitico(removed) {
-      this.politicos = this.politicos.filter(
+      this.gastosArr = this.gastosArr.filter(
         (politico) => politico.name !== removed.nome,
       );
       this.idPoliticos = this.idPoliticos.filter((id) => id !== removed.id);
     },
     updateChart(responseGastos, nome, id) {
       const objGasto = this.getObjGastos(responseGastos, nome);
-      this.politicos.push(objGasto);
+      this.gastosArr.push(objGasto);
       this.idPoliticos.push(id);
     },
     getObjGastos(responseGastos, nome) {
@@ -144,7 +130,6 @@ export default {
       return objGasto;
     },
     async getGastosAPI(idPolitico) {
-      // console.log('Entrou no get gastos');
       const url = `/PoliticoItems/${idPolitico}/gastos`;
       const responseGastos = await api.get(url);
       return responseGastos.data;
@@ -161,10 +146,16 @@ export default {
       }
       return false;
     },
-    increaseQtdSelects(val) {
-      if (this.qtdSelects < 5 && this.qtdSelects > 0) {
-        this.qtdSelects += val;
+    clone(arr) {
+      return JSON.parse(JSON.stringify(arr));
+    },
+    acharRemovido(arrNovo, arrAntigo) {
+      for (let i = 0; i < arrNovo.length; i += 1) {
+        if (arrAntigo[i].id !== arrNovo[i].id) {
+          return arrAntigo[i];
+        }
       }
+      return arrAntigo[arrAntigo.length - 1];
     },
   },
   async mounted() {
@@ -183,6 +174,9 @@ export default {
     politicoPrincipal() {
       return this.politico;
     },
+    gastosArrComp() {
+      return this.gastosArr;
+    },
   },
   watch: {
     ano: async function a() {
@@ -196,11 +190,11 @@ export default {
         for (let i = 0; i < this.idPoliticos.length; i += 1) {
           const objGastos = this.getObjGastos(
             gastosResponses[i],
-            this.politicos[i].name,
+            this.gastosArr[i].name,
           );
           gastosArr.push(objGastos);
         }
-        this.politicos = gastosArr;
+        this.gastosArr = gastosArr;
       } catch (erro) {
         console.log(erro);
       }
@@ -213,15 +207,41 @@ export default {
       try {
         const responseGastos = await this.getGastosAPI(politico.id);
         const objGasto = this.getObjGastos(responseGastos, politico.nome);
-        this.politicos[0] = objGasto;
+        this.gastosArr[0] = objGasto;
         this.idPoliticos[0] = politico.id;
-        ApexCharts.exec('chartGastos', 'updateSeries', this.politicos, true);
+        ApexCharts.exec('chartGastos', 'updateSeries', this.gastosArr, true);
       } catch (erro) {
         console.log(erro);
       }
     },
+    gastosArr: function a(gastosArr) {
+      ApexCharts.exec('chartGastos', 'updateSeries', gastosArr, true);
+    },
     politicos: function a(politicos) {
-      ApexCharts.exec('chartGastos', 'updateSeries', politicos, true);
+      // Primeira inserção
+      if (this.lastSave.length === 0) {
+        this.addPolitico(politicos[0]);
+        this.lastSave = this.clone(politicos);
+        return;
+      }
+
+      // Político Removido
+      if (this.lastSave.length > politicos.length) {
+        const removido = this.acharRemovido(politicos, this.lastSave);
+        this.removePolitico(removido);
+        this.lastSave = this.clone(politicos);
+        return;
+      }
+
+      for (let i = 0; i < politicos.length; i += 1) {
+        if (this.lastSave[i] === undefined) {
+          this.addPolitico(politicos[i]);
+        } else if (politicos[i].id !== this.lastSave[i].id) {
+          this.addPolitico(politicos[i]);
+          this.removePolitico(this.lastSave[i]);
+        }
+      }
+      this.lastSave = this.clone(politicos);
     },
   },
 };

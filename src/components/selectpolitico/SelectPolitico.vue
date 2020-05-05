@@ -41,17 +41,13 @@ export default {
       try {
         const strSearch = event.replace('%20', ' ');
         const response = await api.get(`${this.url}&nome=${strSearch}`);
-        this.options = response.data;
+        this.options = response.data.politicos;
       } catch (erro) {
         console.log(erro);
       }
     },
     onChange(event) {
-      if (event !== null) {
-        this.$emit('onChange', { value: event, lastValue: this.lastValue });
-      } else {
-        this.$emit('onDelete', this.lastValue);
-      }
+      this.$emit('onChange', { value: event, lastValue: this.lastValue });
       this.lastValue = event;
     },
   },
