@@ -90,13 +90,15 @@
             :url="urlDeputados"
             :text="'Selecione o deputado em que você votou!'"
             @onChange="changeDep"
-            @onDelete=" idDep = 0"
+            @onDelete="idDep = 0"
+            :multiple="false"
           />
           <SelectPolitico
             :url="urlSenadores"
             :text="'Selecione o senador em que você votou!'"
             @onChange="changeSen"
             @onDelete="idSen = 0"
+            :multiple="false"
           />
         </div>
       </div>
@@ -160,11 +162,19 @@ export default {
         fileReader.readAsDataURL(file);
       }
     },
-    changeDep(values) {
-      this.idDep = values.value.id;
+    changeDep(value) {
+      if (value === null) {
+        this.idDep = value.id;
+      } else {
+        this.idDep = 0;
+      }
     },
-    changeSen(values) {
-      this.idSen = values.value.id;
+    changeSen(value) {
+      if (value === null) {
+        this.idSen = value.id;
+      } else {
+        this.idSen = 0;
+      }
     },
     async fetchCep(event) {
       if (event.target.value.length !== 9) { return; }

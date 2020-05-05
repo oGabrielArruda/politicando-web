@@ -10,20 +10,15 @@
         @onChange="handlePolitico"
         :url="'/PoliticoItems/filtrado?size=5&page=1'"
         :text="'Selecione o político para comparar os gastos'"
-      />
-      <SelectPolitico
-        @onChange="handlePolitico"
-        :url="'/PoliticoItems/filtrado?size=5&page=1'"
-        :text="'Selecione o político para comparar os gastos'"
-      />
-      <SelectPolitico
-        @onChange="handlePolitico"
-        :url="'/PoliticoItems/filtrado?size=5&page=1'"
-        :text="'Selecione o político para comparar os gastos'"
+        :multiple="true"
       />
       </div>
       <GastosChart :politico="getObj" :politicos="politicos" :inserirMais="true" />
-      <GastosDivididos :politico="getObj"/>
+      <div class="donut-graph">
+        <img :src="politicoSelected.foto"/>
+        <h1> {{ politicoSelected.nome }} </h1>
+        <GastosDivididos :politico="getObj"/>
+      </div>
     </div>
   </div>
 </template>
@@ -59,28 +54,7 @@ export default {
       this.isOpen = !this.isOpen;
     },
     handlePolitico(values) {
-      if (values.value === null) { // se removeu o político
-        this.removePolitico(values.lastValue);
-      } else { // se adicionou o político
-        this.substituiPolitico(values.lastValue, values.value);
-      }
-    },
-    substituiPolitico(antigoP, novoP) {
-      if (antigoP === null) {
-        this.addPolitico(novoP);
-      } else {
-        this.politicos = this.politicos.map((t) => {
-          if (t.id !== antigoP.id) { return t; }
-          return novoP;
-        });
-      }
-    },
-    addPolitico(politico) {
-      this.politicos.push(politico);
-    },
-    removePolitico(politico) {
-      if (politico === null) { return; }
-      this.politicos = this.politicos.filter((t) => t.id !== politico.id);
+      this.politicos = values;
     },
   },
   computed: {

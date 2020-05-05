@@ -107,6 +107,7 @@ export default {
       if (despesaL.indexOf('fretamento de veículos') !== -1) { return 'Locação de veículos'; }
       if (despesaL.indexOf('telefonia') !== -1) { return 'Telefonia'; }
       if (despesaL.indexOf('assinatura de publi') !== -1) { return 'Assinatura de publicações'; }
+      if (despesaL.indexOf('serviço de segurança') !== -1) { return 'Serviços de segurança'; }
       return despesa;
     },
   },

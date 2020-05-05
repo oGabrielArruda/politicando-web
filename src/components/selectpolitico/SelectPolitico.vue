@@ -1,7 +1,25 @@
 <template>
   <div>
-    <v-select label="nome" :filterable="false" :options="options" @search="onSearch($event)"
-    @input="onChange($event)" v-model="selected">
+    <v-select v-if="multiple" label="nome" :filterable="false" :options="options"
+    @search="onSearch($event)" @input="onChange($event)" multiple>
+      <template slot="no-options">
+        <p>{{text}}</p>
+      </template>
+      <template slot="option" slot-scope="option">
+        <div class="d-center">
+          <img :src="option.foto" />
+          {{ option.nome }}
+        </div>
+      </template>
+      <template slot="selected-option" slot-scope="option">
+        <div class="selected d-center">
+          <img :src="option.foto" />
+          {{ option.nome }}
+        </div>
+      </template>
+    </v-select>
+    <v-select v-else label="nome" :filterable="false" :options="options" @search="onSearch($event)"
+      @input="onChange($event)">
       <template slot="no-options">
         <p>{{text}}</p>
       </template>
@@ -29,10 +47,9 @@ export default {
     return {
       options: [],
       selected: {},
-      lastValue: null,
     };
   },
-  props: ['url', 'text'],
+  props: ['url', 'text', 'multiple'],
   components: {
     vSelect,
   },
@@ -47,8 +64,8 @@ export default {
       }
     },
     onChange(event) {
-      this.$emit('onChange', { value: event, lastValue: this.lastValue });
-      this.lastValue = event;
+      console.log('ENTROU');
+      this.$emit('onChange', event);
     },
   },
 };
