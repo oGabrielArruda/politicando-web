@@ -6,21 +6,8 @@
       <button type="button" class="button-signUp" @click="signUp">Criar Conta</button>
     </div>
 
-    <div class="modal-window" :class="{ 'close': !isOpen }">
-      <div>
-        <button type="button" class="button-close" @click="showModal">
-          <i class="fas fa-times"></i>
-        </button>
+    <Modal id="modal" ref="modal" />
 
-        <form @submit.prevent="submit">
-          <p>Seu e-mail</p>
-          <input name="email" type="text" placeholder="email@exemplo.com" v-model="form.email" />
-          <p>Sua senha</p>
-          <input name="senha" type="password" placeholder="exemplo123" v-model="form.senha" />
-          <button type="submit">Entrar</button>
-        </form>
-      </div>
-    </div>
     <Loading v-if="loading" />
   </nav>
 </template>
@@ -28,12 +15,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Loading from '../loading/Loading.vue';
+import Modal from '../modal/Modal.vue';
 
 export default {
   name: 'Navbar',
   data() {
     return {
-      isOpen: false,
       isLoading: false,
       form: {
         email: '',
@@ -43,6 +30,7 @@ export default {
   },
   components: {
     Loading,
+    Modal,
   },
   methods: {
     ...mapActions({
@@ -52,32 +40,13 @@ export default {
       this.$router.push({ name: 'Signup' });
     },
     showModal() {
-      if (!this.isOpen && this.authenticated) {
-        console.log('autenticado');
+      if (this.authenticated) {
         this.$router.push({ path: 'home/feed/noticias' });
-      } else {
-        this.isOpen = !this.isOpen;
       }
-    },
-    async submit() {
-      if (!this.form.email || !this.form.senha) {
-        this.$toast.error('Preencha todos os campos!');
-        return;
-      }
-
-      this.isLoading = true;
-      try {
-        await this.signIn(this.form);
-
-        this.isLoading = false;
-        this.$toast.success(`Seja bem-vindo ${(this.user).nome}`);
-        this.$router.push({ name: 'Home' });
-      } catch (err) {
-        this.isLoading = false;
-        this.$toast.error('E-mail ou senha incorretos');
-      }
+      this.$refs.modal.showModal();
     },
   },
+
   computed: {
     ...mapGetters({
       authenticated: 'auth/authenticated',

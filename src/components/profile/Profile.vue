@@ -3,22 +3,9 @@
     <button :class="{ show: !mobileView }" @click="showNav">
       <i class="fas fa-bars"></i>
     </button>
-    <div class="modal-window" :class="{ close: !isOpen }">
-      <div>
 
-        <button type="button" class="button-close" @click="alterarInformacoes">
-          <i class="fas fa-times"></i>
-        </button>
+    <Modal ref="modal"/>
 
-        <form @submit.prevent="submit">
-          <p>Seu e-mail</p>
-          <input name="email" type="text" placeholder="email@exemplo.com" />
-          <p>Sua senha</p>
-          <input name="senha" type="password" placeholder="exemplo123" />
-          <button type="submit">Entrar</button>
-        </form>
-      </div>
-    </div>
     <form>
       <div class="file-container">
         <label for="select-file">
@@ -56,6 +43,7 @@
             />
           </div>
         </div>
+
 
         <hr />
 
@@ -113,13 +101,17 @@
         <button id="btnDesconectar" type="button" @click="excluirConta()">Desconectar</button>
       </div>
     </form>
+
+
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { mask } from 'vue-the-mask';
 import axios from 'axios';
+import Modal from '../modal/Modal.vue';
+
 // import api from '../../config/api';
 
 export default {
@@ -129,17 +121,23 @@ export default {
       saveEnabled: false,
       user: {},
       mobileView: false,
-      isOpen: false,
       cidadeFetch: '',
       estadoFetch: '',
       editing: false,
       open: false,
+      methodInbutton: 'disconnectUser',
     };
+  },
+  components: {
+    Modal,
   },
   directives: {
     mask,
   },
   methods: {
+    ...mapActions({
+      signOut: 'auth/signOut',
+    }),
     changePhoto() {
       const inpFile = document.querySelector('#seletorArquivo');
       const image = document.querySelector('#imgUser');
@@ -170,12 +168,7 @@ export default {
       const btnSalvar = document.querySelector('#btnAlterar');
 
       if (this.editing) {
-        if (!this.isOpen && this.authenticated) {
-          console.log('autenticado');
-          this.$router.push({ path: 'home/feed/noticias' });
-        } else {
-          this.isOpen = !this.isOpen;
-        }
+        this.$refs.modal.showModal();
       } else {
         nome.disabled = false;
         sobrenome.disabled = false;
@@ -192,14 +185,9 @@ export default {
     },
     excluirConta() {
       if (this.editing) {
-        if (!this.isOpen && this.authenticated) {
-          console.log('autenticado');
-          this.$router.push({ path: 'home/feed/noticias' });
-        } else {
-          this.isOpen = !this.isOpen;
-        }
+        this.$refs.modal.showModal();
       } else {
-        console.log('as');
+        this.disconnectUser();
       }
     },
     async changeCep(event) {
@@ -234,7 +222,11 @@ export default {
       console.log(this.mobileView);
     },
     showNav() {
-      this.isOpen = !this.isOpen;
+      this.open = !this.open;
+    },
+    async disconnectUser() {
+      this.$router.push({ name: 'Initial' });
+      await this.signOut();
     },
   },
   computed: {
@@ -248,12 +240,14 @@ export default {
   created() {
     this.handleView();
     window.addEventListener('resize', this.handleView);
-    console.log(this.$store.state.politicoCarrossel);
   },
   async mounted() {
-    this.changePhoto();
-    this.user = JSON.parse(JSON.stringify(this.userState));
-    await this.fetchCep(this.user.cep);
+    this.user = this.userState;
+    // this.changePhoto();
+    // this.user = JSON.parse(JSON.stringify(this.userState));
+    // // this.user = this.userState;
+    // console.log(this.user);
+    // await this.fetchCep(this.user.cep);
   },
 };
 </script>

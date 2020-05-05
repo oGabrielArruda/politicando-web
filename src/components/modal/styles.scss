@@ -28,152 +28,54 @@
   }
 }
 
-nav {
-  display: flex;
-  background: transparent;
-
-  #modal{
-    //  display: none;
+@-webkit-keyframes fadeIn {
+  from {
+    display: none;
+    opacity: 0;
   }
-
-  @include default {
-    height: 10vh;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 15px 0;
+  to {
+    display: block;
+    opacity: 1;
   }
-
-  @include for-phone-one {
-    height: 20vh;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+}
+@keyframes fadeIn {
+  from {
+    display: none;
+    opacity: 0;
   }
-
-  @include for-phone-two {
-    height: 25vh;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+  to {
+    display: block;
+    opacity: 1;
   }
+}
 
-  @include for-phone-one-landscape {
-    margin-top: 3vh;
+@-webkit-keyframes fadeOut {
+  from {
+    display: block;
+    opacity: 1;
   }
-
-  @include for-phone-two-landscape {
-    padding-top: 13vh;
+  to {
+    display: none;
+    opacity: 0;
   }
-
-  img {
-    height: 70px;
-    margin-bottom: -15px;
+}
+@keyframes fadeOut {
+  from {
+    display: block;
+    opacity: 1;
   }
-
-  .form-group {
-    display: flex;
-
-    @include default {
-      flex-direction: row;
-      align-items: center;
-      margin-right: 15px;
-    }
-
-    @include for-phone-two {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    button {
-      border: none;
-      padding: 8px 8px;
-      border-radius: 4px;
-      width: 12vh;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
-
-      @include for-phone-two {
-        width: 30vh;
-      }
-
-      @include for-phone-two-landscape {
-        margin-top: 2vw;
-        width: 30vw;
-      }
-
-      @include for-phone-one-landscape {
-        width: 20vw;
-      }
-    }
-
-    .button-signIn {
-      background: #27c55bb9;
-
-      &:hover {
-        background: rgb(14, 180, 89);
-      }
-    }
-
-    .button-signUp {
-      background: #3776b4;
-      margin-left: 2vh;
-
-      @include for-phone-two {
-        margin-left: 0;
-        margin-top: 1vh;
-      }
-
-      &:hover {
-        background: #2b59c1;
-      }
-    }
+  to {
+    display: none;
+    opacity: 0;
   }
+}
 
-  @-webkit-keyframes fadeIn {
-    from {
-      display: none;
-      opacity: 0;
-    }
-    to {
-      display: block;
-      opacity: 1;
-    }
-  }
-  @keyframes fadeIn {
-    from {
-      display: none;
-      opacity: 0;
-    }
-    to {
-      display: block;
-      opacity: 1;
-    }
-  }
 
-  @-webkit-keyframes fadeOut {
-    from {
-      display: block;
-      opacity: 1;
-    }
-    to {
-      display: none;
-      opacity: 0;
-    }
-  }
-  @keyframes fadeOut {
-    from {
-      display: block;
-      opacity: 1;
-    }
-    to {
-      display: none;
-      opacity: 0;
-    }
-  }
+
+
+.container-modal{
+
+    position: fixed;
 
   .modal-window {
     position: fixed;
@@ -242,6 +144,12 @@ nav {
 
       & > form {
         width: 100%;
+
+        .text{
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 25px;
+        }
 
         & > p {
           margin-bottom: 5px;
