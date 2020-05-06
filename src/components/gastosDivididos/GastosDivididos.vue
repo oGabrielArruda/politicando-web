@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexChart type="donut" width="800" :options="chartOptions" :series="series"/>
+    <apexChart type="donut" width="600" :options="chartOptions" :series="series"/>
   </div>
 </template>
 <script>
@@ -17,7 +17,7 @@ export default {
         colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#db943d', '#494569',
           '#ad6363', '#63ad67', '#63ad9f'],
         chart: {
-          width: 500,
+          width: 300,
           type: 'donut',
         },
         plotOptions: {
@@ -93,11 +93,11 @@ export default {
       if (despesaL.indexOf('aluguel de imóveis') !== -1) { return 'Aluguel e manutenção de escritórios'; }
       if (despesaL.indexOf('contratação de consultorias') !== -1) { return 'Contratação de serviços e acessoria'; }
       if (despesaL.indexOf('locomoção, hospedagem') !== -1) { return 'Combustíveis e Hospedagem'; }
-      if (despesaL.indexOf('passagens') !== -1) { return 'Passagens de viagens'; }
+      if (despesaL.indexOf('passagens') !== -1) { return 'Passagens para viagens'; }
       if (despesaL.indexOf('combustíveis e lubrificantes') !== -1) { return 'Combustíveis'; }
       if (despesaL.indexOf('consultoria') !== -1) { return 'Consultoria e trabalhos'; }
       if (despesaL.indexOf('hospedagem') !== -1) { return 'Hospedagem'; }
-      if (despesaL.indexOf('emissão bilhete') !== -1) { return 'Passagens aéreas'; }
+      if (despesaL.indexOf('emissão bilhete') !== -1) { return 'Passagens para viagens'; }
       if (despesaL.indexOf('divulgação da ati') !== -1) { return 'Divulgação da atividade parlamentar'; }
       if (despesaL.indexOf('fornecimento de alime') !== -1) { return 'Alimentação'; }
       if (despesaL.indexOf('manutenção de escritório') !== -1) { return 'Manutenção de escritório'; }
@@ -110,11 +110,27 @@ export default {
       if (despesaL.indexOf('serviço de segurança') !== -1) { return 'Serviços de segurança'; }
       return despesa;
     },
+    async updateChart() {
+      const url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
+      const response = await api.get(url);
+      for (let i = 0; i < response.data.length; i += 1) {
+        const data = response.data[i];
+        data.tipoDespesa = this.tipoDespesa(data.tipoDespesa);
+        this.addData(data);
+      }
+    },
+  },
+  mounted() {
+    try {
+      this.limparSeries();
+      this.updateChart();
+    } catch (erro) {
+      console.log(erro);
+    }
   },
   watch: {
     politico: async function a() {
       try {
-        console.log('aaaaaa');
         this.limparSeries();
         const url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
         const response = await api.get(url);
