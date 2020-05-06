@@ -4,6 +4,7 @@
       <option :key="ano" v-for="ano in anos">{{ano}}</option>
     </select>
     <apexChart type="bar" height="350" width="800" :options="chartOptions" :series="series" />
+    <Loading v-show="loading" />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import VueApexCharts from 'vue-apexcharts';
 import ApexCharts from 'apexcharts';
 import api from '../../config/api';
+import Loading from '../loading/Loading.vue';
 
 export default {
   name: 'GastosChart',
@@ -80,11 +82,13 @@ export default {
       i: 0,
       qtdSelects: 1,
       lastSave: [],
+      isLoading: false,
     };
   },
   props: ['politico', 'politicos'],
   components: {
     apexChart: VueApexCharts,
+    Loading,
   },
   methods: {
     async addPolitico(politico) {
@@ -160,12 +164,14 @@ export default {
   },
   async mounted() {
     try {
+      this.isLoading = true;
       const responseGastos = await this.getGastosAPI(this.politicoPrincipal.id);
       this.updateChart(
         responseGastos,
         this.politicoPrincipal.nome,
         this.politicoPrincipal.id,
       );
+      this.isLoading = false;
     } catch (erro) {
       console.log(erro);
     }
@@ -176,6 +182,9 @@ export default {
     },
     gastosArrComp() {
       return this.gastosArr;
+    },
+    loading() {
+      return this.isLoading;
     },
   },
   watch: {

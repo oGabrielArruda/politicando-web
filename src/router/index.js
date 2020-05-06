@@ -14,6 +14,7 @@ import News from '../components/feed/news/News.vue';
 import Events from '../components/feed/events/Events.vue';
 import Voting from '../components/feed/voting/Voting.vue';
 
+import GastosArea from '../components/statistics/gastosArea/GastosArea.vue';
 
 Vue.use(VueRouter);
 
@@ -66,6 +67,13 @@ const routes = [
         path: 'estatisticas',
         name: 'Estatisticas',
         component: Statistics,
+        children: [
+          {
+            path: 'gastos',
+            name: 'Gastos',
+            component: GastosArea,
+          },
+        ],
       },
       {
         path: 'profile',
