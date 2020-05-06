@@ -3,7 +3,8 @@
     <select v-model="ano">
       <option :key="ano" v-for="ano in anos">{{ano}}</option>
     </select>
-    <apexChart type="bar" height="350" width="800" :options="chartOptions" :series="series" />
+    <apexChart type="bar" :width="900"
+    :height="500" :options="chartOptions" :series="series" />
     <Loading v-show="loading" />
   </div>
 </template>
@@ -23,7 +24,6 @@ export default {
         chart: {
           id: 'chartGastos',
           type: 'bar',
-          height: 350,
         },
         plotOptions: {
           bar: {
@@ -74,6 +74,103 @@ export default {
             },
           },
         },
+        responsive: [{
+          breakpoint: 1400,
+          options: {
+            chart: {
+              width: 850,
+              height: 444,
+            },
+          },
+        },
+        {
+          breakpoint: 1200,
+          options: {
+            chart: {
+              width: 800,
+              height: 444,
+            },
+          },
+        },
+        {
+          breakpoint: 1000,
+          options: {
+            chart: {
+              width: 700,
+              height: 388,
+            },
+          },
+        },
+        {
+          breakpoint: 800,
+          options: {
+            chart: {
+              width: 600,
+              height: 333,
+            },
+          },
+        },
+        {
+          breakpoint: 700,
+          options: {
+            chart: {
+              width: 550,
+              height: 300,
+            },
+          },
+        },
+        {
+          breakpoint: 600,
+          options: {
+            chart: {
+              width: 500,
+              height: 277,
+            },
+          },
+        },
+        {
+          breakpoint: 500,
+          options: {
+            plotOptions: {
+              bar: {
+                horizontal: true,
+                columnWidth: '15%',
+              },
+            },
+            chart: {
+              width: 400,
+              height: 600,
+            },
+          },
+        },
+        {
+          breakpoint: 400,
+          options: {
+            chart: {
+              width: 350,
+              height: 455,
+            },
+          },
+        },
+        {
+          breakpoint: 376,
+          options: {
+            chart: {
+              width: 310,
+              height: 455,
+            },
+          },
+        },
+        {
+          breakpoint: 350,
+          options: {
+            chart: {
+              width: 310,
+              height: 420,
+            },
+          },
+        },
+        ],
       },
       ano: 2019,
       anos: [2019, 2020],
@@ -257,4 +354,9 @@ export default {
 </script>
 
 <style>
+  #chart {
+    width: 900px;
+    border: 1px solid green;
+  }
+
 </style>
