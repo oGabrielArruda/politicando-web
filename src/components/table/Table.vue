@@ -263,6 +263,7 @@ export default {
         return data;
       } catch (erro) {
         this.page = 1;
+        this.loading = false;
         return null;
       }
     },
