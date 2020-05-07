@@ -348,10 +348,6 @@ export default {
       }
     },
     politicoPrincipal: async function a(politico) {
-      if (this.i === 0) {
-        this.i += 1;
-        return;
-      } // se for a primeira vez carregando o componente
       try {
         const responseGastos = await this.getGastosAPI(politico.id);
         const objGasto = this.getObjGastos(responseGastos, politico.nome);
