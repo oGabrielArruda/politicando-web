@@ -14,8 +14,12 @@
         <figure>
           <img v-if="slide !== ''" :src="slide.foto" @error="replaceByDefault" />
           <img v-else src="../../assets/carousel/no-photo-follow.jpg" />
-          <figcaption v-if="slide !== ''">
+          <figcaption v-if="slide !== '' && slide.id !== user.idDep && slide.id !== user.idSen"
+          class="figPolitico-carousel">
                    {{slide.nome}}<br>
+          </figcaption>
+          <figcaption v-else-if="slide !== ''" class="figMeuPolitico-carousel">
+            {{ slide.nome }} <br>
           </figcaption>
         </figure>
       </slide>

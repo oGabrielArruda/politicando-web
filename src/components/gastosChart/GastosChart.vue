@@ -77,6 +77,12 @@ export default {
         responsive: [{
           breakpoint: 1400,
           options: {
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '55%',
+              },
+            },
             chart: {
               width: 850,
               height: 444,
@@ -86,6 +92,12 @@ export default {
         {
           breakpoint: 1200,
           options: {
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '55%',
+              },
+            },
             chart: {
               width: 800,
               height: 444,
@@ -95,6 +107,12 @@ export default {
         {
           breakpoint: 1000,
           options: {
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '45%',
+              },
+            },
             chart: {
               width: 700,
               height: 388,
@@ -104,6 +122,12 @@ export default {
         {
           breakpoint: 800,
           options: {
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '45%',
+              },
+            },
             chart: {
               width: 600,
               height: 333,
@@ -113,6 +137,12 @@ export default {
         {
           breakpoint: 700,
           options: {
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '35%',
+              },
+            },
             chart: {
               width: 550,
               height: 300,
@@ -122,6 +152,12 @@ export default {
         {
           breakpoint: 600,
           options: {
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '35%',
+              },
+            },
             chart: {
               width: 500,
               height: 277,
@@ -355,7 +391,7 @@ export default {
 
 <style>
   #chart {
-    width: 900px;
+    width: auto;
     border: 1px solid green;
   }
 
