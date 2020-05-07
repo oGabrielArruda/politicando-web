@@ -74,10 +74,25 @@
         }
 
         .donut-graph {
-            & > img {
+            .text-politico-donut > img {
                 height: 100px;
                 width: 75px;
             }
+            .text-politico-donut {
+                display: flex;
+            }
+        }
+
+        .donut-sequence {
+            width: 100%;
+            height: auto;
+            overflow-x: auto;
+            display: flex;
+            white-space: nowrap;
+            & > div {
+                margin-right: 90px;
+                border-right: 1px solid #a0a0a5;
+            }  
         }
 
     }

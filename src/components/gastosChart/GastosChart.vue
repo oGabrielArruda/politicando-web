@@ -304,6 +304,12 @@ export default {
         this.politicoPrincipal.nome,
         this.politicoPrincipal.id,
       );
+
+      this.politicos.forEach((t) => {
+        this.addPolitico(t);
+        this.lastSave = this.clone(this.politicos);
+      });
+
       this.isLoading = false;
     } catch (erro) {
       console.log(erro);
@@ -390,9 +396,4 @@ export default {
 </script>
 
 <style>
-  #chart {
-    width: auto;
-    border: 1px solid green;
-  }
-
 </style>

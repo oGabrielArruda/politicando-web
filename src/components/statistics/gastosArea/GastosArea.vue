@@ -1,15 +1,24 @@
 <template>
   <div>
+    <div>
     <GastosChart :politico="getObj" :politicos="politicosComp"  />
+    </div>
     <div class="donut-graph">
-      <img :src="politicoSelected.foto" />
-      <h1> {{ politicoSelected.nome }} </h1>
+      <div class="text-politico-donut">
+        <img :src="politicoSelected.foto" />
+        <h1> {{ politicoSelected.nome }} </h1>
+      </div>
       <GastosDivididos :politico="getObj" />
     </div>
+
+    <div class="donut-sequence">
     <div class="donut-graph" :key="politico.id" v-for="politico in politicosComp">
-      <img :src="politico.foto" />
-      <h1> {{ politico.nome }} </h1>
-      <GastosDivididos :politico="politico" />
+      <div class="text-politico-donut">
+        <img :src="politico.foto" />
+        <h1> {{ politico.nome }} </h1>
+      </div>
+        <GastosDivididos :politico="politico" />
+      </div>
     </div>
   </div>
 </template>
