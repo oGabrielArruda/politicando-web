@@ -75,9 +75,16 @@ export default {
   watch: {
     async politicos() {
       this.linhas = [];
-      this.politicos.forEach(async (t) => {
-        this.addPolitico(t);
-      });
+      console.log(this.anoEscolhido);
+      if (this.anoEscolhido === 0) {
+        this.politicos.forEach(async (t) => {
+          this.addPolitico(t);
+        });
+      } else {
+        this.politicos.forEach(async (t) => {
+          this.addPoliticoPorAno(t, this.anoEscolhido);
+        });
+      }
     },
     anoEscolhido() {
       this.linhas = [];
