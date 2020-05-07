@@ -3,6 +3,9 @@
     <div>
     <GastosChart :politico="getObj" :politicos="politicosComp"  />
     </div>
+    <div>
+      <GastosTable :politicos="unionArraysPoliticos"/>
+    </div>
     <div class="donut-graph">
       <div class="text-politico-donut">
         <img :src="politicoSelected.foto" />
@@ -12,11 +15,11 @@
     </div>
 
     <div class="donut-sequence">
-    <div class="donut-graph" :key="politico.id" v-for="politico in politicosComp">
-      <div class="text-politico-donut">
-        <img :src="politico.foto" />
-        <h1> {{ politico.nome }} </h1>
-      </div>
+      <div class="donut-graph" :key="politico.id" v-for="politico in politicosComp">
+        <div class="text-politico-donut">
+          <img :src="politico.foto" />
+          <h1> {{ politico.nome }} </h1>
+        </div>
         <GastosDivididos :politico="politico" />
       </div>
     </div>
@@ -26,9 +29,10 @@
 import { mapGetters } from 'vuex';
 import GastosChart from '../../gastosChart/GastosChart.vue';
 import GastosDivididos from '../../gastosDivididos/GastosDivididos.vue';
+import GastosTable from '../../gastosTable/GastosTable.vue';
 
 export default {
-  name: 'Statistics',
+  name: 'GastosArea',
   data() {
     return {
       mobileView: false,
@@ -39,6 +43,7 @@ export default {
   components: {
     GastosChart,
     GastosDivididos,
+    GastosTable,
   },
   props: ['politicos'],
   computed: {
@@ -51,6 +56,14 @@ export default {
     },
     politicosComp() {
       return this.politicosSelects;
+    },
+    unionArraysPoliticos() {
+      let arr = [];
+      arr.push(this.politicoSelected);
+
+      if (this.politicosSelects) { arr = arr.concat(this.politicosSelects); }
+
+      return arr;
     },
   },
   methods: {

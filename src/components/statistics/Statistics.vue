@@ -29,6 +29,8 @@ export default {
   data() {
     return {
       politicos: [],
+      mobileView: false,
+      isOpen: false,
     };
   },
   components: {
