@@ -19,43 +19,79 @@
     width: 100%;
   }
 
-  .carousel-3d-container{
+  .carousel-3d-container {
     width: 100%;
+
+    .slide {
+      background: transparent;
+
+      figure {
+        margin: 0;
+        border-style: none;
+        background: transparent;
+  
+        figcaption {
+          position: absolute;
+          bottom: 0;
+          padding: 10px 15px;
+          font-size: 14px;
+          min-width: 100%;
+          box-sizing: border-box;
+          background-color: #041e3b52;
+          color: #fff;
+          text-align: center;
+        }
+  
+        /*.figPolitico-carousel {
+          background-color: rgba(0, 0, 0, 0.336);
+          color: #fff;
+        }
+      
+        .figMeuPolitico-carousel {
+          background-color: rgba(238, 182, 77, 0.712);
+          color: black;
+        }*/
+  
+        .changeColor {
+          background-color: #2579d852;
+          // color: black;
+        }
+      }
+  
+      & > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+
+        button {
+          width: 80%;
+          height: 76%;
+          border-radius: 50%;
+          // border: 1px solid red;
+          border: none;
+          display: block;
+          font-size: 55px;
+          background: #05a46f;
+          color: #fff;
+          transition: background .2s;
+          cursor: pointer;
+
+          &:hover {
+            background: #057751;
+          }
+        }
+      }
+    }
   }
-  
-  .carousel-3d-container figure {
-      margin:0;
-      border-style: none;
-    }
-    
-    .carousel-3d-container figcaption {
-      position: absolute;
-      bottom: 0;
-      position: absolute;
-      bottom: 0;
-      padding: 15px;
-      font-size: 12px;
-      min-width: 100%;
-      box-sizing: border-box;
-    }
 
-    .figPolitico-carousel {
-      background-color: rgba(0, 0, 0, 0.336);
-      color: #fff;
-    }
+  .carousel-3d-slide {
+    border-radius: 15px;
+    border: 0;
+  }
 
-    .figMeuPolitico-carousel {
-      background-color: rgba(238, 182, 77, 0.712);
-      color: black;
-    }
-  
-    .carousel-3d-slide{
-      border-radius: 15px;
-      border: 0;
-    }
-  
-    .carousel-3d-controls >>> .prev >>> .nx{
-      background-color:blue;
-    }
-  
+  .carousel-3d-controls >>> .prev >>> .nx {
+    background-color: blue;
+  }
 }

@@ -10,18 +10,18 @@
       :height="139"
       @after-slide-change="onAfterSlideChange"
     >
-      <slide v-bind:key="slide.id" v-for="(slide, i) in slides" :index="i">
-        <figure>
-          <img v-if="slide !== ''" :src="slide.foto" @error="replaceByDefault" />
-          <img v-else src="../../assets/carousel/no-photo-follow.jpg" />
-          <figcaption v-if="slide !== '' && slide.id !== user.idDep && slide.id !== user.idSen"
-          class="figPolitico-carousel">
-                   {{slide.nome}}<br>
-          </figcaption>
-          <figcaption v-else-if="slide !== ''" class="figMeuPolitico-carousel">
-            {{ slide.nome }} <br>
-          </figcaption>
+      <slide v-bind:key="slide.id" v-for="(slide, i) in slides" :index="i" class="slide">
+        <figure @click="teste" v-if="!slide.addButton">
+          <img :src="slide.foto" @error="replaceByDefault" />
+          <figcaption
+            :class="{ 'changeColor': slide.id === user.idDep || slide.id === user.idSen }"
+          >{{ slide.nome }}</figcaption>
         </figure>
+        <div v-else>
+          <button @click="pushRouter">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
       </slide>
     </Carousel3d>
   </div>
@@ -51,9 +51,14 @@ export default {
       e.target.src = img;
     },
     preencherSlides() {
-      while (this.slides.length < 3) {
-        this.slides.push('');
+      while (this.slides.length < 5) {
+        this.slides.push({
+          addButton: true,
+        });
       }
+    },
+    pushRouter() {
+      this.$router.push({ name: 'Classificacao' });
     },
   },
   computed: {
