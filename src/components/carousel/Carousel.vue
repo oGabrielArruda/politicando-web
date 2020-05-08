@@ -76,7 +76,12 @@ export default {
       const politicos = await politicosAsync;
       this.slides = politicos.data.politicos;
 
-      this.preencherSlides();
+      if (this.slides.length < 5) {
+        this.preencherSlides();
+      } else {
+        this.slides.push({ addButton: true });
+      }
+
 
       this.changeSelected(this.slides[0]);
     } catch (erro) {

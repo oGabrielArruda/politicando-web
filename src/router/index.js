@@ -15,6 +15,7 @@ import Events from '../components/feed/events/Events.vue';
 import Voting from '../components/feed/voting/Voting.vue';
 
 import GastosArea from '../components/statistics/gastosArea/GastosArea.vue';
+import PresencasArea from '../components/statistics/presencasArea/PresencasArea.vue';
 
 Vue.use(VueRouter);
 
@@ -72,6 +73,11 @@ const routes = [
             path: 'gastos',
             name: 'Gastos',
             component: GastosArea,
+          },
+          {
+            path: 'presencas',
+            name: 'Presencas',
+            component: PresencasArea,
           },
         ],
       },

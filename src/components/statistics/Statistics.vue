@@ -5,8 +5,11 @@
     </button>
     <div class="content">
       <Carousel />
-      <button @click="changeToGastos()">
+      <button @click="updateRouter('Gastos')">
         Gastos
+      </button>
+      <button @click="updateRouter('Presencas')">
+        Presenças
       </button>
       <div class="select-group">
         <SelectPolitico
@@ -44,8 +47,8 @@ export default {
     showNav() {
       this.isOpen = !this.isOpen;
     },
-    changeToGastos() {
-      this.$router.push({ name: 'Gastos' });
+    updateRouter(routeName) {
+      this.$router.push({ name: routeName });
     },
     ...mapActions({
       changeSelects: 'carousel/changeSelects',
@@ -59,7 +62,6 @@ export default {
     window.addEventListener('resize', this.handleView);
   },
   beforeRouteLeave(to, from, next) {
-    console.log('saiu');
     this.changeSelects([]);
     next();
   },

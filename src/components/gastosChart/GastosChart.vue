@@ -70,7 +70,7 @@ export default {
               const valInt = parseInt(val, 10);
               const valor = valInt.toFixed(2).split('.');
               valor[0] = `R$ ${valor[0].split(/(?=(?:...)*$)/).join('.')}`;
-              return `R$ ${valor.join(',')}`;
+              return `${valor.join(',')}`;
             },
           },
         },

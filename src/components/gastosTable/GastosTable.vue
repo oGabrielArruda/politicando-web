@@ -69,7 +69,7 @@ export default {
       valorParaExibir[0] = `R$ ${valorParaExibir[0]
         .split(/(?=(?:...)*$)/)
         .join('.')}`;
-      return `R$ ${valorParaExibir.join(',')}`;
+      return `${valorParaExibir.join(',')}`;
     },
   },
   async mounted() {
