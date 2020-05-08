@@ -1,5 +1,5 @@
 <template>
-  <div id="chart">
+  <div class="chart">
     <select v-model="ano">
       <option :key="ano" v-for="ano in anos">{{ano}}</option>
     </select>
@@ -391,5 +391,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style lang="scss" src="./styles.scss" scoped />

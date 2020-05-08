@@ -1,0 +1,19 @@
+.chart {
+    //border: 1px solid red;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    //margin: 0 20px;
+
+    & > select {
+        border: 1px solid rgb(221, 221, 221);
+        background: #fff;
+        border-radius: 4px;
+        color: rgb(110, 110, 110);
+        font-weight: bold;
+        padding: 5px 15px;
+        width: 150px;
+        cursor: pointer;
+      }
+}

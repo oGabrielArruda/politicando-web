@@ -15,8 +15,8 @@
         :text="'Selecione o político para comparar os gastos'"
         :multiple="true"
         />
-        <router-view> </router-view>
       </div>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     handleView() {
-      this.mobileView = window.innerWidth <= 1125;
+      this.mobileView = window.innerWidth <= 1230;
     },
     showNav() {
       this.isOpen = !this.isOpen;
@@ -53,6 +53,10 @@ export default {
     handlePolitico(values) {
       this.changeSelects(values);
     },
+  },
+  created() {
+    this.handleView();
+    window.addEventListener('resize', this.handleView);
   },
 };
 </script>

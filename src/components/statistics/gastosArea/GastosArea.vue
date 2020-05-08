@@ -1,24 +1,19 @@
 <template>
-  <div>
-    <div>
-    <GastosChart :politico="getObj" :politicos="politicosComp"  />
-    </div>
-    <div>
-      <GastosTable :politicos="unionArraysPoliticos"/>
-    </div>
-    <div class="donut-graph">
+  <div class="main-content">
+    <GastosChart :politico="getObj" :politicos="politicosComp" />
+    <GastosTable :politicos="unionArraysPoliticos" />
+    <div class="main-graph">
       <div class="text-politico-donut">
         <img :src="politicoSelected.foto" />
-        <h1> {{ politicoSelected.nome }} </h1>
+        <h1>{{ politicoSelected.nome }}</h1>
       </div>
       <GastosDivididos :politico="getObj" />
     </div>
-
     <div class="donut-sequence">
-      <div class="donut-graph" :key="politico.id" v-for="politico in politicosComp">
+      <div :key="politico.id" v-for="politico in politicosComp">
         <div class="text-politico-donut">
           <img :src="politico.foto" />
-          <h1> {{ politico.nome }} </h1>
+          <h1>{{ politico.nome }}</h1>
         </div>
         <GastosDivididos :politico="politico" />
       </div>
@@ -35,8 +30,6 @@ export default {
   name: 'GastosArea',
   data() {
     return {
-      mobileView: false,
-      isOpen: false,
       obj: {},
     };
   },
@@ -61,19 +54,12 @@ export default {
       let arr = [];
       arr.push(this.politicoSelected);
 
-      if (this.politicosSelects) { arr = arr.concat(this.politicosSelects); }
+      if (this.politicosSelects) {
+        arr = arr.concat(this.politicosSelects);
+      }
 
       return arr;
     },
-  },
-  methods: {
-    handleView() {
-      this.mobileView = window.innerWidth <= 1125;
-    },
-  },
-  created() {
-    this.handleView();
-    window.addEventListener('resize', this.handleView);
   },
 };
 </script>
