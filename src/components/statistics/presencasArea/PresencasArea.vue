@@ -1,18 +1,25 @@
 <template>
-    <div>
-        <PresencasChart
-        :politicos="politicos"/>
+    <div class="graficos">
+        <div class="pie-chart">
+            <PresencasChart
+            :politicos="politicos"/>
+        </div>
+        <div class="bar-chart">
+            <PresencasBarGraph :politicos="politicos" />
+        </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import PresencasChart from '../../presencasChart/PresencasChart.vue';
+import PresencasBarGraph from '../../presencasBarGraph/PresencasBarGraph.vue';
 
 export default {
   name: 'PresencasArea',
   components: {
     PresencasChart,
+    PresencasBarGraph,
   },
   computed: {
     ...mapGetters({
@@ -29,6 +36,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style lang="scss" src="./style.scss" />

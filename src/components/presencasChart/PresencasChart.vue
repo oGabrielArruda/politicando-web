@@ -2,7 +2,7 @@
     <div>
         <apexChart type="radialBar"
         width="800"
-        height="390"
+        height="550"
         :options="chartOptions"
         :series="series" />
     </div>
@@ -42,10 +42,10 @@ export default {
             },
             dataLabels: {
               name: {
-                show: false,
+                show: true,
               },
               value: {
-                show: false,
+                show: true,
               },
             },
           },
@@ -58,8 +58,8 @@ export default {
           floating: true,
           fontSize: '16px',
           position: 'left',
-          offsetX: 130,
-          offsetY: 20,
+          offsetX: 120,
+          offsetY: 25,
           labels: {
             useSeriesColors: true,
           },
