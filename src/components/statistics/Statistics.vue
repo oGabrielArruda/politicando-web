@@ -58,6 +58,11 @@ export default {
     this.handleView();
     window.addEventListener('resize', this.handleView);
   },
+  beforeRouteLeave(to, from, next) {
+    console.log('saiu');
+    this.changeSelects([]);
+    next();
+  },
 };
 </script>
 <style lang="scss" src="./styles.scss" scoped />
