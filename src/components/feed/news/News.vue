@@ -102,7 +102,7 @@ export default {
       }
     },
     async getNews(id) {
-      const { initialDate, finalDate } = this.getDateFormatted(360);
+      const { initialDate, finalDate } = this.getDateInterval(360);
 
       const response = await api.get(
         `/News/${id}/${initialDate}/${finalDate}`,
@@ -139,7 +139,7 @@ export default {
         this.updating = false;
       }
     },
-    getDateFormatted(offset) {
+    getDateInterval(offset) {
       const date = new Date();
 
       const finalDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;

@@ -138,7 +138,7 @@ export default {
       this.searchPartido(this.politicoSelected);
     },
   },
-  created() {
+  mounted() {
     this.handleView();
     window.addEventListener('resize', this.handleView);
     this.$router.push({ name: 'Noticias' });

@@ -1,5 +1,17 @@
-@mixin event-computer {
-    @media (min-width: 740px) {
+@mixin scrollbar-computer {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+
+@mixin event-computer-1 {
+    @media (min-width: 1100px) {
+        @content;
+    }
+}
+
+@mixin event-computer-2 {
+    @media (max-width: 1099px) and (min-width: 740px) {
         @content;
     }
 }
@@ -20,36 +32,72 @@ main {
     width: 100%;
     max-width: 1100px;
     padding: 0 10px;
+    display: flex;
+    flex-direction: column;
 
-    @include event-computer {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 15px;
+    p {
+        font-size: 25px;
+        font-weight: 900;
+        color: rgb(46, 33, 66);
     }
 
-    @include event-mobile-1 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 15px;
+    hr {
+        margin-bottom: 15px;
+        border: 1px dashed rgba(46, 33, 66, 0.616);
+        background: transparent;
     }
 
-    @include event-mobile-2 {
+    .day {
+        margin-bottom: 30px;
         display: flex;
         flex-direction: column;
-        align-items: center;
+    }
+
+    .order-content {
+        height: 300px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        @include event-computer-1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
+        }
+
+        @include event-computer-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
+        }
+
+        @include event-mobile-1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
+        }
+
+        @include event-mobile-2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     }
 
     .event-item {
         display: flex;
-        justify-content: center; 
+        justify-content: flex-start;
         align-items: center;
         width: 100%;
+        max-height: 200px;
         max-width: 350px;
         background: #fff;
-        padding: 5px;
+        padding: 15px;
         border-radius: 8px;
         position: relative;
-        
+        margin: 15px auto;
 
         @include event-mobile-2 {
             margin-bottom: 10px;
@@ -58,7 +106,7 @@ main {
         & > img {
             width: 30%;
             filter: blur(0px);
-            transition: blur .5s;
+            transition: blur 0.5s;
         }
 
         .image-blur {
@@ -72,27 +120,58 @@ main {
             align-items: flex-start;
             margin-left: 5px;
             filter: blur(0px);
-            transition: blur .5s;
+            transition: blur 0.5s;
 
             .title {
-                font-size: calc(0.6em + 0.6vw);
-                color: #2D4A64;
+                color: #2d4a64;
                 font-weight: 900;
+
+                @include event-computer-1 {
+                    font-size: calc(0.55em + 0.55vw);
+                }
+
+                @include event-computer-2 {
+                    font-size: calc(0.55em + 0.55vw);
+                }
+
+                @include event-mobile-1 {
+                    font-size: calc(0.7em + 0.7vw);
+                }
+
+                @include event-mobile-2 {
+                    font-size: calc(0.7em + 0.7vw);
+                }
             }
 
             .time {
                 font-size: calc(0.4em + 0.4vw);
-                color: rgb(92, 122, 148); 
+                color: rgb(92, 122, 148);
+
+                @include event-computer-1 {
+                    font-size: calc(0.4em + 0.4vw);
+                }
+
+                @include event-computer-1 {
+                    font-size: calc(0.4em + 0.4vw);
+                }
+
+                @include event-mobile-1 {
+                    font-size: calc(0.5em + 0.5vw);
+                }
+
+                @include event-mobile-2 {
+                    font-size: calc(0.5em + 0.5vw);
+                }
             }
 
             & > button {
                 padding: 4px 10px;
                 border: none;
-                background: #D2485E;
+                background: #d2485e;
                 color: #fff;
                 font-weight: bold;
                 border-radius: 3px;
-                transition: background .2s;
+                transition: background 0.2s;
                 cursor: pointer;
 
                 &:hover {
@@ -114,27 +193,31 @@ main {
             width: 100%;
             height: 100%;
             bottom: 0;
+            left: 0;
             z-index: 99999;
             background: rgba(255, 255, 255, 0.568);
             padding: 10px;
             padding-top: 10px;
             border-radius: 0 0 5px 5px;
             opacity: 0;
-            transition: all .6s;
+            transition: all 0.6s;
             visibility: hidden;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             flex-direction: column;
-            //transform: rotateX(-80deg);
-            
 
             & > p {
+                font-weight: 400;
                 //font-size: calc(0.4em + 0.4vw);
-                color: rgb(69, 92, 112); 
+                color: rgb(69, 92, 112);
 
-                @include event-computer {
+                @include event-computer-1 {
                     font-size: calc(0.4em + 0.4vw);
+                }
+
+                @include event-computer-2 {
+                    font-size: calc(0.5em + 0.5vw);
                 }
 
                 @include event-mobile-1 {
@@ -146,12 +229,15 @@ main {
                 }
 
                 & > span {
-                    font-weight: bold;
+                    font-weight: 900;
                     color: rgb(51, 83, 110);
 
-                    
-                    @include event-computer {
+                    @include event-computer-1 {
                         font-size: calc(0.45em + 0.45vw);
+                    }
+
+                    @include event-computer-2 {
+                        font-size: calc(0.65em + 0.65vw);
                     }
 
                     @include event-mobile-1 {
@@ -181,30 +267,53 @@ main {
                 color: rgba(255, 255, 255, 0.705);
                 cursor: pointer;
                 transition: all 0.2s;
-        
-                /*@include for-phone-two {
-                  top: 3px;
-                  right: 3px;
-                }
-        
-                @include for-phone-two-landscape {
-                  top: 3px;
-                  right: 3px;
-                }*/
-        
+
                 &:hover {
-                  color: rgba(255, 255, 255, 0.959);
-                  background: rgba(196, 68, 89, 0.863);
+                    color: rgba(255, 255, 255, 0.959);
+                    background: rgba(196, 68, 89, 0.863);
                 }
-              }
+            }
         }
 
         .other-open {
             visibility: visible;
             opacity: 1;
             border-radius: 0 0 15px 15px;
-            //transform: translateY(30px);
             transform: rotateX(0);
         }
     }
-  }
+}
+
+@include scrollbar-computer {
+    /* SCROLLBAR */
+
+    /* total width */
+    .order-content::-webkit-scrollbar {
+        background-color: #f1f1f1;
+        width: 16px;
+    }
+
+    /* background of the scrollbar except button or resizer */
+    .order-content::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+    .order-content::-webkit-scrollbar-track:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* scrollbar itself */
+    .order-content::-webkit-scrollbar-thumb {
+        background-color: #babac0;
+        border-radius: 16px;
+        border: 5px solid #f1f1f1;
+    }
+    .order-content::-webkit-scrollbar-thumb:hover {
+        background-color: #a0a0a5;
+        border: 4px solid #f1f1f1;
+    }
+
+    /* set button(top and bottom of the scrollbar) */
+    .order-content::-webkit-scrollbar-button {
+        display: none;
+    }
+}

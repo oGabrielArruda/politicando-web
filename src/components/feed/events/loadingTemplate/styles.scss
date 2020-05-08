@@ -1,0 +1,215 @@
+@mixin scrollbar-computer {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+
+@mixin event-computer-1 {
+    @media (min-width: 1100px) {
+        @content;
+    }
+}
+
+@mixin event-computer-2 {
+    @media (max-width: 1099px) and (min-width: 740px) {
+        @content;
+    }
+}
+
+@mixin event-mobile-1 {
+    @media (max-width: 739px) and (min-width: 450px) {
+        @content;
+    }
+}
+
+@mixin event-mobile-2 {
+    @media (max-width: 449px) {
+        @content;
+    }
+}
+
+main {
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+
+    @keyframes pulse {
+        0% {
+            background-color: #eee;
+        }
+        50% {
+            background-color: rgb(219, 219, 219);
+        }
+        100% {
+            background-color: #eee;
+        }
+    }
+    @-webkit-keyframes pulse {
+        0% {
+            background-color: #eee;
+        }
+        50% {
+            background-color: rgb(219, 219, 219);
+        }
+        100% {
+            background-color: #eee;
+        }
+    }
+
+    p {
+        font-size: 25px;
+        font-weight: 900;
+        color: rgb(46, 33, 66);
+    }
+    hr {
+        margin-bottom: 15px;
+        border: 1px dashed rgba(46, 33, 66, 0.616);
+        background: transparent;
+    }
+
+    .day {
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .order-content {
+        height: 300px;
+        overflow: hidden;
+
+        @include event-computer-1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
+        }
+
+        @include event-computer-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
+        }
+
+        @include event-mobile-1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 15px;
+        }
+
+        @include event-mobile-2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    .event-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        max-height: 125px;
+        max-width: 340px;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        position: relative;
+        margin: 15px auto;
+
+        @include event-mobile-2 {
+            margin-bottom: 10px;
+        }
+
+        & > img {
+            width: 30%;
+        }
+
+        .img {
+            width: 45%;
+            height: 90px;
+            background: #eee;
+            border-radius: 4px;
+            animation: pulse 1s infinite ease-in-out;
+            -webkit-animation: pulse 1s infinite ease-in-out;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-left: 5px;
+            width: 100%;
+
+            .line {
+                background-color: #eee;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                animation: pulse 1s infinite ease-in-out;
+                -webkit-animation: pulse 1s infinite ease-in-out;
+
+                &:nth-child(1) {
+                    height: 15px;
+                    width: 100%;
+                }
+
+                &:nth-child(2) {
+                    height: 8px;
+                    width: 50%;
+                }
+            }
+
+            & > button {
+                width: 90px;
+                height: 25px;
+                border: none;
+                background: #eee;
+                color: #fff;
+                font-weight: bold;
+                border-radius: 3px;
+                transition: background 0.2s;
+                animation: pulse 1s infinite ease-in-out;
+                -webkit-animation: pulse 1s infinite ease-in-out;
+            }
+        }
+    }
+
+    @include scrollbar-computer {
+        /* SCROLLBAR */
+
+        /* total width */
+        .order-content::-webkit-scrollbar {
+            background-color: #f1f1f1;
+            width: 16px;
+        }
+
+        /* background of the scrollbar except button or resizer */
+        .order-content::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+        .order-content::-webkit-scrollbar-track:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* scrollbar itself */
+        .order-content::-webkit-scrollbar-thumb {
+            background-color: #babac0;
+            border-radius: 16px;
+            border: 5px solid #f1f1f1;
+        }
+        .order-content::-webkit-scrollbar-thumb:hover {
+            background-color: #a0a0a5;
+            border: 4px solid #f1f1f1;
+        }
+
+        /* set button(top and bottom of the scrollbar) */
+        .order-content::-webkit-scrollbar-button {
+            display: none;
+        }
+    }
+}

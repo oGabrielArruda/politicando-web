@@ -11,7 +11,7 @@
       @after-slide-change="onAfterSlideChange"
     >
       <slide v-bind:key="slide.id" v-for="(slide, i) in slides" :index="i" class="slide">
-        <figure @click="teste" v-if="!slide.addButton">
+        <figure v-if="!slide.addButton">
           <img :src="slide.foto" @error="replaceByDefault" />
           <figcaption
             :class="{ 'changeColor': slide.id === user.idDep || slide.id === user.idSen }"

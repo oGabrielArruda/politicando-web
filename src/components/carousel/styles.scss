@@ -66,20 +66,20 @@
         width: 100%;
 
         button {
-          width: 80%;
-          height: 76%;
-          border-radius: 50%;
+          width: 100%;
+          height: 100%;
+          // border-radius: 50%;
           // border: 1px solid red;
           border: none;
           display: block;
           font-size: 55px;
-          background: #05a46f;
+          background: #05a46f4d;
           color: #fff;
           transition: background .2s;
           cursor: pointer;
 
           &:hover {
-            background: #057751;
+            background: #05a46f71;
           }
         }
       }

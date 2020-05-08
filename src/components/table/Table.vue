@@ -244,7 +244,6 @@ export default {
           idUser: this.user.id,
         };
       }
-      console.log(objQry);
       return objQry;
     },
   },
