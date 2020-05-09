@@ -76,8 +76,14 @@ export default {
         responsive: [{
           breakpoint: 480,
           options: {
+            chart: {
+              width: 350,
+              height: 400,
+            },
             legend: {
-              show: false,
+              fontSize: '13px',
+              offsetY: 40,
+              offsetX: 0,
             },
           },
         }],
@@ -103,13 +109,18 @@ export default {
     },
     addPolitico(politico) {
       this.presencas.push(this.calcularPorcentagem(politico));
-      this.nomes.push(politico.nome);
+      this.nomes.push(this.calcularNome(politico.nome));
     },
     calcularPorcentagem(politico) {
       const { presencas } = politico;
       const totalEventos = politico.presencas + politico.faltas;
       const porc = Math.round((presencas / totalEventos) * 100);
       return porc;
+    },
+    calcularNome(nome) {
+      const arrNome = nome.split(' ');
+      if (arrNome.length > 2) { return (`${arrNome[0]} ${arrNome[1]}`); }
+      return nome;
     },
     limparArrays() {
       this.presencas = [];

@@ -57,7 +57,7 @@ export default {
           breakpoint: 480,
           options: {
             chart: {
-              width: 200,
+              width: 400,
             },
             legend: {
               show: false,

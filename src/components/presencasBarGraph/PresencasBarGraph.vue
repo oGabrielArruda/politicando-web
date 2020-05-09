@@ -18,11 +18,12 @@ export default {
       faltas: [],
       nomes: [],
       series: [{
-        data: [44, 55, 41, 64, 22, 43, 21],
+        data: [],
       }, {
-        data: [53, 32, 33, 52, 13, 44, 32],
+        data: [],
       }],
       chartOptions: {
+        colors: ['#008FFB', '#FF4560'],
         chart: {
           type: 'bar',
           height: 430,
@@ -83,9 +84,6 @@ export default {
       this.presencas = [];
     },
     execChartUpdate() {
-      console.log(this.presencas);
-      console.log(this.faltas);
-      console.log(this.nomes);
       ApexCharts.exec('chartPresencasBar', 'updateOptions', {
         series: [{
           name: 'Presenças',
