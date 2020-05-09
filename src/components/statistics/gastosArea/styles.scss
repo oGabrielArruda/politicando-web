@@ -24,6 +24,23 @@
         padding: 15px;
         border-radius: 8px;
 
+        .select-ano-tipos {
+            width: 100%;
+            & > select {
+                margin-left: 0;
+                float: left;
+                border: 1px solid rgb(221, 221, 221);
+                background: #fff;
+                border-radius: 4px;
+                color: rgb(110, 110, 110);
+                font-weight: bold;
+                padding: 5px 15px;
+                width: 150px;
+                margin-bottom: 15px;
+                cursor: pointer;
+                float: left;
+            }
+        }
         .text-politico-donut {
             display: flex;
             flex-direction: column;

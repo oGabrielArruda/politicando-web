@@ -3,10 +3,12 @@
     <GastosChart :politico="getObj" :politicos="politicosComp" />
     <GastosTable :politicos="unionArraysPoliticos" />
     <div class="main-graph">
-      <select v-model="anoTipoGastos">
-        <option selected value=0> Todos os anos </option>
-        <option :key="ano" v-for="ano in anos"> {{ ano }} </option>
-      </select>
+      <div class="select-ano-tipos">
+        <select v-model="anoTipoGastos">
+          <option selected value=0> Todos os anos </option>
+          <option :key="ano" v-for="ano in anos"> {{ ano }} </option>
+        </select>
+      </div>
       <div class="text-politico-donut">
         <img :src="politicoSelected.foto" />
         <h1>{{ politicoSelected.nome }}</h1>

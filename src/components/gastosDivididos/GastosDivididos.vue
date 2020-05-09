@@ -77,15 +77,27 @@ export default {
     apexChart: VueApexCharts,
   },
   methods: {
+    async updateChart() {
+      const url = this.getUrl();
+      const response = await api.get(url);
+      response.data.forEach((t) => {
+        const obj = t;
+        obj.tipoDespesa = this.tipoDespesa(obj.tipoDespesa);
+        this.addData(obj);
+      });
+    },
     addData(data) {
       this.series.push(Math.round(data.valorTotal));
       this.chartOptions.labels.push(data.tipoDespesa);
     },
+    getUrl() {
+      let url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
+      if (this.ano !== 0) { url += `?ano=${this.ano}`; }
+      return url;
+    },
     limparSeries() {
-      while (this.series.length) {
-        this.series.pop();
-        this.chartOptions.labels.pop();
-      }
+      this.series = [];
+      this.chartOptions.labels = [];
     },
     tipoDespesa(despesa) {
       const despesaL = despesa.toLowerCase();
@@ -110,55 +122,31 @@ export default {
       if (despesaL.indexOf('serviço de segurança') !== -1) { return 'Serviços de segurança'; }
       return despesa;
     },
-    async updateChart() {
-      const url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
-      const response = await api.get(url);
-      for (let i = 0; i < response.data.length; i += 1) {
-        const data = response.data[i];
-        data.tipoDespesa = this.tipoDespesa(data.tipoDespesa);
-        this.addData(data);
-      }
-    },
   },
   mounted() {
     try {
       this.limparSeries();
       this.updateChart();
     } catch (erro) {
-      console.log(erro);
+      console.log(`Erro no mounted GastosDivididos: ${erro}`);
     }
   },
   watch: {
     politico: async function a() {
       try {
         this.limparSeries();
-        const url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
-        const response = await api.get(url);
-        for (let i = 0; i < response.data.length; i += 1) {
-          const data = response.data[i];
-          data.tipoDespesa = this.tipoDespesa(data.tipoDespesa);
-          this.addData(data);
-        }
+        this.updateChart();
       } catch (erro) {
-        console.log(erro);
+        console.log(`Erro watch politico GastosDivididos: ${erro}`);
       }
     },
     async ano() {
-      console.log('ano');
-      console.log(this.ano);
       if (this.ano === 0) { return; }
       try {
         this.limparSeries();
-        let url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
-        url += `?ano=${this.ano}`;
-        const response = await api.get(url);
-        for (let i = 0; i < response.data.length; i += 1) {
-          const data = response.data[i];
-          data.tipoDespesa = this.tipoDespesa(data.tipoDespesa);
-          this.addData(data);
-        }
+        this.updateChart();
       } catch (erro) {
-        console.log(erro);
+        console.log(`Erro watch ano GastosDivididos: ${erro}`);
       }
     },
   },

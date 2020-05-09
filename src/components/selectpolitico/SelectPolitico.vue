@@ -60,8 +60,18 @@ export default {
         const response = await api.get(`${this.url}&nome=${strSearch}`);
         this.options = response.data.politicos;
       } catch (erro) {
-        console.log(erro);
+        this.tratarErroPesquisa(erro);
       }
+    },
+    tratarErroPesquisa(erro) {
+      switch (erro.response.status) {
+        case 404: { this.tratarNotFound(); break; }
+        default: { console.log(erro); break; }
+      }
+    },
+    tratarNotFound() {
+      this.text = 'Nenhum politico encontrado!';
+      this.options = [];
     },
     onChange(event) {
       this.$emit('onChange', event);
