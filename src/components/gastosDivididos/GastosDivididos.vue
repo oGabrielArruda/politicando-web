@@ -72,7 +72,7 @@ export default {
       },
     };
   },
-  props: ['politico'],
+  props: ['politico', 'ano'],
   components: {
     apexChart: VueApexCharts,
   },
@@ -133,6 +133,24 @@ export default {
       try {
         this.limparSeries();
         const url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
+        const response = await api.get(url);
+        for (let i = 0; i < response.data.length; i += 1) {
+          const data = response.data[i];
+          data.tipoDespesa = this.tipoDespesa(data.tipoDespesa);
+          this.addData(data);
+        }
+      } catch (erro) {
+        console.log(erro);
+      }
+    },
+    async ano() {
+      console.log('ano');
+      console.log(this.ano);
+      if (this.ano === 0) { return; }
+      try {
+        this.limparSeries();
+        let url = `/PoliticoItems/${this.politico.id}/gastos/divididos`;
+        url += `?ano=${this.ano}`;
         const response = await api.get(url);
         for (let i = 0; i < response.data.length; i += 1) {
           const data = response.data[i];

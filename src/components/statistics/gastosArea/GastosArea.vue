@@ -3,11 +3,15 @@
     <GastosChart :politico="getObj" :politicos="politicosComp" />
     <GastosTable :politicos="unionArraysPoliticos" />
     <div class="main-graph">
+      <select v-model="anoTipoGastos">
+        <option selected value=0> Todos os anos </option>
+        <option :key="ano" v-for="ano in anos"> {{ ano }} </option>
+      </select>
       <div class="text-politico-donut">
         <img :src="politicoSelected.foto" />
         <h1>{{ politicoSelected.nome }}</h1>
       </div>
-      <GastosDivididos :politico="getObj" />
+      <GastosDivididos :politico="getObj" :ano="anoTipoGastosComp" />
     </div>
     <div class="donut-sequence">
       <div :key="politico.id" v-for="politico in politicosComp">
@@ -15,7 +19,7 @@
           <img :src="politico.foto" />
           <h1>{{ politico.nome }}</h1>
         </div>
-        <GastosDivididos :politico="politico" />
+        <GastosDivididos :politico="politico" :ano="anoTipoGastosComp" />
       </div>
     </div>
   </div>
@@ -31,6 +35,8 @@ export default {
   data() {
     return {
       obj: {},
+      anos: [2019, 2020],
+      anoTipoGastos: 0,
     };
   },
   components: {
@@ -59,6 +65,9 @@ export default {
       }
 
       return arr;
+    },
+    anoTipoGastosComp() {
+      return this.anoTipoGastos;
     },
   },
 };
