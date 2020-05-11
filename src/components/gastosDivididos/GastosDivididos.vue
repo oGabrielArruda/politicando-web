@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexChart type="donut" width="600" :options="chartOptions" :series="series"/>
+    <apexChart type="donut" width="650" :options="chartOptions" :series="series"/>
   </div>
 </template>
 <script>
@@ -37,6 +37,7 @@ export default {
                 },
                 total: {
                   show: true,
+                  fontSize: '14px',
                   formatter: (val) => {
                     const valor = val.globals.seriesTotals.reduce((a, b) => a + b, 0);
                     const valInt = parseInt(valor, 10);
@@ -96,8 +97,10 @@ export default {
       return url;
     },
     limparSeries() {
-      this.series = [];
-      this.chartOptions.labels = [];
+      while (this.series.length) {
+        this.series.pop();
+        this.chartOptions.labels.pop();
+      }
     },
     tipoDespesa(despesa) {
       const despesaL = despesa.toLowerCase();
