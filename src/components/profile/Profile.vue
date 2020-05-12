@@ -4,7 +4,7 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <Modal ref="modal"/>
+    <Modal ref="modal" />
 
     <form>
       <div class="file-container">
@@ -16,34 +16,19 @@
             id="imgUser"
           />
         </label>
-        <input type="file" id="select-file" @change="changePhoto()" disabled  />
+        <input type="file" id="select-file" @change="changePhoto()" disabled />
       </div>
       <div class="input-container">
         <div class="input-group">
           <div>
             <label>Nome</label>
-            <input
-              type="text"
-              id="nome"
-              name="name"
-              v-model="user.nome"
-              disabled
-
-            />
+            <input type="text" id="nome" name="name" v-model="user.nome" disabled />
           </div>
           <div>
             <label>Sobrenome</label>
-            <input
-              type="text"
-              id="sobrenome"
-              name="surname"
-              v-model="user.sobrenome"
-              disabled
-
-            />
+            <input type="text" id="sobrenome" name="surname" v-model="user.sobrenome" disabled />
           </div>
         </div>
-
 
         <hr />
 
@@ -56,12 +41,11 @@
               name="newPassword"
               v-model="user.senha"
               disabled
-
             />
           </div>
           <div>
             <label>Confirmar nova senha</label>
-            <input type="password" id="confirma" name="newPassword" disabled  />
+            <input type="password" id="confirma" name="newPassword" disabled />
           </div>
         </div>
 
@@ -78,7 +62,6 @@
               v-mask="'#####-###'"
               @input="changeCep"
               disabled
-
             />
           </div>
 
@@ -94,15 +77,25 @@
         </div>
       </div>
       <hr />
+
       <div class="button-group">
+          <div class="cancelar">
+        <button
+          id="btnCancelar"
+          v-if="this.editing"
+          :disabled="false"
+          @click="cancelarEdicao()"
+          type="button"
+        >
+          Cancelar
+        </button>
+      </div>
         <button id="btnAlterar" :disabled="false" @click="alterarInformacoes()" type="button">
           Editar
         </button>
         <button id="btnDesconectar" type="button" @click="excluirConta()">Desconectar</button>
       </div>
     </form>
-
-
   </div>
 </template>
 
@@ -155,7 +148,8 @@ export default {
         fileReader.readAsDataURL(file);
       }
     },
-    alterarInformacoes() {
+    cancelarEdicao() {
+      this.editing = false;
       const foto = document.querySelector('#select-file');
       const nome = document.querySelector('#nome');
       const sobrenome = document.querySelector('#sobrenome');
@@ -163,6 +157,27 @@ export default {
       const confirmar = document.querySelector('#confirma');
       const Cep = document.querySelector('#usersCep');
 
+
+      const btnDesconectar = document.querySelector('#btnDesconectar');
+      const btnSalvar = document.querySelector('#btnAlterar');
+
+      foto.disabled = true;
+      nome.disabled = true;
+      sobrenome.disabled = true;
+      novaSenha.disabled = true;
+      confirmar.disabled = true;
+      Cep.disabled = true;
+
+      btnDesconectar.textContent = 'Desconectar';
+      btnSalvar.textContent = 'Editar';
+    },
+    alterarInformacoes() {
+      const foto = document.querySelector('#select-file');
+      const nome = document.querySelector('#nome');
+      const sobrenome = document.querySelector('#sobrenome');
+      const novaSenha = document.querySelector('#novaSenha');
+      const confirmar = document.querySelector('#confirma');
+      const Cep = document.querySelector('#usersCep');
 
       const btnDesconectar = document.querySelector('#btnDesconectar');
       const btnSalvar = document.querySelector('#btnAlterar');
@@ -176,7 +191,6 @@ export default {
         confirmar.disabled = false;
         Cep.disabled = false;
         foto.disabled = false;
-
 
         this.editing = true;
         btnDesconectar.textContent = 'Excluir Conta';
