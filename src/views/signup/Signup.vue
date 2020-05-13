@@ -163,14 +163,14 @@ export default {
       }
     },
     changeDep(value) {
-      if (value === null) {
+      if (value !== null) {
         this.idDep = value.id;
       } else {
         this.idDep = 0;
       }
     },
     changeSen(value) {
-      if (value === null) {
+      if (value !== null) {
         this.idSen = value.id;
       } else {
         this.idSen = 0;

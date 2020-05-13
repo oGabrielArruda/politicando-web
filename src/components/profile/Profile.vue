@@ -4,7 +4,7 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <Modal ref="modal" />
+    <ModalEdit ref="modal" @onSuccess="sucessModalSubmit"/>
 
     <form>
       <div class="file-container">
@@ -39,7 +39,7 @@
               type="password"
               id="novaSenha"
               name="newPassword"
-              v-model="user.senha"
+              v-model="user.novaSenha"
               disabled
             />
           </div>
@@ -74,22 +74,34 @@
             <label>Estado:</label>
             <input type="text" name="usersEstado" id="usersEstado" v-model="estadoFetch" disabled />
           </div>
+
+          <div>
+            <button
+              class="btnCancelar"
+              v-if="this.editing"
+              :disabled="false"
+              @click="cancelarEdicao()"
+              type="button"
+            >
+              Cancelar
+            </button>
+          </div>
         </div>
       </div>
       <hr />
 
       <div class="button-group">
-          <div class="cancelar">
-        <button
-          id="btnCancelar"
-          v-if="this.editing"
-          :disabled="false"
-          @click="cancelarEdicao()"
-          type="button"
-        >
-          Cancelar
-        </button>
-      </div>
+        <div class="cancelar">
+          <button
+            class="btnCancelar"
+            v-if="this.editing"
+            :disabled="false"
+            @click="cancelarEdicao()"
+            type="button"
+          >
+            Cancelar
+          </button>
+        </div>
         <button id="btnAlterar" :disabled="false" @click="alterarInformacoes()" type="button">
           Editar
         </button>
@@ -103,9 +115,8 @@
 import { mapGetters, mapActions } from 'vuex';
 import { mask } from 'vue-the-mask';
 import axios from 'axios';
-import Modal from '../modal/Modal.vue';
-
-// import api from '../../config/api';
+import ModalEdit from '../modalEdit/ModalEdit.vue';
+import api from '../../config/api';
 
 export default {
   name: 'Profile',
@@ -122,7 +133,7 @@ export default {
     };
   },
   components: {
-    Modal,
+    ModalEdit,
   },
   directives: {
     mask,
@@ -130,21 +141,18 @@ export default {
   methods: {
     ...mapActions({
       signOut: 'auth/signOut',
+      signIn: 'auth/signIn',
     }),
     changePhoto() {
-      const inpFile = document.querySelector('#seletorArquivo');
+      const inpFile = document.querySelector('#select-file');
       const image = document.querySelector('#imgUser');
-
       const file = inpFile.files[0];
-
       if (file && file.type.includes('image')) {
         const fileReader = new FileReader();
-
         fileReader.addEventListener('load', () => {
           image.setAttribute('src', fileReader.result);
           this.user.imgPerfil = fileReader.result;
         });
-
         fileReader.readAsDataURL(file);
       }
     },
@@ -156,18 +164,14 @@ export default {
       const novaSenha = document.querySelector('#novaSenha');
       const confirmar = document.querySelector('#confirma');
       const Cep = document.querySelector('#usersCep');
-
-
       const btnDesconectar = document.querySelector('#btnDesconectar');
       const btnSalvar = document.querySelector('#btnAlterar');
-
       foto.disabled = true;
       nome.disabled = true;
       sobrenome.disabled = true;
       novaSenha.disabled = true;
       confirmar.disabled = true;
       Cep.disabled = true;
-
       btnDesconectar.textContent = 'Desconectar';
       btnSalvar.textContent = 'Editar';
     },
@@ -178,10 +182,8 @@ export default {
       const novaSenha = document.querySelector('#novaSenha');
       const confirmar = document.querySelector('#confirma');
       const Cep = document.querySelector('#usersCep');
-
       const btnDesconectar = document.querySelector('#btnDesconectar');
       const btnSalvar = document.querySelector('#btnAlterar');
-
       if (this.editing) {
         this.$refs.modal.showModal();
       } else {
@@ -191,7 +193,6 @@ export default {
         confirmar.disabled = false;
         Cep.disabled = false;
         foto.disabled = false;
-
         this.editing = true;
         btnDesconectar.textContent = 'Excluir Conta';
         btnSalvar.textContent = 'Salvar';
@@ -220,17 +221,13 @@ export default {
         console.log(erro);
       }
     },
-    /* async update(event) {
-      event.preventDefault();
-
-      try {
-        const response = await api.put('/Users/update', this.user);
-        this.$store.dispatch('changeUser', response.data);
-        this.user = JSON.parse(JSON.stringify(this.stateUser));
-      } catch (erro) {
-        console.log(erro);
-      }
-    }, */
+    async update(senha) {
+      const userComSenha = this.user;
+      userComSenha.senha = senha;
+      await api.put('/Users/update', userComSenha);
+      await this.signIn({ email: this.user.email, senha: userComSenha.novaSenha });
+      this.user = JSON.parse(JSON.stringify(this.stateUser));
+    },
     handleView() {
       this.mobileView = window.innerWidth <= 1125;
       console.log(this.mobileView);
@@ -242,26 +239,32 @@ export default {
       this.$router.push({ name: 'Initial' });
       await this.signOut();
     },
+    sucessModalSubmit(values) {
+      try {
+        this.update(values.senha);
+        this.cancelarEdicao();
+        this.$toast.success('Perfil alterado com sucesso!');
+      } catch (erro) {
+        console.log(erro);
+      }
+    },
   },
   computed: {
     ...mapGetters({
       userState: 'auth/user',
     }),
-    /* stateUser() {
+    stateUser() {
       return this.$store.state.user;
-    }, */
+    },
   },
   created() {
     this.handleView();
     window.addEventListener('resize', this.handleView);
   },
   async mounted() {
-    this.user = this.userState;
-    // this.changePhoto();
-    // this.user = JSON.parse(JSON.stringify(this.userState));
-    // // this.user = this.userState;
-    // console.log(this.user);
-    // await this.fetchCep(this.user.cep);
+    this.changePhoto();
+    this.user = JSON.parse(JSON.stringify(this.userState));
+    await this.fetchCep(this.user.cep);
   },
 };
 </script>

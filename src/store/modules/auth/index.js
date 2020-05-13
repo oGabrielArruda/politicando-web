@@ -48,7 +48,6 @@ export default {
         commit('SET_USER', null);
       }
     },
-
     signOut({ commit }) {
       commit('SET_TOKEN', null);
       commit('SET_USER', null);

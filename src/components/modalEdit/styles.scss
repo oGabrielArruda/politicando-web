@@ -1,0 +1,216 @@
+@mixin for-phone-one {
+    @media (min-width: 511px) and (max-width: 699px) {
+      @content;
+    }
+  }
+  
+  @mixin for-phone-one-landscape {
+    @media (min-width: 731px) and (max-width: 823px) and (orientation: landscape) {
+      @content;
+    }
+  }
+  
+  @mixin for-phone-two {
+    @media (max-width: 510px) {
+      @content;
+    }
+  }
+  
+  @mixin for-phone-two-landscape {
+    @media (max-width: 667px) and (orientation: landscape) {
+      @content;
+    }
+  }
+  
+  @mixin default {
+    @media (min-width: 700px) {
+      @content;
+    }
+  }
+  
+  @-webkit-keyframes fadeIn {
+    from {
+      display: none;
+      opacity: 0;
+    }
+    to {
+      display: block;
+      opacity: 1;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      display: none;
+      opacity: 0;
+    }
+    to {
+      display: block;
+      opacity: 1;
+    }
+  }
+  
+  @-webkit-keyframes fadeOut {
+    from {
+      display: block;
+      opacity: 1;
+    }
+    to {
+      display: none;
+      opacity: 0;
+    }
+  }
+  @keyframes fadeOut {
+    from {
+      display: block;
+      opacity: 1;
+    }
+    to {
+      display: none;
+      opacity: 0;
+    }
+  }
+  
+  
+  
+  
+  .container-modal{
+  
+      position: fixed;
+  
+    .modal-window {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.507);
+      z-index: 999;
+      pointer-events: auto;
+      transition: all 0.3s;
+      -webkit-animation: fadeIn 0.3s;
+      animation: fadeIn 0.3s;
+  
+      /*&:target {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+      }*/
+  
+      & > div {
+        width: 100%;
+        max-width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 3em 2em;
+        background: #ffffff;
+        display: flex;
+        border-radius: 4px;
+  
+        .button-close {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          width: 36px;
+          height: 36px;
+          right: -16px;
+          top: -16px;
+          border: none;
+          border-radius: 50%;
+          font-size: 30px;
+          text-decoration: none;
+          background: #125e41d0;
+          color: rgba(255, 255, 255, 0.705);
+          cursor: pointer;
+          transition: all 0.2s;
+  
+          @include for-phone-two {
+            top: 3px;
+            right: 3px;
+          }
+  
+          @include for-phone-two-landscape {
+            top: 3px;
+            right: 3px;
+          }
+  
+          &:hover {
+            color: rgba(255, 255, 255, 0.884);
+            background: #125e41f1;
+          }
+        }
+  
+        & > form {
+          width: 100%;
+  
+          .text{
+              text-align: center;
+              margin-bottom: 15px;
+              font-size: 25px;
+          }
+  
+          & > p {
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #3e3f4b;
+          }
+  
+          & > input {
+            border: 1px solid rgb(204, 204, 204);
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 13px;
+            color: #3e3f4b;
+  
+            @include default {
+              margin-right: 3%;
+            }
+  
+            @include for-phone-one {
+              margin-right: 3%;
+            }
+  
+            @include for-phone-two {
+              margin-bottom: 3%;
+            }
+          }
+  
+          & > button {
+            width: 100%;
+            padding: 10px 15px;
+            margin-top: 25px;
+            border: none;
+            background: #27c55bb9;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+  
+            &:hover {
+              background: rgb(14, 180, 89);
+            }
+          }
+  
+          ::placeholder {
+            /* Most modern browsers support this now. */
+            color: rgb(99, 99, 99);
+          }
+        }
+      }
+    }
+  
+    .close {
+      /*-webkit-animation: fadeOut 0.2s;
+      animation: fadeOut 0.2s;
+      animation-fill-mode: both;*/
+      display: none;
+      pointer-events: none;
+    }
+  }
