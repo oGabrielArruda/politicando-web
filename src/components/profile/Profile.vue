@@ -39,7 +39,7 @@
               type="password"
               id="novaSenha"
               name="newPassword"
-              v-model="user.senha"
+              v-model="user.novaSenha"
               disabled
             />
           </div>
@@ -74,22 +74,34 @@
             <label>Estado:</label>
             <input type="text" name="usersEstado" id="usersEstado" v-model="estadoFetch" disabled />
           </div>
+
+          <div>
+            <button
+              class="btnCancelar"
+              v-if="this.editing"
+              :disabled="false"
+              @click="cancelarEdicao()"
+              type="button"
+            >
+              Cancelar
+            </button>
+          </div>
         </div>
       </div>
       <hr />
 
       <div class="button-group">
-          <div class="cancelar">
-        <button
-          id="btnCancelar"
-          v-if="this.editing"
-          :disabled="false"
-          @click="cancelarEdicao()"
-          type="button"
-        >
-          Cancelar
-        </button>
-      </div>
+        <div class="cancelar">
+          <button
+            class="btnCancelar"
+            v-if="this.editing"
+            :disabled="false"
+            @click="cancelarEdicao()"
+            type="button"
+          >
+            Cancelar
+          </button>
+        </div>
         <button id="btnAlterar" :disabled="false" @click="alterarInformacoes()" type="button">
           Editar
         </button>
@@ -105,7 +117,7 @@ import { mask } from 'vue-the-mask';
 import axios from 'axios';
 import Modal from '../modal/Modal.vue';
 
-// import api from '../../config/api';
+import api from '../../config/api';
 
 export default {
   name: 'Profile',
@@ -132,7 +144,7 @@ export default {
       signOut: 'auth/signOut',
     }),
     changePhoto() {
-      const inpFile = document.querySelector('#seletorArquivo');
+      const inpFile = document.querySelector('#select-file');
       const image = document.querySelector('#imgUser');
 
       const file = inpFile.files[0];
@@ -156,7 +168,6 @@ export default {
       const novaSenha = document.querySelector('#novaSenha');
       const confirmar = document.querySelector('#confirma');
       const Cep = document.querySelector('#usersCep');
-
 
       const btnDesconectar = document.querySelector('#btnDesconectar');
       const btnSalvar = document.querySelector('#btnAlterar');
@@ -183,7 +194,9 @@ export default {
       const btnSalvar = document.querySelector('#btnAlterar');
 
       if (this.editing) {
-        this.$refs.modal.showModal();
+        // this.$refs.modal.showModal();
+        console.log(this.user);
+        this.update();
       } else {
         nome.disabled = false;
         sobrenome.disabled = false;
@@ -220,9 +233,7 @@ export default {
         console.log(erro);
       }
     },
-    /* async update(event) {
-      event.preventDefault();
-
+    async update() {
       try {
         const response = await api.put('/Users/update', this.user);
         this.$store.dispatch('changeUser', response.data);
@@ -230,7 +241,7 @@ export default {
       } catch (erro) {
         console.log(erro);
       }
-    }, */
+    },
     handleView() {
       this.mobileView = window.innerWidth <= 1125;
       console.log(this.mobileView);
@@ -247,9 +258,9 @@ export default {
     ...mapGetters({
       userState: 'auth/user',
     }),
-    /* stateUser() {
+    stateUser() {
       return this.$store.state.user;
-    }, */
+    },
   },
   created() {
     this.handleView();
@@ -257,11 +268,11 @@ export default {
   },
   async mounted() {
     this.user = this.userState;
-    // this.changePhoto();
-    // this.user = JSON.parse(JSON.stringify(this.userState));
-    // // this.user = this.userState;
-    // console.log(this.user);
-    // await this.fetchCep(this.user.cep);
+    this.changePhoto();
+    this.user = JSON.parse(JSON.stringify(this.userState));
+    this.user = this.userState;
+    console.log(this.user);
+    await this.fetchCep(this.user.cep);
   },
 };
 </script>
