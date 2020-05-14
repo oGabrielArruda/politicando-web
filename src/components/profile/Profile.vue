@@ -116,6 +116,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { mask } from 'vue-the-mask';
 import axios from 'axios';
 import ModalEdit from '../modalEdit/ModalEdit.vue';
+
 import api from '../../config/api';
 
 export default {
@@ -164,6 +165,7 @@ export default {
       const novaSenha = document.querySelector('#novaSenha');
       const confirmar = document.querySelector('#confirma');
       const Cep = document.querySelector('#usersCep');
+
       const btnDesconectar = document.querySelector('#btnDesconectar');
       const btnSalvar = document.querySelector('#btnAlterar');
       foto.disabled = true;
@@ -185,7 +187,9 @@ export default {
       const btnDesconectar = document.querySelector('#btnDesconectar');
       const btnSalvar = document.querySelector('#btnAlterar');
       if (this.editing) {
-        this.$refs.modal.showModal();
+        // this.$refs.modal.showModal();
+        console.log(this.user);
+        this.update();
       } else {
         nome.disabled = false;
         sobrenome.disabled = false;
@@ -268,6 +272,7 @@ export default {
   async mounted() {
     this.changePhoto();
     this.user = JSON.parse(JSON.stringify(this.userState));
+
     await this.fetchCep(this.user.cep);
   },
 };
