@@ -225,12 +225,16 @@ export default {
       const userComSenha = this.user;
       userComSenha.senha = senha;
       await api.put('/Users/update', userComSenha);
-      await this.signIn({ email: this.user.email, senha: userComSenha.novaSenha });
+
+      if (this.novaSenha) {
+        await this.signIn({ email: this.user.email, senha: userComSenha.novaSenha });
+      } else {
+        await this.signIn({ email: this.user.email, senha: userComSenha.senha });
+      }
       this.user = JSON.parse(JSON.stringify(this.stateUser));
     },
     handleView() {
       this.mobileView = window.innerWidth <= 1125;
-      console.log(this.mobileView);
     },
     showNav() {
       this.open = !this.open;
@@ -239,14 +243,14 @@ export default {
       this.$router.push({ name: 'Initial' });
       await this.signOut();
     },
-    sucessModalSubmit(values) {
+    async sucessModalSubmit(values) {
       try {
-        this.update(values.senha);
-        this.cancelarEdicao();
-        this.$toast.success('Perfil alterado com sucesso!');
+        await this.update(values.senha);
       } catch (erro) {
         console.log(erro);
       }
+      this.cancelarEdicao();
+      this.$toast.success('Perfil alterado com sucesso!');
     },
   },
   computed: {
