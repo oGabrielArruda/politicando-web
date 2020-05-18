@@ -1,0 +1,91 @@
+.container {
+  display: grid;
+  grid-template-rows: 3fr 9fr;
+  height: 100vh;
+
+  .header {
+    background-color: #ededed;
+    grid-row: 1/2;
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+
+    .foto-politico {
+      grid-column: 1/2;
+      align-self: center;
+      text-align: center;
+
+      & > img {
+        width: 15vh;
+        height: 15vh;
+        border-radius: 10px;
+      }
+
+      & > button {
+        align-self: center;
+        border: none;
+        width: 12vh;
+        height: 4vh;
+        border-radius: 10px;
+        font-size: 20px;
+        background: #0557a4;
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+          background: rgba(5, 87, 164, 0.671);
+        }
+      }
+    }
+
+    .info-politico{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        & > p{
+            align-self: center;
+            font-size: 20px;
+            font-weight: bold;
+
+            & > span{
+                font-weight: normal;
+            }
+        }
+    }
+  }
+
+  .tabs {
+    background-color: #f5f5f5;
+    grid-row: 2;
+
+    .options{
+        display: grid;
+        padding-top: 2vh;
+        padding-bottom: 1vh;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        .infos{
+            grid-column: 1/2;
+            text-align: center;
+            color: #13B423;
+        }
+
+        .classificacao{
+            grid-column: 2/3;
+            text-align: center;
+        }
+
+        .mandato{
+            grid-column: 3;
+            text-align: center;
+        }
+    }
+
+    .selected{
+        background-color: #13B423;
+        height: 0.3vh;
+        width: 20vw;
+        margin-left: 6vw;
+    }
+  }
+}

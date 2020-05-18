@@ -5,10 +5,12 @@ import beforeEach from './beforeEach';
 import Initial from '../views/initial/Initial.vue';
 import Signup from '../views/signup/Signup.vue';
 import Home from '../views/home/Home.vue';
+import PerfilPolitico from '../views/perfilPolitico/PerfilPolitico.vue';
 import Feed from '../components/feed/Feed.vue';
 import Classification from '../components/classification/Classification.vue';
 import Statistics from '../components/statistics/Statistics.vue';
 import Profile from '../components/profile/Profile.vue';
+
 
 import News from '../components/feed/news/News.vue';
 import Events from '../components/feed/events/Events.vue';
@@ -31,6 +33,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup,
+  },
+  {
+    path: '/teste',
+    name: 'PerfilPolitico',
+    component: PerfilPolitico,
   },
   {
     path: '/home',

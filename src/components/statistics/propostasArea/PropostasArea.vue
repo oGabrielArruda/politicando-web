@@ -1,19 +1,19 @@
 <template>
     <div>
         <div :key="politico" v-for="politico in politicos">
-            <PropostasPieChart :politico="politico"/>
+            <!-- <PropostasPieChart :politico="politico"/> -->
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import PropostasPieChart from '../../propostasPieChart/PropostasPieChart.vue';
+// import PropostasPieChart from '../../propostasPieChart/PropostasPieChart.vue';
 
 export default {
   name: 'PropostasArea',
   components: {
-    PropostasPieChart,
+    // PropostasPieChart,
   },
   data() {
     return {
