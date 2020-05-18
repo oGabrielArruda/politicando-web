@@ -16,6 +16,7 @@ import Voting from '../components/feed/voting/Voting.vue';
 
 import GastosArea from '../components/statistics/gastosArea/GastosArea.vue';
 import PresencasArea from '../components/statistics/presencasArea/PresencasArea.vue';
+import PropostasArea from '../components/statistics/propostasArea/PropostasArea.vue';
 
 Vue.use(VueRouter);
 
@@ -78,6 +79,11 @@ const routes = [
             path: 'presencas',
             name: 'Presencas',
             component: PresencasArea,
+          },
+          {
+            path: 'propostas',
+            name: 'Propostas',
+            component: PropostasArea,
           },
         ],
       },

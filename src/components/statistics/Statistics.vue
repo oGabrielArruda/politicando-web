@@ -11,6 +11,9 @@
       <button @click="updateRouter('Presencas')">
         Presenças
       </button>
+      <button @click="updateRouter('Propostas')">
+        Propostas
+      </button>
       <div class="select-group">
         <SelectPolitico
         @onChange="handlePolitico"
