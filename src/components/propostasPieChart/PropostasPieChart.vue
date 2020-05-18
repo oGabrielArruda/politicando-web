@@ -1,10 +1,14 @@
 <template>
-    <apexChart type="pie" width="800" height="800" :options="chartOptions" :series="series" />
+    <div>
+      <h1> Total de propostas: </h1>
+      <h2> {{ totalDePropostas }} </h2>
+      <apexChart type="pie" width="800" height="300" :options="chartOptions" :series="series" />
+    </div>
 </template>
 
 <script>
 import VueApexCharts from 'vue-apexcharts';
-import ApexCharts from 'apexcharts';
+// import ApexCharts from 'apexcharts';
 import api from '../../config/api';
 
 
@@ -12,14 +16,14 @@ export default {
   name: 'PropostasPieChart',
   data() {
     return {
-      arrPropostas: [],
+      totalDePropostas: 0,
       tipos: [],
       total: [],
       series: [],
       chartOptions: {
         chart: {
           width: 800,
-          height: 800,
+          height: 300,
           type: 'pie',
           id: 'chartPropostas',
         },
@@ -54,30 +58,35 @@ export default {
   methods: {
     async updateChart(id, tipo) {
       const response = await this.fetchGastosDivididos(id, tipo);
+      this.changeTotalPropostas(response);
       this.pushToMainArray(response);
-      this.execChartUpdate();
     },
     async fetchGastosDivididos(id, tipo) {
       const response = await api.get(`/Propostas/${id}/${tipo}/divididos`);
       return response.data.propostasDivididas;
     },
+    changeTotalPropostas(propostasObj) {
+      const total = propostasObj.reduce((prev, { count }) => prev + count, 0);
+      this.totalDePropostas = total;
+    },
     pushToMainArray(propostasObj) {
       propostasObj.forEach((t) => {
-        this.tipos.push(t.name);
-        this.total.push(t.count);
+        const nome = this.getNome(t.name);
+        console.log(nome);
+        this.chartOptions.labels.push(nome);
+        this.series.push(t.count);
       });
     },
-    execChartUpdate() {
-      ApexCharts.exec('chartPropostas', 'updateOptions', {
-        series: this.total,
-        labels: this.tipos,
-      }, true);
+    getNome(nome) {
+      const nomeLower = nome.toLowerCase();
+      nomeLower.replace('da comissão', '');
+      return nomeLower.replace(/(?:^|\s)\S/g, (a) => a.toUpperCase());
     },
   },
   watch: {
     async politico(p) {
-      this.tipos = [];
-      this.total = [];
+      this.series = [];
+      this.chartOptions.labels = [];
       await this.updateChart(p.id, p.tipo);
     },
   },

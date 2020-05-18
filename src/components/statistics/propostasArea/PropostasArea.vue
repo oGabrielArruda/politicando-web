@@ -1,19 +1,22 @@
 <template>
     <div>
-        <div :key="politico" v-for="politico in politicos">
-            <!-- <PropostasPieChart :politico="politico"/> -->
+      <div>
+       <PropostasPieChart :politico="politicoMain"/>
+      </div>
+        <div :key="politico.id" v-for="politico in politicosComp">
+            <PropostasPieChart :politico="politico"/>
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-// import PropostasPieChart from '../../propostasPieChart/PropostasPieChart.vue';
+import PropostasPieChart from '../../propostasPieChart/PropostasPieChart.vue';
 
 export default {
   name: 'PropostasArea',
   components: {
-    // PropostasPieChart,
+    PropostasPieChart,
   },
   data() {
     return {
@@ -24,13 +27,11 @@ export default {
       politicoSelected: 'carousel/politicoSelected',
       politicosSelects: 'carousel/politicosSelects',
     }),
-    politicos() {
-      let arr = [];
-      arr.push(this.politicoSelected);
-      if (this.politicosSelects) {
-        arr = arr.concat(this.politicosSelects);
-      }
-      return arr;
+    politicoMain() {
+      return this.politicoSelected;
+    },
+    politicosComp() {
+      return this.politicosSelects;
     },
   },
 };
