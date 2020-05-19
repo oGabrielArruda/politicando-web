@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-select v-if="multiple" label="nome" :filterable="false" :options="options"
-    @search="inputChange" @input="onChange($event)" multiple>
+    @search="debounce" @input="onChange($event)" multiple>
       <template slot="no-options">
         <p>{{text}}</p>
       </template>
@@ -20,7 +20,7 @@
     </v-select>
     <v-select v-else label="nome" :filterable="false" :options="options"
      @search="onSearch"
-      @input="inputChange">
+      @input="debounce">
       <template slot="no-options">
         <p>{{text}}</p>
       </template>
@@ -56,7 +56,7 @@ export default {
     vSelect,
   },
   methods: {
-    async inputChange(search, loading) {
+    async debounce(search, loading) {
       if (this.timeoutId !== null) {
         clearTimeout(this.timeoutId);
       }
@@ -68,7 +68,7 @@ export default {
       try {
         loading(true);
         const strSearch = search.replace('%20', ' ');
-        const response = await api.get(`${this.url}&nome=${strSearch}`);
+        const response = await api.get(`${this.url}&nome=${strSearch}&size=615&page=1`);
         this.options = response.data.politicos;
         loading(false);
       } catch (erro) {

@@ -41,7 +41,7 @@ main {
             width: 50%;
             //height: 90%;
             border-radius: 15px;
-
+            cursor: pointer;
             @include news-mobile {
                 width: 100%;
             }

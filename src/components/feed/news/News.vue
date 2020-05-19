@@ -1,7 +1,8 @@
 <template>
   <main v-if="isLoading">
     <div class="news-item" v-for="(n, index) in news" :key="n.id" v-bind="n">
-      <img :src="n.urlImg" v-if="n.imageExists" @error="replaceByDefault(index)" />
+      <img :src="n.urlImg" v-if="n.imageExists" @error="replaceByDefault(index)"
+      @click="clickNotice(n.url)" />
       <div class="news-content">
         <header>
           <p class="title">{{ n.titulo }}</p>
@@ -177,6 +178,9 @@ export default {
     },
     replaceByDefault(i) {
       this.news[i].imageExists = false;
+    },
+    clickNotice(url) {
+      window.open(url, '_blank');
     },
   },
   computed: {

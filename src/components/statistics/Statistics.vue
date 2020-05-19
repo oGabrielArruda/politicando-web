@@ -17,7 +17,7 @@
       <div class="select-group">
         <SelectPolitico
         @onChange="handlePolitico"
-        :url="'/PoliticoItems/filtrado?size=5&page=1'"
+        :url="'/PoliticoItems/filtrado?'"
         :text="'Selecione o político para comparar os gastos'"
         :multiple="true"
         />
