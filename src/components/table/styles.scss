@@ -148,6 +148,16 @@
         flex-direction: column;
       }
 
+      .spinner {
+        position: absolute;
+        top: 0;
+        left: 3%;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        opacity: 80%;
+      }
+
       tr {
         //border-bottom: 1px solid rgba(189, 189, 189, 0.541);
         transition: background 0.2s;

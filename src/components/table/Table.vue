@@ -95,7 +95,12 @@
             </div>
           </td>
         </tr>
-        <Loading v-if="loading" />
+        <half-circle-spinner
+        class="spinner"
+        v-show="loading"
+        :size="100"
+        :color="'#5de63e'"
+        />
       </tbody>
     </table>
     <center>
@@ -122,8 +127,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { HalfCircleSpinner } from 'epic-spinners';
 import api from '../../config/api';
-import Loading from '../loading/Loading.vue';
 
 export default {
   name: 'Table',
@@ -154,7 +159,7 @@ export default {
   },
   props: ['filtroNome', 'size', 'showBorder'],
   components: {
-    Loading,
+    HalfCircleSpinner,
   },
   async mounted() {
     try {

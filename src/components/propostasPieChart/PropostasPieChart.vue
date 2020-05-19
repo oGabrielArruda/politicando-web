@@ -1,5 +1,11 @@
 <template>
     <div>
+      <half-circle-spinner
+      class="orbit"
+      v-show="loading"
+      :size="height/2"
+      :color="'#5de63e'"
+      />
       <h1> Total de propostas: </h1>
       <h2> {{ totalDePropostas }} </h2>
       <apexChart type="pie" width="800" :height="hComp" :options="chartOptions" :series="series" />
@@ -8,14 +14,15 @@
 
 <script>
 import VueApexCharts from 'vue-apexcharts';
+import { HalfCircleSpinner } from 'epic-spinners';
 // import ApexCharts from 'apexcharts';
 import api from '../../config/api';
-
 
 export default {
   name: 'PropostasPieChart',
   data() {
     return {
+      loading: false,
       height: 300,
       totalDePropostas: 0,
       tipos: [],
@@ -51,6 +58,7 @@ export default {
   },
   components: {
     apexChart: VueApexCharts,
+    HalfCircleSpinner,
   },
   props: ['politico', 'ano', 'subGraph'],
   async mounted() {
@@ -65,9 +73,11 @@ export default {
   },
   methods: {
     async updateChart(id, tipo) {
+      this.loading = true;
       const response = await this.fetchPropostasDivididas(id, tipo, this.ano);
       this.changeTotalPropostas(response);
       this.pushToMainArray(response);
+      this.loading = false;
     },
     async fetchPropostasDivididas(id, tipo, ano) {
       let url = `/Propostas/${id}/${tipo}/divididos`;
@@ -122,5 +132,9 @@ export default {
 </script>
 
 <style>
-
+  .orbit {
+    margin-top: 5%;
+    margin-left: 35%;
+    opacity: 75%;
+  }
 </style>
