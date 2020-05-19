@@ -2,7 +2,7 @@
     <div>
       <h1> Total de propostas: </h1>
       <h2> {{ totalDePropostas }} </h2>
-      <apexChart type="pie" width="800" height="300" :options="chartOptions" :series="series" />
+      <apexChart type="pie" width="800" :height="hComp" :options="chartOptions" :series="series" />
     </div>
 </template>
 
@@ -16,6 +16,7 @@ export default {
   name: 'PropostasPieChart',
   data() {
     return {
+      height: 300,
       totalDePropostas: 0,
       tipos: [],
       total: [],
@@ -30,6 +31,10 @@ export default {
           id: 'chartPropostas',
         },
         labels: [],
+        legend: {
+          show: true,
+          offsetX: 50,
+        },
         responsive: [{
           breakpoint: 480,
           options: {
@@ -47,12 +52,13 @@ export default {
   components: {
     apexChart: VueApexCharts,
   },
-  props: ['politico', 'ano'],
+  props: ['politico', 'ano', 'subGraph'],
   async mounted() {
     try {
       const { id } = this.politico;
       const { tipo } = this.politico;
       await this.updateChart(id, tipo);
+      this.fixStyle();
     } catch (erro) {
       console.log(`Erro mounted propostas pie chart ${erro}`);
     }
@@ -82,20 +88,34 @@ export default {
     },
     getNome(nome) {
       let nomeLower = nome.toLowerCase();
-      nomeLower = nomeLower.replace('da comissão', '');
+      nomeLower = nomeLower.replace('da comissão de', 'sobre');
       return nomeLower.replace(/(?:^|\s)\S/g, (a) => a.toUpperCase());
+    },
+    limparSeries() {
+      while (this.chartOptions.labels.length) {
+        this.series.pop();
+        this.chartOptions.labels.pop();
+      }
+    },
+    fixStyle() {
+      if (this.subGraph) {
+        this.height = 230;
+      }
     },
   },
   watch: {
     async politico(p) {
-      this.series = [];
-      this.chartOptions.labels = [];
+      this.limparSeries();
       await this.updateChart(p.id, p.tipo, this.ano);
     },
     async ano(ano) {
-      this.series = [];
-      this.chartOptions.labels = [];
+      this.limparSeries();
       await this.updateChart(this.politico.id, this.politico.tipo, ano);
+    },
+  },
+  computed: {
+    hComp() {
+      return this.height;
     },
   },
 };

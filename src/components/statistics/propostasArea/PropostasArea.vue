@@ -1,15 +1,31 @@
 <template>
-    <div>
-      <div>
-        <select v-model="anoEscolhido">
-         <option value=0 selected> Todos os Anos </option>
-         <option :key="ano" v-for="ano in anos"> {{ ano }} </option>
-       </select>
-       <PropostasPieChart :politico="politicoMain" :ano="anoEscolhido" />
-      </div>
-        <div :key="politico.id" v-for="politico in politicosComp">
-            <PropostasPieChart :politico="politico" :ano="anoEscolhido" />
+    <div class="main-content">
+      <div class="main-graph">
+        <div class="select-ano-tipo">
+          <select v-model="anoEscolhido">
+            <option value=0 selected> Todos os Anos </option>
+            <option :key="ano" v-for="ano in anos"> {{ ano }} </option>
+          </select>
         </div>
+        <div>
+          <div class="politico-main-info">
+            <img :src="politicoMain.foto" />
+            <h1>{{ politicoMain.nome }}</h1>
+          </div>
+          <PropostasPieChart :politico="politicoMain" :ano="anoEscolhido" />
+        </div>
+      </div>
+
+      <div class="prop-sequence">
+        <div :key="politico.id" v-for="politico in politicosComp">
+          <div class="politico-info-pie">
+            <img :src="politico.foto" />
+            <h1>{{ politico.nome }}</h1>
+          </div>
+          <PropostasPieChart :politico="politico" :ano="anoEscolhido" :subGraph="true" />
+        </div>
+      </div>
+
     </div>
 </template>
 
