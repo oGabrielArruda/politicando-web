@@ -21,6 +21,8 @@ export default {
       total: [],
       series: [],
       chartOptions: {
+        colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#db943d', '#494569',
+          '#ad6363', '#63ad67', '#63ad9f'],
         chart: {
           width: 800,
           height: 300,
@@ -45,7 +47,7 @@ export default {
   components: {
     apexChart: VueApexCharts,
   },
-  props: ['politico'],
+  props: ['politico', 'ano'],
   async mounted() {
     try {
       const { id } = this.politico;
@@ -57,12 +59,14 @@ export default {
   },
   methods: {
     async updateChart(id, tipo) {
-      const response = await this.fetchGastosDivididos(id, tipo);
+      const response = await this.fetchPropostasDivididas(id, tipo, this.ano);
       this.changeTotalPropostas(response);
       this.pushToMainArray(response);
     },
-    async fetchGastosDivididos(id, tipo) {
-      const response = await api.get(`/Propostas/${id}/${tipo}/divididos`);
+    async fetchPropostasDivididas(id, tipo, ano) {
+      let url = `/Propostas/${id}/${tipo}/divididos`;
+      if (ano && ano !== 0) { url += `?ano=${ano}`; }
+      const response = await api.get(url);
       return response.data.propostasDivididas;
     },
     changeTotalPropostas(propostasObj) {
@@ -72,14 +76,13 @@ export default {
     pushToMainArray(propostasObj) {
       propostasObj.forEach((t) => {
         const nome = this.getNome(t.name);
-        console.log(nome);
         this.chartOptions.labels.push(nome);
         this.series.push(t.count);
       });
     },
     getNome(nome) {
-      const nomeLower = nome.toLowerCase();
-      nomeLower.replace('da comissão', '');
+      let nomeLower = nome.toLowerCase();
+      nomeLower = nomeLower.replace('da comissão', '');
       return nomeLower.replace(/(?:^|\s)\S/g, (a) => a.toUpperCase());
     },
   },
@@ -87,7 +90,12 @@ export default {
     async politico(p) {
       this.series = [];
       this.chartOptions.labels = [];
-      await this.updateChart(p.id, p.tipo);
+      await this.updateChart(p.id, p.tipo, this.ano);
+    },
+    async ano(ano) {
+      this.series = [];
+      this.chartOptions.labels = [];
+      await this.updateChart(this.politico.id, this.politico.tipo, ano);
     },
   },
 };
