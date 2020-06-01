@@ -1,8 +1,5 @@
 <template>
   <div class="container" :class="{ move: open }">
-    <button :class="{ show: !mobileView }" @click="showNav">
-      <i class="fas fa-bars"></i>
-    </button>
 
     <ModalEdit ref="modal" @onSuccess="sucessModalSubmit"/>
 
@@ -187,9 +184,7 @@ export default {
       const btnDesconectar = document.querySelector('#btnDesconectar');
       const btnSalvar = document.querySelector('#btnAlterar');
       if (this.editing) {
-        // this.$refs.modal.showModal();
-        console.log(this.user);
-        this.update();
+        this.$refs.modal.showModal();
       } else {
         nome.disabled = false;
         sobrenome.disabled = false;

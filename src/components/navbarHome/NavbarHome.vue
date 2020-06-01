@@ -37,9 +37,9 @@
           </button>-->
         </div>
         <div class="content-right">
-          <p>Nouani Sanches</p>
-          <button @click="teste()">
-            <img src="../../assets/signup/user.svg" alt />
+          <p> {{ user.nome }}</p>
+          <button @click="pushRouterByName('Profile')">
+            <img :src="user.imgPerfil" alt />
           </button>
         </div>
       </div>
@@ -78,6 +78,9 @@ export default {
       this.changeSelectedNav(i);
       this.$router.push({ path: this.namesNavigation[i].route });
     },
+    pushRouterByName(routeName) {
+      this.$router.push({ name: routeName });
+    },
     handleView() {
       if (window.innerWidth <= 1000) {
         this.isComputer = false;
@@ -94,7 +97,11 @@ export default {
       buttonSelectedNav: 'navigation/buttonSelectedNav',
       closeSidebarComputer: 'navigation/closeSidebarComputer',
       namesNavigation: 'navigation/namesNavigation',
+      userState: 'auth/user',
     }),
+    user() {
+      return this.userState;
+    },
   },
   beforeMount() {
     window.addEventListener('resize', this.handleView);

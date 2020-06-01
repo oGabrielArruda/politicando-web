@@ -294,26 +294,13 @@ export default {
       }
       return arrAntigo[arrAntigo.length - 1];
     },
-  },
-  async mounted() {
-    try {
-      this.isLoading = true;
-      const responseGastos = await this.getGastosAPI(this.politicoPrincipal.id);
-      this.updateChart(
-        responseGastos,
-        this.politicoPrincipal.nome,
-        this.politicoPrincipal.id,
-      );
-
-      this.politicos.forEach((t) => {
-        this.addPolitico(t);
-        this.lastSave = this.clone(this.politicos);
-      });
-
-      this.isLoading = false;
-    } catch (erro) {
-      console.log(erro);
-    }
+    abriuComponente() {
+      if (this.i === 0) {
+        this.i += 1;
+        return true;
+      }
+      return false;
+    },
   },
   computed: {
     politicoPrincipal() {

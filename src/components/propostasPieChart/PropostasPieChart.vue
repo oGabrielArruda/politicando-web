@@ -110,6 +110,7 @@ export default {
     fixStyle() {
       if (this.subGraph) {
         this.height = 230;
+        this.chartOptions.legend.offsetX = 120;
       }
     },
   },
