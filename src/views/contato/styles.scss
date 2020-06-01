@@ -1,0 +1,75 @@
+.container {
+    & > div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+        height: 60vh;
+        width: 70%;
+        margin: 0 auto;
+
+        .message-area {
+            float: left;
+            height: 100%;
+            width: 50%;
+            padding-top: 12.5vh;
+            margin-left: 100px;
+
+            & > h1 {
+              font-size: 1.5em;
+              padding-bottom: 3vh;
+            }
+
+            & > textarea {
+                height: 22vh;
+                width: 70%;
+                padding: 10px 15px;
+            }
+
+            & > select {
+                border: none;
+                background: #f1f1f1;
+                border-radius: 4px;
+                color: rgb(110, 110, 110);
+                font-weight: bold;
+                padding: 5px 15px;
+                margin-left: 10px;
+                width: 250px;
+                cursor: pointer;
+              }
+        }
+
+        .info-area{        
+            float: right;
+            height: 100%;
+            width: auto;
+            padding-top: 25vh;
+            & > input {
+                border: 1px solid rgb(204, 204, 204);
+                background: #fff;
+                padding: 10px 15px;
+                border-radius: 4px;
+                width: 100%;
+                margin-bottom: 13px;
+                color: #3e3f4b;
+            }
+            & > button {
+                width: 100%;
+                padding: 10px 15px;
+                margin-top: 25px;
+                border: none;
+                background: #27c55bb9;
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.2s;
+      
+                &:hover {
+                  background: rgb(14, 180, 89);
+                }
+              }
+        }
+    }
+}

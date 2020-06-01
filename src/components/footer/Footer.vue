@@ -14,7 +14,7 @@
               <a href>Nossa Logo</a>
             </p>
             <p>
-              <a href>Contato</a>
+              <a href @click="pushRouterByName()">Contato</a>
             </p>
           </div>
         </div>
@@ -58,6 +58,11 @@ export default {
   name: 'Footer',
   data() {
     return {};
+  },
+  methods: {
+    pushRouterByName() {
+      this.$router.push({ name: 'Contato' });
+    },
   },
 };
 </script>

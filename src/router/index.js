@@ -10,7 +10,7 @@ import Feed from '../components/feed/Feed.vue';
 import Classification from '../components/classification/Classification.vue';
 import Statistics from '../components/statistics/Statistics.vue';
 import Profile from '../components/profile/Profile.vue';
-
+import Contato from '../views/contato/Contato.vue';
 
 import News from '../components/feed/news/News.vue';
 import Events from '../components/feed/events/Events.vue';
@@ -38,6 +38,11 @@ const routes = [
     path: '/teste',
     name: 'PerfilPolitico',
     component: PerfilPolitico,
+  },
+  {
+    path: '/contato',
+    name: 'Contato',
+    component: Contato,
   },
   {
     path: '/home',
