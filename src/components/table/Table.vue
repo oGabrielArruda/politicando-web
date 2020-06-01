@@ -55,11 +55,13 @@
               Cada presença em uma sessão que estava na agenda de um político é registrada.</span>
               </span>
         </th>
-        <th>Propostas <span class="tooltip"
-            ><i class="fa fa-info-circle" aria-hidden="true"></i>
+        <th>Propostas
+          <span class="tooltip">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
             <span class="tooltip-text">As Propostas representam todos os tipos de preposições
-              realizadas por um político, como requerimentos, ementas e leis.</span></span
-          ></th>
+            realizadas por um político, como requerimentos, ementas e leis.</span>
+          </span>
+        </th>
         <th>Processos <span class="tooltip"
             ><i class="fa fa-info-circle" aria-hidden="true"></i>
             <span class="tooltip-text">Os Processos representam todos os processos judiciais em
@@ -157,7 +159,7 @@ export default {
       loading: false,
     };
   },
-  props: ['filtroNome', 'size', 'showBorder'],
+  props: ['size', 'showBorder'],
   components: {
     HalfCircleSpinner,
   },
@@ -231,12 +233,13 @@ export default {
     ...mapGetters({
       user: 'auth/user',
       authenticated: 'auth/authenticated',
+      nameFilter: 'classification/nameFilter',
     }),
     queryParams() {
       let objQry = {
         page: this.page,
         size: this.size,
-        nome: this.filtroNome,
+        nome: this.nameFilter,
         tipo: this.filtroTipo,
         estado: this.filtroEstado,
         partido: this.filtroPartido,

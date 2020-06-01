@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import PresencasChart from '../../presencasChart/PresencasChart.vue';
 import PresencasBarGraph from '../../presencasBarGraph/PresencasBarGraph.vue';
 
@@ -20,6 +20,11 @@ export default {
   components: {
     PresencasChart,
     PresencasBarGraph,
+  },
+  methods: {
+    ...mapActions({
+      changeSelectedNav: 'navigation/changeSelectedNav',
+    }),
   },
   computed: {
     ...mapGetters({
@@ -32,6 +37,9 @@ export default {
       if (this.politicosSelecteds) { arr = arr.concat(this.politicosSelecteds); }
       return arr;
     },
+  },
+  beforeMount() {
+    this.changeSelectedNav(1);
   },
 };
 </script>

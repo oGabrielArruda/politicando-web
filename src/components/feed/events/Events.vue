@@ -9,8 +9,12 @@
           <div class="content" :class="{ 'content-blur': e.isOpen }">
             <p class="title">{{ e.descFormatted }}</p>
             <p class="time">{{ e.dateFormatted }}</p>
-            <button @click="showMoreEventDay(index)"
-            :class="{ 'selected': e.isOpen }">Ver mais...</button>
+            <button
+              @click="showMoreEventDay(index)"
+              :class="{ 'selected': e.isOpen }"
+            >
+              Ver mais...
+            </button>
           </div>
           <div class="other" :class="{ 'other-open': e.isOpen }">
             <button type="button" class="button-close" @click="showMoreEventDay(index)">
@@ -33,7 +37,7 @@
       </div>
     </div>
     <div class="moth">
-      <p>Eventos do mês</p>
+      <p>Últimos 30 dias</p>
       <hr />
       <div class="order-content">
         <div class="event-item" v-for="(e, index) in eventsMonth" :key="e.idEvento" v-bind="e">
@@ -41,8 +45,12 @@
           <div class="content" :class="{ 'content-blur': e.isOpen }">
             <p class="title">{{ e.descFormatted }}</p>
             <p class="time">{{ e.dateFormatted }}</p>
-            <button @click="showMoreEventMonth(index)"
-            :class="{ 'selected': e.isOpen }">Ver mais...</button>
+            <button
+              @click="showMoreEventMonth(index)"
+              :class="{ 'selected': e.isOpen }"
+            >
+              Ver mais...
+            </button>
           </div>
           <div class="other" :class="{ 'other-open': e.isOpen }">
             <button type="button" class="button-close" @click="showMoreEventMonth(index)">
@@ -69,7 +77,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
@@ -81,8 +89,6 @@ export default {
   name: 'Events',
   data() {
     return {
-      isOpen1: false,
-      isOpen2: false,
       eventsDay: [],
       eventsMonth: [],
       updating: false,
@@ -93,16 +99,9 @@ export default {
     LoadingTemplate,
   },
   methods: {
-    changeEvent(i) {
-      switch (i) {
-        case 1:
-          this.isOpen2 = !this.isOpen2;
-          break;
-        default:
-          this.isOpen1 = !this.isOpen1;
-          break;
-      }
-    },
+    ...mapActions({
+      changeSelectedNav: 'navigation/changeSelectedNav',
+    }),
     showMoreEventDay(i) {
       this.eventsDay[i].isOpen = !this.eventsDay[i].isOpen;
     },
@@ -110,13 +109,6 @@ export default {
       this.eventsMonth[i].isOpen = !this.eventsMonth[i].isOpen;
     },
     async getEvents(id, tipo) {
-      let teste1 = 'SESSÃO DELIBERATIVA REMOTA';
-      teste1 = teste1
-        .toLowerCase()
-        .replace(/(?:^|\s)\S/g, (a) => a.toUpperCase());
-
-      console.log(teste1);
-
       await this.getEventsDay(tipo);
       await this.getEventsMonth(id, tipo);
 
@@ -186,6 +178,7 @@ export default {
     },
   },
   beforeMount() {
+    this.changeSelectedNav(1);
     if (this.politicoSelected) {
       this.updating = true;
     }

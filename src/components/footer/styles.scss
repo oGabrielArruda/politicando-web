@@ -24,6 +24,10 @@ footer {
   align-items: center;
   margin-bottom: 80px;
 
+  @include footer-mobile-low {
+    margin-bottom: 10px;
+  }
+
   .division {
     height: 1px;
     background: rgb(206, 206, 206);

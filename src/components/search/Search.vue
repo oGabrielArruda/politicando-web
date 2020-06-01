@@ -1,35 +1,43 @@
 <template>
-  <div class="container">
-    <div class="search-container" :class="{ 'border-search': showBorder }">
-      <div>
-        <i class="fas fa-search teste" style=""></i>
-      </div>
-      <input
-        type="text"
-        name="Search"
-        placeholder="Digite o nome do político..."
-        v-model="filtroNome"
-      />
-      <!--<button type="button">Pesquisar</button>-->
+  <div class="search-container" :class="{ 'border-search': showBorder }">
+    <div>
+      <i class="fas fa-search teste" style=""></i>
     </div>
-    <Table :filtroNome="filtroNome" :size="size" :showBorder="showBorder" />
+    <input
+      type="text"
+      name="Search"
+      placeholder="Digite o nome do político..."
+      v-model="nameFilter"
+    />
+    <!--<button type="button">Pesquisar</button>-->
   </div>
 </template>
 
 <script>
-import Table from '../table/Table.vue';
+import { mapActions } from 'vuex';
+// import Table from '../table/Table.vue';
 
 export default {
   name: 'Search',
+  props: ['size', 'showBorder'],
   data() {
     return {
-      filtroNome: '',
+      nameFilter: '',
     };
   },
   components: {
-    Table,
+    // Table,
   },
-  props: ['size', 'showBorder'],
+  methods: {
+    ...mapActions({
+      changeNameFilter: 'classification/changeNameFilter',
+    }),
+  },
+  watch: {
+    nameFilter() {
+      this.changeNameFilter(this.nameFilter);
+    },
+  },
 };
 </script>
 

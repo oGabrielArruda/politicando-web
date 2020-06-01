@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="moth">
-      <p>Eventos do mês</p>
+      <p>Últimos 30 dias</p>
       <hr />
       <div class="order-content">
         <div class="event-item">

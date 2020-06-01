@@ -1,0 +1,233 @@
+@mixin nav-mobile {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
+
+aside {
+  height: 100%;
+  width: 200px;
+  // border: 1px solid green;
+  // background: rgb(254, 254, 254);
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+  //position: absolute;
+  // z-index: 99;
+  left: 0;
+  top: 0;
+  // border-radius: 0 20px 20px 0;
+
+  @include nav-mobile {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    //border: 1px solid red;
+    justify-content: center;
+
+    .division {
+      height: 1px;
+      width: 100%;
+      border: 0.7px solid rgb(207, 207, 207);
+      border-radius: 2px;
+      align-self: center;
+    }
+
+    & > img {
+      width: 25px;
+      align-self: center;
+    }
+
+    .items {
+      display: flex;
+      flex-direction: column;
+      // margin-top: 10px;
+      align-self: center;
+      width: 100%;
+      // border: 1px solid red;
+
+      & > button {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 5px 18px;
+        // margin-bottom: 8px;
+        height: 43px;
+        border: none;
+        background: transparent;
+        // border-radius: 4px;
+        transition: background 0.3s;
+        cursor: pointer;
+        position: relative;
+
+        // font-size: 20px;
+
+        & > img {
+          width: 22px;
+          margin-right: 15px;
+        }
+
+        & > p {
+          color: #626262;
+          font-size: 14px;
+          font-weight: 400;
+        }
+
+        .tooltip-text {
+          // display: none;
+          position: absolute;
+          visibility: hidden;
+          bottom: 30%;
+          left: 110%;
+          z-index: 99;         
+          border-radius: 5px;
+          padding: 5px 12px;
+          color: #fff;
+          font-weight: normal;
+          font-size: 13px;
+          text-align: center;        
+          background-color: rgba(41, 41, 41, 0.87);
+          transition: opacity 0.1s;
+          // opacity: 0;
+
+          &::before {
+            content: ' ';
+            width: 0px;
+            height: 0px;
+            border-top: 5px solid transparent;
+            border-left: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 5px solid rgba(41, 41, 41, 0.87);
+            position: absolute;
+            left: 0;
+            top: 30%;
+            margin-left: -10px;
+          }
+        }
+
+        &:hover {
+          background: #f1f1f1;
+        }
+
+        &:active {
+          background: #dddddd;
+        }
+      }
+
+      .selected {
+        background: #dddddd;
+
+        & > p {
+          font-weight: bold;
+
+          /*&:nth-child(1) {
+            color: #3A6AE4;
+          }
+  
+          &:nth-child(2) {
+            color: #24B566;
+          }
+  
+          &:nth-child(3) {
+            color: #F3AF00;
+          }*/
+        }
+
+        &:hover {
+          background: #dddddd;
+        }
+      }
+    }
+  }
+
+  & > button {
+    width: 40px;
+    height: 35px;
+    border: none;
+    background: #f13131;
+    border-radius: 6px;
+    color: rgb(255, 255, 255);
+    transition: background 0.3s;
+    cursor: pointer;
+    margin-left: 10px;
+
+    &:hover {
+      background: #be1f1f;
+    }
+  }
+}
+
+.close {
+  width: 60px;
+
+  .content {
+    .items {
+      & > button {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 15px 0;
+
+        & > img {
+          margin: 0;
+          margin-bottom: 5px;
+        }
+
+        & > p {
+          font-size: 12px;
+          display: none;
+        }
+
+        @-webkit-keyframes bounce {
+          0% {
+            transform: scale(0.8);
+            opacity: 0;
+          }
+          75% {
+            transform: scale(1.05);
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        @keyframes bounce {
+          0% {
+            transform: scale(0.8);
+            opacity: 0;
+          }
+          75% {
+            transform: scale(1.05);
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        &:hover {
+          .tooltip-text {
+            visibility: visible;
+            transform: scale(1);
+            -webkit-animation: bounce .2s;
+            animation: bounce .2s;
+          }
+        }
+      }
+    }
+  }
+
+  & > button {
+    align-self: center;
+    margin: 0;
+  }
+}

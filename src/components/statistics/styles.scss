@@ -5,7 +5,7 @@
 }
 
 @mixin statistics-mobile {
-    @media (min-width: 861px) and (max-width: 1230px) {
+    @media (min-width: 861px) and (max-width: 1000px) {
         @content;
     }
 }
@@ -20,22 +20,22 @@
     display: flex;
     flex-direction: row;
     transition: transform 0.5s;
+    height: 100%;
+    z-index: 9;
 
-    @include statistics-mobile {
-        z-index: 999;
+    /* @include statistics-mobile {
     }
 
     @include statistics-mobile-2 {
-        z-index: 999;
         flex-direction: column;
         height: 100vh;
     }
 
     &.move {
         transform: translate(200px);
-    }
+    } */
 
-    & > button {
+    /*b& > button {
         position: absolute;
         left: 4px;
         top: 4px;
@@ -54,10 +54,10 @@
         &:active {
             transform: scale(0.9);
         }
-    }
+    }*/
 
     .content {
-        width: 85vw;
+        width: calc(100vw - 200px);
         // border: 1px solid red;
         display: flex;
         flex-direction: column;
@@ -72,7 +72,7 @@
 
         @include statistics-mobile-2 {
             width: 100vw;
-            min-height: 100vh;
+            // min-height: 100vh;
         }
 
         .select-group {
@@ -88,32 +88,36 @@
         }
     }
 
+    .expand {
+        width: calc(100vw - 60px);
+    }
+
     /* SCROLLBAR */
 
     @include scrollbar-computer {
         /* total width */
         .content::-webkit-scrollbar {
-            background-color: #f1f1f1;
+            background-color: rgb(248, 248, 248);
             width: 16px;
         }
 
         /* background of the scrollbar except button or resizer */
         .content::-webkit-scrollbar-track {
-            background-color: #f1f1f1;
+            background-color: rgb(248, 248, 248);
         }
         .content::-webkit-scrollbar-track:hover {
-            background-color: #f1f1f1;
+            background-color: rgb(248, 248, 248);
         }
 
         /* scrollbar itself */
         .content::-webkit-scrollbar-thumb {
             background-color: #babac0;
             border-radius: 16px;
-            border: 5px solid #f1f1f1;
+            border: 5px solid rgb(248, 248, 248);
         }
         .content::-webkit-scrollbar-thumb:hover {
             background-color: #a0a0a5;
-            border: 4px solid #f1f1f1;
+            border: 4px solid rgb(248, 248, 248);
         }
 
         /* set button(top and bottom of the scrollbar) */

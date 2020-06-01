@@ -1,7 +1,16 @@
 .container {
     height: 100vh;
-    background: #F1F1F1;
+    background: rgb(248, 248, 248);
     display: flex;
-    flex-direction: row;
-    overflow: hidden
+    flex-direction: column;
+    overflow: hidden;
+
+    .mid {
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        position: relative;
+        // border: 1px solid red;
+        height: calc(100% - 55px);
+    }
 }

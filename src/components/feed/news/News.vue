@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import api from '../../../config/api';
@@ -74,6 +74,9 @@ export default {
     LoadingMore,
   },
   methods: {
+    ...mapActions({
+      changeSelectedNav: 'navigation/changeSelectedNav',
+    }),
     eventLike(i) {
       if (this.news[i].likeClicked) {
         this.news[i].qtdLikes -= 1;
@@ -205,6 +208,7 @@ export default {
     },
   },
   beforeMount() {
+    this.changeSelectedNav(0);
     if (this.politicoSelected) {
       this.updating = true;
     }

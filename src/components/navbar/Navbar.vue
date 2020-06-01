@@ -41,7 +41,7 @@ export default {
     },
     showModal() {
       if (this.authenticated) {
-        this.$router.push({ path: 'home/feed/noticias' });
+        this.$router.push({ path: 'home/feed' });
       }
       this.$refs.modal.showModal();
     },

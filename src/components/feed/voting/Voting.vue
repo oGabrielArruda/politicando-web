@@ -36,8 +36,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'Voting',
+  data() {
+    return {};
+  },
+  methods: {
+    ...mapActions({
+      changeSelectedNav: 'navigation/changeSelectedNav',
+    }),
+  },
+  beforeMount() {
+    this.changeSelectedNav(2);
+  },
 };
 </script>
 

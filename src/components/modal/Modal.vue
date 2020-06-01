@@ -65,7 +65,7 @@ export default {
 
         this.isLoading = false;
         this.$toast.success(`Seja bem-vindo ${(this.user).nome}`);
-        this.$router.push({ name: 'Home' });
+        this.$router.push({ path: '/home/feed' });
       } catch (err) {
         this.isLoading = false;
         this.$toast.error('E-mail ou senha incorretos');

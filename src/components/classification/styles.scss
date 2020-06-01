@@ -18,30 +18,39 @@
   
 
 .container {
-    width: 85vw;
-    min-height: 90vh;
-    padding: 10px 0;
+    width: calc(100vw - 200px);
+    height: 100%;
+    // min-height: 90vh;
+    padding: 50px 10px;
     transition: transform 0.5s;
     overflow-x: hidden;
     overflow-y: scroll;
+    z-index: 9;
+    // border: 1px solid red;
 
-    @include table-computer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    /* @include table-computer {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-    }
+    } */
 
     @include table-mobile {
         width: 100vw;
-        z-index: 999;
+        padding: 10px;
+        // z-index: 999;
     }
 
-    &.move {
+    /* &.move {
         transform: translate(200px);
-    }
+    } */
 
-    & > button {
+    /* & > button {
         position: absolute;
         left: 4px;
         top: 4px;
@@ -60,7 +69,11 @@
         &:active {
             transform: scale(0.9);
         }
-    }
+    }*/ 
+}
+
+.expand {
+  width: calc(100vw - 60px);
 }
 
 @include scrollbar-computer {
@@ -68,27 +81,27 @@
 
     /* total width */
     .container::-webkit-scrollbar {
-      background-color: #f1f1f1;
+      background-color: rgb(248, 248, 248);
       width: 16px;
     }
 
     /* background of the scrollbar except button or resizer */
     .cocontainerntent::-webkit-scrollbar-track {
-      background-color: #f1f1f1;
+      background-color: rgb(248, 248, 248);
     }
     .container::-webkit-scrollbar-track:hover {
-      background-color: #f1f1f1;
+      background-color: rgb(248, 248, 248);
     }
 
     /* scrollbar itself */
     .container::-webkit-scrollbar-thumb {
       background-color: #babac0;
       border-radius: 16px;
-      border: 5px solid #f1f1f1;
+      border: 5px solid rgb(248, 248, 248);
     }
     .container::-webkit-scrollbar-thumb:hover {
       background-color: #a0a0a5;
-      border: 4px solid #f1f1f1;
+      border: 4px solid rgb(248, 248, 248);
     }
 
     /* set button(top and bottom of the scrollbar) */

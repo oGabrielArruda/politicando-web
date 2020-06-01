@@ -29,71 +29,72 @@
   }
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-  
-    .search-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      background: #fff;
+.search-container {
+  // border: 1px solid red;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fff;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 15px;
+  text-align: start;
+  max-width: 450px;
 
-      @include search-computer {
-        width: 450px;
-        padding: 12px 15px;
-        border-radius: 6px;
-        font-size: 15px;
-        text-align: start;
-      }
-
-      @include search-mobile-1 {
-        width: 380px;
-        padding: 12px 15px;
-        border-radius: 6px;
-        font-size: 13px;
-      }
-
-      @include search-mobile-2 {
-        width: 300px;
-        padding: 12px 12px;
-        border-radius: 4px;
-        font-size: 13px;
-      }
-
-      @include search-mobile-3 {
-        width: 310px;
-        padding: 12px 12px;
-        border-radius: 4px;
-        font-size: 13px;
-      }
-
-      @include search-mobile-4  {
-        width: 250px;
-        padding: 12px 12px;
-        border-radius: 4px;
-        font-size: 13px;
-      }
-
-      & > div {
-        color: #424242;
-        font-size: 22px;
-        margin-right: 10px;
-        padding-right: 10px;
-        border-right: 1px solid rgba(189, 189, 189, 0.541);
-      }
-  
-      & > input {
-        border: none;
-        font-size: 15px;
-        background: transparent;
-      }
-    }
-
-    .border-search {
-      border: 1px solid rgba(189, 189, 189, 0.541);
-    }
+  /*@include search-computer {
+    width: 450px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 15px;
+    text-align: start;
   }
+
+  @include search-mobile-1 {
+    width: 380px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  @include search-mobile-2 {
+    width: 300px;
+    padding: 12px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  @include search-mobile-3 {
+    width: 310px;
+    padding: 12px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  @include search-mobile-4 {
+    width: 250px;
+    padding: 12px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+  }*/
+
+  & > div {
+    color: #424242;
+    font-size: 22px;
+    margin-right: 10px;
+    padding-right: 10px;
+    // border-right: 1px solid rgba(189, 189, 189, 0.541);
+  }
+
+  & > input {
+    border: none;
+    font-size: 15px;
+    background: transparent;
+    width: 100%;
+  }
+}
+
+.border-search {
+  border: 1px solid rgba(189, 189, 189, 0.541);
+}

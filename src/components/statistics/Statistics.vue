@@ -1,11 +1,11 @@
 <template>
-  <div class="container" :class="{ 'move': isOpen }">
-    <button :class="{ 'show': !mobileView }" @click="showNav">
+  <div class="container">
+    <!--<button :class="{ 'show': !mobileView }" @click="showNav">
       <i class="fas fa-bars"></i>
-    </button>
-    <div class="content">
+    </button>-->
+    <div class="content" :class="{ 'expand': closeSidebarComputer }">
       <Carousel />
-      <button @click="updateRouter('Gastos')">
+      <!--<button @click="updateRouter('Gastos')">
         Gastos
       </button>
       <button @click="updateRouter('Presencas')">
@@ -13,7 +13,7 @@
       </button>
       <button @click="updateRouter('Propostas')">
         Propostas
-      </button>
+      </button>-->
       <div class="select-group">
         <SelectPolitico
         @onChange="handlePolitico"
@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Carousel from '../carousel/Carousel.vue';
 import SelectPolitico from '../selectpolitico/SelectPolitico.vue';
 
@@ -35,8 +35,8 @@ export default {
   data() {
     return {
       politicos: [],
-      mobileView: false,
-      isOpen: false,
+      // mobileView: false,
+      // isOpen: false,
     };
   },
   components: {
@@ -44,29 +44,46 @@ export default {
     SelectPolitico,
   },
   methods: {
-    handleView() {
+    ...mapActions({
+      changeSelects: 'carousel/changeSelects',
+      changeSelectedSide: 'navigation/changeSelectedSide',
+      changeNamesNav: 'navigation/changeNamesNav',
+    }),
+    /* handleView() {
       this.mobileView = window.innerWidth <= 1230;
-    },
-    showNav() {
+    },*-/
+    /* showNav() {
       this.isOpen = !this.isOpen;
-    },
+    }, */
     updateRouter(routeName) {
       this.$router.push({ name: routeName });
     },
-    ...mapActions({
-      changeSelects: 'carousel/changeSelects',
-    }),
     handlePolitico(values) {
       this.changeSelects(values);
     },
   },
+  computed: {
+    ...mapGetters({
+      closeSidebarComputer: 'navigation/closeSidebarComputer',
+    }),
+  },
   created() {
-    this.handleView();
-    window.addEventListener('resize', this.handleView);
+    // this.handleView();
+    // window.addEventListener('resize', this.handleView);
   },
   beforeRouteLeave(to, from, next) {
     this.changeSelects([]);
     next();
+  },
+  beforeMount() {
+    this.changeSelectedSide(1);
+    this.changeNamesNav(
+      [
+        { name: 'Gastos', route: '/home/estatisticas/gastos' },
+        { name: 'Presenças', route: '/home/estatisticas/presencas' },
+        { name: 'Propostas', route: '/home/estatisticas/propostas' },
+      ],
+    );
   },
 };
 </script>

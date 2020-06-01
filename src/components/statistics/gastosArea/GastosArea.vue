@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import GastosChart from '../../gastosChart/GastosChart.vue';
 import GastosDivididos from '../../gastosDivididos/GastosDivididos.vue';
 import GastosTable from '../../gastosTable/GastosTable.vue';
@@ -47,6 +47,11 @@ export default {
     GastosTable,
   },
   props: ['politicos'],
+  methods: {
+    ...mapActions({
+      changeSelectedNav: 'navigation/changeSelectedNav',
+    }),
+  },
   computed: {
     ...mapGetters({
       politicoSelected: 'carousel/politicoSelected',
@@ -71,6 +76,9 @@ export default {
     anoTipoGastosComp() {
       return this.anoTipoGastos;
     },
+  },
+  beforeMount() {
+    this.changeSelectedNav(0);
   },
 };
 </script>

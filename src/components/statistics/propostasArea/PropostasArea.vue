@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import PropostasPieChart from '../../propostasPieChart/PropostasPieChart.vue';
 
 export default {
@@ -44,6 +44,11 @@ export default {
       anoEscolhido: 0,
     };
   },
+  methods: {
+    ...mapActions({
+      changeSelectedNav: 'navigation/changeSelectedNav',
+    }),
+  },
   computed: {
     ...mapGetters({
       politicoSelected: 'carousel/politicoSelected',
@@ -55,6 +60,9 @@ export default {
     politicosComp() {
       return this.politicosSelects;
     },
+  },
+  beforeMount() {
+    this.changeSelectedNav(2);
   },
 };
 </script>

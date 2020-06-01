@@ -8,6 +8,7 @@
     <main>
       <h1>Qual o melhor político de acordo com o seu filtro?</h1>
       <Search :size="10" :showBorder="true" />
+      <Table :size="10" :showBorder="true"/>
     </main>
     <Footer />
   </div>
@@ -17,6 +18,7 @@
 import Navbar from '../../components/navbar/Navbar.vue';
 import Header from '../../components/header/Header.vue';
 import Search from '../../components/search/Search.vue';
+import Table from '../../components/table/Table.vue';
 import Footer from '../../components/footer/Footer.vue';
 
 export default {
@@ -28,6 +30,7 @@ export default {
     Navbar,
     Header,
     Search,
+    Table,
     Footer,
   },
 };
