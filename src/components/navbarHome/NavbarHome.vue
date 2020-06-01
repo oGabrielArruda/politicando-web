@@ -19,7 +19,7 @@
             src="../../assets/navbar/P.png"
             alt="Logo"
             :class="{ 'resize': namesNavigation.length === 0 }"
-            @click="isComputer || changeNavbarMobile(false)"
+            @click="isComputer || (namesNavigation.length > 0 && changeNavbarMobile(false))"
           />
           <ul>
             <li
@@ -39,7 +39,7 @@
         <div class="content-right">
           <p> {{ user.nome }}</p>
           <button @click="pushRouterByName('Profile')">
-            <img :src="user.imgPerfil" alt />
+            <img :src="user.imgPerfil || require('../../assets/signup/user.svg')" alt />
           </button>
         </div>
       </div>
@@ -97,11 +97,8 @@ export default {
       buttonSelectedNav: 'navigation/buttonSelectedNav',
       closeSidebarComputer: 'navigation/closeSidebarComputer',
       namesNavigation: 'navigation/namesNavigation',
-      userState: 'auth/user',
+      user: 'auth/user',
     }),
-    user() {
-      return this.userState;
-    },
   },
   beforeMount() {
     window.addEventListener('resize', this.handleView);
