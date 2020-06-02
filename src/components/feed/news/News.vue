@@ -12,20 +12,20 @@
           <div>
             <div class="group-buttons">
               <div class="like">
-                <button @click="eventLike(index)" :class="{ 'selected-like': n.likeClicked }">
+                <button @click="eventLike(index)" :class="{ 'selected-like': n.liked }">
                   <i class="fas fa-thumbs-up"></i>
                 </button>
-                <span :class="{ 'press-like': n.likeClicked }">+1</span>
+                <span :class="{ 'press-like': n.liked }">+1</span>
                 <p>{{ n.qtdLikes }}</p>
               </div>
               <div class="dislike">
                 <button
                   @click="eventDislike(index)"
-                  :class="{ 'selected-dislike': n.dislikeClicked }"
+                  :class="{ 'selected-dislike': n.disliked }"
                 >
                   <i class="fas fa-thumbs-down"></i>
                 </button>
-                <span :class="{ 'press-dislike': n.dislikeClicked }">+1</span>
+                <span :class="{ 'press-dislike': n.disliked }">+1</span>
                 <p>{{ n.qtdDislikes }}</p>
               </div>
             </div>
@@ -65,6 +65,7 @@ export default {
       requested: 0,
       politicoId: null,
       updating: false,
+      loadingInteraction: false,
     };
   },
   props: ['filtroNome', 'size', 'showBorder'],
@@ -78,54 +79,65 @@ export default {
       changeSelectedNav: 'navigation/changeSelectedNav',
     }),
     async eventLike(i) {
+      if (this.loadingInteraction === true) { return; }
+      this.loadingInteraction = true;
+
       const notice = this.news[i];
 
-      if (notice.dislikeClicked) {
-        notice.dislikeClicked = false;
-        notice.likeClicked = true;
+      if (notice.disliked) {
+        notice.disliked = false;
+        notice.liked = true;
         await this.removeInteraction(notice);
         await this.interaction(notice, 'LIKE');
         notice.qtdDislikes -= 1;
         notice.qtdLikes += 1;
+        this.loadingInteraction = false;
         return;
       }
 
-      if (notice.likeClicked) {
+      if (notice.liked) {
         await this.removeInteraction(notice);
         notice.qtdLikes -= 1;
       } else {
         await this.interaction(notice, 'LIKE');
         notice.qtdLikes += 1;
       }
-      this.news[i].likeClicked = !this.news[i].likeClicked;
+      notice.liked = !notice.liked;
+
+      this.loadingInteraction = false;
     },
     async eventDislike(i) {
+      if (this.loadingInteraction === true) { return; }
+      this.loadingInteraction = true;
+
       const notice = this.news[i];
 
-      if (notice.likeClicked) {
-        notice.likeClicked = false;
-        notice.dislikeClicked = true;
+      if (notice.liked) {
+        notice.liked = false;
+        notice.disliked = true;
         await this.removeInteraction(notice);
         await this.interaction(notice, 'DISLIKE');
         notice.qtdLikes -= 1;
         notice.qtdDislikes += 1;
+        this.loadingInteraction = false;
         return;
       }
-
-      if (notice.dislikeClicked) {
+      if (notice.disliked) {
         await this.removeInteraction(notice);
         notice.qtdDislikes -= 1;
       } else {
         await this.interaction(notice, 'DISLIKE');
         notice.qtdDislikes += 1;
       }
-      notice.dislikeClicked = !notice.dislikeClicked;
+      notice.disliked = !notice.disliked;
+
+      this.loadingInteraction = false;
     },
     async getNews(id) {
       const { initialDate, finalDate } = this.getDateInterval(360);
 
       const response = await api.get(
-        `/News/${id}/${initialDate}/${finalDate}`,
+        `/News/${id}/${this.userState.id}/${initialDate}/${finalDate}`,
         {
           params: {
             page: this.page,
@@ -139,8 +151,6 @@ export default {
 
       const data = response.data.noticias.map((news) => ({
         ...news,
-        likeClicked: false,
-        dislikeClicked: false,
         dateFormatted: format(
           new Date(news.dataPublicacao),
           "d 'de' MMMM 'de' yyyy",
@@ -150,7 +160,7 @@ export default {
       }));
 
       this.news = [...this.news, ...data];
-
+      console.log(this.news);
       this.loading = false;
       this.loadingMore = false;
       this.requested = 0;
