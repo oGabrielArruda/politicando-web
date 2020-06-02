@@ -50,6 +50,8 @@ export default {
   methods: {
     ...mapActions({
       changeSelectedNav: 'navigation/changeSelectedNav',
+      changeSelect: 'carousel/changeSelected',
+      changeSelects: 'carousel/changeSelects',
     }),
   },
   computed: {
@@ -79,6 +81,13 @@ export default {
   },
   beforeMount() {
     this.changeSelectedNav(0);
+  },
+  mounted() {
+    const mainSave = this.politicoSelected;
+    const arrPoliticos = this.politicosSelects;
+
+    this.changeSelect(JSON.parse(JSON.stringify(mainSave)));
+    this.changeSelects(JSON.parse(JSON.stringify(arrPoliticos)));
   },
 };
 </script>
