@@ -77,33 +77,49 @@ export default {
     ...mapActions({
       changeSelectedNav: 'navigation/changeSelectedNav',
     }),
-    eventLike(i) {
-      if (this.news[i].likeClicked) {
-        this.news[i].qtdLikes -= 1;
-      } else {
-        this.news[i].qtdLikes += 1;
+    async eventLike(i) {
+      const notice = this.news[i];
+
+      if (notice.dislikeClicked) {
+        notice.dislikeClicked = false;
+        notice.likeClicked = true;
+        await this.removeInteraction(notice);
+        await this.interaction(notice, 'LIKE');
+        notice.qtdDislikes -= 1;
+        notice.qtdLikes += 1;
+        return;
       }
 
+      if (notice.likeClicked) {
+        await this.removeInteraction(notice);
+        notice.qtdLikes -= 1;
+      } else {
+        await this.interaction(notice, 'LIKE');
+        notice.qtdLikes += 1;
+      }
       this.news[i].likeClicked = !this.news[i].likeClicked;
-
-      if (this.news[i].dislikeClicked) {
-        this.news[i].dislikeClicked = false;
-        this.news[i].qtdDislikes -= 1;
-      }
     },
-    eventDislike(i) {
-      if (this.news[i].dislikeClicked) {
-        this.news[i].qtdDislikes -= 1;
+    async eventDislike(i) {
+      const notice = this.news[i];
+
+      if (notice.likeClicked) {
+        notice.likeClicked = false;
+        notice.dislikeClicked = true;
+        await this.removeInteraction(notice);
+        await this.interaction(notice, 'DISLIKE');
+        notice.qtdLikes -= 1;
+        notice.qtdDislikes += 1;
+        return;
+      }
+
+      if (notice.dislikeClicked) {
+        await this.removeInteraction(notice);
+        notice.qtdDislikes -= 1;
       } else {
-        this.news[i].qtdDislikes += 1;
+        await this.interaction(notice, 'DISLIKE');
+        notice.qtdDislikes += 1;
       }
-
-      this.news[i].dislikeClicked = !this.news[i].dislikeClicked;
-
-      if (this.news[i].likeClicked) {
-        this.news[i].likeClicked = false;
-        this.news[i].qtdLikes -= 1;
-      }
+      notice.dislikeClicked = !notice.dislikeClicked;
     },
     async getNews(id) {
       const { initialDate, finalDate } = this.getDateInterval(360);
@@ -185,10 +201,32 @@ export default {
     clickNotice(url) {
       window.open(url, '_blank');
     },
+    createObjInteraction(notice, valueInteraction) {
+      return {
+        idUsuario: this.userState.id,
+        idNoticia: notice.idNoticia,
+        valor: valueInteraction,
+      };
+    },
+    async interaction(notice, value) {
+      try {
+        await api.post('/News/interaction', this.createObjInteraction(notice, value));
+      } catch (erro) {
+        console.log(`Erro na interaction: ${erro}`);
+      }
+    },
+    async removeInteraction(notice) {
+      try {
+        await api.post('/News/removeInteraction', this.createObjInteraction(notice));
+      } catch (erro) {
+        console.log(`Erro no remove interaction: ${erro}`);
+      }
+    },
   },
   computed: {
     ...mapGetters({
       politicoSelected: 'carousel/politicoSelected',
+      userState: 'auth/user',
     }),
     isLoading() {
       return !this.loading;
