@@ -24,15 +24,21 @@
         <h2 class="mandato">Informações Mandato</h2>
       </div>
       <div class="selected"></div>
+      <table-propostas  />
     </div>
   </div>
 </template>
 
 <script>
+import TablePropostas from '../../components/tablePropostas/TablePropostas.vue';
+
 export default {
   name: 'PerfilPolitico',
   data() {
     return {};
+  },
+  components: {
+    TablePropostas,
   },
 };
 </script>

@@ -9,6 +9,7 @@
       :width="131.91"
       :height="139"
       @after-slide-change="onAfterSlideChange"
+      @on-main-slide-click="changeToProfile"
     >
       <slide v-bind:key="slide.id" v-for="(slide, i) in slides" :index="i" class="slide">
         <figure v-if="!slide.addButton">
@@ -43,6 +44,7 @@ export default {
   methods: {
     ...mapActions({
       changeSelected: 'carousel/changeSelected',
+      changeProfileSelected: 'profile/changeSelected',
     }),
     onAfterSlideChange(index) {
       this.changeSelected(this.slides[index]);
@@ -59,6 +61,11 @@ export default {
     },
     pushRouter() {
       this.$router.push({ name: 'Classificacao' });
+    },
+    changeToProfile(index) {
+      console.log('aaa');
+      this.changeProfileSelected(this.slides[index]);
+      this.$router.push({ name: 'PerfilPolitico' });
     },
   },
   computed: {
