@@ -3,7 +3,7 @@
     <div class="header">
       <div class="foto-politico">
         <img
-          src="https://www.gazetaesportiva.com/wp-content/uploads/imagem/2020/03/28/neymar.jpg"
+          :src="politicoSelected.foto"
           alt=""
         />
         <br />
@@ -24,21 +24,27 @@
         <h2 class="mandato">Informações Mandato</h2>
       </div>
       <div class="selected"></div>
-      <table-propostas  />
+      <table-propostas :politico="politicoSelected" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import TablePropostas from '../../components/tablePropostas/TablePropostas.vue';
 
 export default {
   name: 'PerfilPolitico',
+  components: {
+    TablePropostas,
+  },
   data() {
     return {};
   },
-  components: {
-    TablePropostas,
+  computed: {
+    ...mapGetters({
+      politicoSelected: 'profile/politicoSelected',
+    }),
   },
 };
 </script>

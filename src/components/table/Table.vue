@@ -73,7 +73,7 @@
         <tr :key="politico.value" v-for="(politico, index) in filtroPoliticos">
           <td class="classification-column">{{ ((page - 1) * size) + (index + 1) }}°</td>
           <td data-label="Nome" class="name-column">
-            <img :src="politico.foto" />
+            <img :src="politico.foto" @dblclick="changeToProfile(politico)">
             <p>{{ politico.nome }}</p>
           </td>
           <td data-label="Partido" class="label-exists">{{ politico.partido }}</td>
@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { HalfCircleSpinner } from 'epic-spinners';
 import api from '../../config/api';
 
@@ -227,6 +227,13 @@ export default {
       const clasfSemAcento = clasfStr.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
       return clasfSemAcento.toLowerCase();
+    },
+    ...mapActions({
+      changeProfileSelected: 'profile/changeSelected',
+    }),
+    changeToProfile(politico) {
+      this.changeProfileSelected(politico);
+      this.$router.push({ name: 'PerfilPolitico' });
     },
   },
   computed: {
