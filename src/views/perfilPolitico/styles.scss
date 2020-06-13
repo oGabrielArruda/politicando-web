@@ -67,17 +67,19 @@
         .infos{
             grid-column: 1/2;
             text-align: center;
-            color: #13B423;
+            cursor: pointer;
         }
 
         .classificacao{
             grid-column: 2/3;
             text-align: center;
+            cursor: pointer;
         }
 
         .mandato{
             grid-column: 3;
             text-align: center;
+            cursor: pointer;
         }
     }
 
@@ -86,6 +88,11 @@
         height: 0.3vh;
         width: 20vw;
         margin-left: 6vw;
+    }
+
+
+    .selected-color{
+      color: #13B423;
     }
   }
 }
