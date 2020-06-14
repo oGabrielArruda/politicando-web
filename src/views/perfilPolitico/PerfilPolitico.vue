@@ -26,11 +26,21 @@
     </div>
     <div class="tabs">
       <div class="options">
-        <h2 class="infos selected-color" @click="changeTab()">Informações Pessoais</h2>
-        <h2 class="classificacao" @click="changeTab(1)">Classificação</h2>
-        <h2 class="mandato" @click="changeTab(2)">Informações Mandato</h2>
+        <div>
+          <h2 class="infos selected-color" @click="changeTab()">Informações Pessoais</h2>
+          <div id="1" class="selected"></div>
+        </div>
+        <div>
+           <h2 class="classificacao" @click="changeTab(1)">Classificação</h2>
+           <div id="2"></div>
+        </div>
+       <div>
+         <h2 class="mandato" @click="changeTab(2)">Informações Mandato</h2>
+         <div id="3"></div>
+       </div>
+
       </div>
-      <div class="selected"></div>
+
       <table-propostas :politico="politicoSelected" />
     </div>
   </div>
@@ -51,7 +61,9 @@ export default {
         default:
           {
             const selected = document.querySelector('.infos');
+            const div = document.getElementById('1');
             selected.classList.add('selected-color');
+            div.classList.add('selected');
             this.removeColor(this.anterior);
             this.anterior = 1;
           }
@@ -60,6 +72,8 @@ export default {
           {
             const selected = document.querySelector('.classificacao');
             selected.classList.add('selected-color');
+            const div = document.getElementById('2');
+            div.classList.add('selected');
             this.removeColor(this.anterior);
             this.anterior = 2;
           }
@@ -68,6 +82,8 @@ export default {
           {
             const selected = document.querySelector('.mandato');
             selected.classList.add('selected-color');
+            const div = document.getElementById('3');
+            div.classList.add('selected');
             this.removeColor(this.anterior);
             this.anterior = 3;
           }
@@ -81,19 +97,25 @@ export default {
         case 1:
           {
             const selected = document.querySelector('.infos');
+            const div = document.getElementById('1');
             selected.classList.remove('selected-color');
+            div.classList.remove('selected');
           }
           break;
         case 2:
           {
             const selected = document.querySelector('.classificacao');
             selected.classList.remove('selected-color');
+            const div = document.getElementById('2');
+            div.classList.remove('selected');
           }
           break;
 
         case 3: {
           const selected = document.querySelector('.mandato');
           selected.classList.remove('selected-color');
+          const div = document.getElementById('3');
+          div.classList.remove('selected');
         }
       }
     },
@@ -101,6 +123,7 @@ export default {
   data() {
     return {
       anterior: 1,
+      divAnterior: 1,
     };
   },
   computed: {
