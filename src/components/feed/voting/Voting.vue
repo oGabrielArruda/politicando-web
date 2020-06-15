@@ -24,6 +24,7 @@
     <LoadingMore v-if="isLoadingMore" />
     <Observer v-on:intersect="intersected" />
   </main>
+  <LoadingTemplate v-else />
 </template>
 
 <script>
@@ -34,6 +35,7 @@ import api from '../../../config/api';
 
 import Observer from '../../observer/Observer.vue';
 import LoadingMore from '../../loadingMore/LoadingMore.vue';
+import LoadingTemplate from './loadingTemplate/LoadingTemplate.vue';
 
 export default {
   name: 'Voting',
@@ -53,6 +55,7 @@ export default {
   components: {
     Observer,
     LoadingMore,
+    LoadingTemplate,
   },
   methods: {
     ...mapActions({
@@ -74,6 +77,8 @@ export default {
         // this.totalPages = response.data.totalPages;
       }
 
+      const approved = 'APROVADA';
+      const disapproved = 'REJEITADA';
       const data = response.data.map((voting) => ({
         ...voting,
         dateFormatted: format(
@@ -81,7 +86,7 @@ export default {
           "d 'de' MMMM 'de' yyyy",
           { locale: pt },
         ),
-        situation: voting.aprovada.toUpperCase(),
+        situation: voting.valorVoto === 'Sim' ? approved : disapproved,
         isApproved: voting.valorVoto === 'Sim' || false,
       }));
 
@@ -153,7 +158,6 @@ export default {
     politicoSelected() {
       if (!this.updating) {
         this.resetVariables();
-
         this.getVotes(this.politicoId, this.politicoType);
       }
     },
