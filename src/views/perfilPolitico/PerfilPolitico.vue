@@ -4,7 +4,12 @@
       <div class="foto-politico">
         <img :src="politicoSelected.foto" alt="" />
         <br />
-        <button>Seguir</button>
+        <button v-if="politicoSelected.seguindo" class="following" @click="unfollow()">
+          Seguindo
+        </button>
+        <button v-else @click="follow()">
+          Seguir
+        </button>
       </div>
       <div class="info-politico">
         <p>
@@ -56,6 +61,7 @@ import { mapGetters } from 'vuex';
 import TablePropostas from '../../components/tablePropostas/TablePropostas.vue';
 import Table from '../../components/table/Table.vue';
 import GastosArea from '../../components/statistics/gastosArea/GastosArea.vue';
+import api from '../../config/api';
 
 
 export default {
@@ -137,6 +143,30 @@ export default {
         }
       }
     },
+    async follow() {
+      try {
+        await api.post('/Users/follow', {
+          idUser: this.user.id,
+          idPolitico: this.politicoSelected.id,
+        });
+        this.politicoSelected.seguindo = true;
+        this.$toast.success(`Você seguiu ${this.politicoSelected.nome}`);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async unfollow() {
+      try {
+        await api.post('/Users/unfollow', {
+          idUser: this.user.id,
+          idPolitico: this.politicoSelected.id,
+        });
+        this.politicoSelected.seguindo = false;
+        this.$toast.success(`Você deixou de seguir ${this.politicoSelected.nome}`);
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
   data() {
     return {
@@ -146,6 +176,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      user: 'auth/user',
       politicoSelected: 'profile/politicoSelected',
     }),
   },

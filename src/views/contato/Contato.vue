@@ -11,7 +11,7 @@
                 </select>
             </div>
             <div class="info-area">
-                <input placeholder="Digite seu email" />
+                <input placeholder="Digite seu email" v-model="email"/>
                 <button @click="sendMessage"> Enviar </button>
             </div>
         </div>
@@ -28,6 +28,7 @@ export default {
   data() {
     return {
       texto: '',
+      email: '',
       options: ['Sugestão', 'Dúvidas', 'Problemas encontrados'],
     };
   },
@@ -36,12 +37,30 @@ export default {
     Footer,
   },
   methods: {
-    sendMessage() {
+    sendMessage(e) {
+      e.preventDefault();
       this.texto = '';
+      /* Email.send({
+        SecureToken: '6d86335f-f6a9-458c-a797-9854288c0ea1',
+        To: 'gabrielarruda1@cooltura.com.br',
+        From: this.email,
+        Subject: 'This is the subject',
+        Body: 'And this is the body',
+      }).then(
+        (message) => console.log(message),
+      );
+    }, */
     },
+  },
+  mounted() {
+    const smtpScript = document.createElement('script');
+    smtpScript.setAttribute('src', 'https://smtpjs.com/v3/smtp.js');
+    document.head.appendChild(smtpScript);
+    smtpScript.async = true;
   },
 };
 
 </script>
+
 
 <style lang="scss" src="./styles.scss" scoped />
