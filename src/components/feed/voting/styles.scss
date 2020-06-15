@@ -1,0 +1,98 @@
+@mixin voting-computer {
+    @media (min-width: 680px) {
+        @content;
+    }
+}
+
+@mixin voting-mobile {
+    @media (max-width: 679px) {
+        @content;
+    }
+}
+
+main {
+    width: 100%;
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 5px;
+
+    .voting-item {
+        width: 100%;
+        height: 100%;
+        max-width: 1000px;
+        background: #fff;
+        position: relative;
+        margin: 25px 0;
+        border-radius: 2px 2px 14px 14px;
+
+        .top {
+            position: absolute;
+            // border: 1px solid red;
+            padding: 8px 20px 4px 20px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            left: 50%;
+            transform: translate(-50%, -100%);
+
+            font-size: calc(0.6em + 0.6vw);
+            color: #fff;
+
+            & > p {
+                font-weight: bold;
+                margin-right: 5px;
+            }
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+
+            & > header {
+                width: 100%;
+                margin-bottom: 30px;
+
+                & > p {
+                    color: #2d4a64;
+                    font-size: calc(0.6em + 0.6vw);
+                    font-weight: 900;
+                    text-align: center;
+                }
+            }
+
+            & > footer {
+                width: 100%;
+
+                & > p {
+                    font-size: calc(0.4em + 0.4vw);
+                    color: #aeaeae;
+                    text-align: end;
+
+                    @include voting-mobile {
+                        font-size: calc(0.5em + 0.5vw);
+                    }
+                }
+            }
+        }
+    }
+
+    .approved {
+        border-top: 2px solid rgb(22, 196, 60);
+
+        .top {
+            background: rgb(22, 196, 60);
+        }
+    }
+
+    .disapproved {
+        border-top: 2px solid rgb(194, 37, 37);
+
+        .top {
+            background: rgb(194, 37, 37);
+        }
+    }
+}

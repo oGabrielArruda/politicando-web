@@ -34,12 +34,12 @@
             <p>Tenha acesso a todas as notícias referentes aos políticos.</p>
           </div>
         </div>
-        <div class="item">
+        <!--<div class="item">
           <div>
             <h1>Ainda não possui uma conta?</h1>
             <button @click="goToSignUp()">Criar Conta</button>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
     <img @click="goToSignUp()" src="../../assets/initial/binoculos.png" />
