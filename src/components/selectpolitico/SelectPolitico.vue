@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-select v-if="multiple" label="nome" :filterable="false" :options="options"
-    @search="debounce" @input="onChange($event)" multiple>
+    @search="onSearch($event)" @input="onChange($event)" multiple>
       <template slot="no-options">
         <p>{{text}}</p>
       </template>
@@ -18,9 +18,8 @@
         </div>
       </template>
     </v-select>
-    <v-select v-else label="nome" :filterable="false" :options="options"
-     @search="onSearch"
-      @input="debounce">
+    <v-select v-else label="nome" :filterable="false" :options="options" @search="onSearch($event)"
+      @input="onChange($event)">
       <template slot="no-options">
         <p>{{text}}</p>
       </template>
@@ -48,7 +47,6 @@ export default {
     return {
       options: [],
       selected: {},
-      timeoutId: null,
     };
   },
   props: ['url', 'text', 'multiple'],
@@ -56,23 +54,12 @@ export default {
     vSelect,
   },
   methods: {
-    async debounce(search, loading) {
-      if (this.timeoutId !== null) {
-        clearTimeout(this.timeoutId);
-      }
-      this.timeoutId = setTimeout(() => {
-        this.onSearch(search, loading);
-      }, 230);
-    },
-    async onSearch(search, loading) {
+    async onSearch(event) {
       try {
-        loading(true);
-        const strSearch = search.replace('%20', ' ');
-        const response = await api.get(`${this.url}&nome=${strSearch}&size=615&page=1`);
+        const strSearch = event.replace('%20', ' ');
+        const response = await api.get(`${this.url}&nome=${strSearch}&size=15&page=1`);
         this.options = response.data.politicos;
-        loading(false);
       } catch (erro) {
-        loading(false);
         this.tratarErroPesquisa(erro);
       }
     },
