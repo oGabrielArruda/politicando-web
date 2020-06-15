@@ -4,6 +4,7 @@
   height: 100vh;
 
   .header {
+    padding-top: 2vh;
     background-color: #ededed;
     grid-row: 1/2;
     display: grid;
@@ -64,30 +65,26 @@
         padding-top: 2vh;
         padding-bottom: 1vh;
         grid-template-columns: 1fr 1fr 1fr;
+
+        p{
+          text-align: center;
+          cursor: pointer;
+          padding-top: 1vh;
+          padding-bottom: 1vh;
+          font-size: 30px;
+        }
         
 
         .infos{
             grid-column: 1/2;
-            text-align: center;
-            cursor: pointer;
-            padding-top: 1vh;
-            padding-bottom: 1vh;
         }
 
         .classificacao{
             grid-column: 2/3;
-            text-align: center;
-            cursor: pointer;
-            padding-top: 1vh;
-            padding-bottom: 1vh;
         }
 
         .mandato{
             grid-column: 3;
-            text-align: center;
-            cursor: pointer;
-            padding-top: 1vh;
-            padding-bottom: 1vh;
         }
     }
 
@@ -108,6 +105,10 @@
       padding-top: 1vh;
       padding-bottom: 1vh;
       transition: 0.5s;
+    }
+
+    .out{
+      display: none;
     }
   }
 }

@@ -20,28 +20,33 @@
           Numero de Processos: <span> {{ politicoSelected.processos }} </span>
         </p>
         <p>
-          Cidade de Origem: <span> {{}} </span>
+          Cidade de Origem: <span> {{ }} </span>
         </p>
       </div>
     </div>
     <div class="tabs">
       <div class="options">
         <div>
-          <h2 class="infos selected-color" @click="changeTab()">Informações Pessoais</h2>
+          <p class="infos selected-color" @click="changeTab()">Propostas</p>
           <div id="1" class="selected"></div>
         </div>
         <div>
-           <h2 class="classificacao" @click="changeTab(1)">Classificação</h2>
+           <p class="classificacao" @click="changeTab(1)">Classificação</p>
            <div id="2"></div>
         </div>
        <div>
-         <h2 class="mandato" @click="changeTab(2)">Informações Mandato</h2>
+         <p class="mandato" @click="changeTab(2)">Estatísticas</p>
          <div id="3"></div>
        </div>
 
       </div>
 
-      <table-propostas :politico="politicoSelected" />
+      <table-propostas :politico="politicoSelected" id="propostas"/>
+      <Table :size="8" :showBorder="false" class="out" id="table"/>
+
+      <GastosArea/>
+
+
     </div>
   </div>
 </template>
@@ -49,11 +54,16 @@
 <script>
 import { mapGetters } from 'vuex';
 import TablePropostas from '../../components/tablePropostas/TablePropostas.vue';
+import Table from '../../components/table/Table.vue';
+import GastosArea from '../../components/statistics/gastosArea/GastosArea.vue';
+
 
 export default {
   name: 'PerfilPolitico',
   components: {
     TablePropostas,
+    Table,
+    GastosArea,
   },
   methods: {
     changeTab(tab) {
@@ -62,7 +72,9 @@ export default {
           {
             const selected = document.querySelector('.infos');
             const div = document.getElementById('1');
+            const props = document.getElementById('propostas');
             selected.classList.add('selected-color');
+            props.classList.remove('out');
             div.classList.add('selected');
             this.removeColor(this.anterior);
             this.anterior = 1;
@@ -73,6 +85,8 @@ export default {
             const selected = document.querySelector('.classificacao');
             selected.classList.add('selected-color');
             const div = document.getElementById('2');
+            const table = document.getElementById('table');
+            table.classList.remove('out');
             div.classList.add('selected');
             this.removeColor(this.anterior);
             this.anterior = 2;
@@ -98,6 +112,8 @@ export default {
           {
             const selected = document.querySelector('.infos');
             const div = document.getElementById('1');
+            const propostas = document.getElementById('propostas');
+            propostas.classList.add('out');
             selected.classList.remove('selected-color');
             div.classList.remove('selected');
           }
@@ -106,6 +122,8 @@ export default {
           {
             const selected = document.querySelector('.classificacao');
             selected.classList.remove('selected-color');
+            const table = document.getElementById('table');
+            table.classList.add('out');
             const div = document.getElementById('2');
             div.classList.remove('selected');
           }
