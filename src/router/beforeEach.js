@@ -3,7 +3,7 @@ import store from '../store';
 import maskRouter from './maskRouter';
 
 function pageAllowAnonymous(to) {
-  return to.name === 'Initial' || to.name === 'Signup' || to.name === 'Contato';
+  return to.name === 'Initial' || to.name === 'Signup' || to.name === 'Contato' || to.name === 'Adm';
 }
 
 export default async (to, from, next) => {

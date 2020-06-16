@@ -11,6 +11,7 @@ import Classification from '../components/classification/Classification.vue';
 import Statistics from '../components/statistics/Statistics.vue';
 import Profile from '../components/profile/Profile.vue';
 import Contato from '../views/contato/Contato.vue';
+import Adm from '../views/adm/Adm.vue';
 
 import Recents from '../components/feed/recents/Recents.vue';
 import News from '../components/feed/news/News.vue';
@@ -44,6 +45,11 @@ const routes = [
     path: '/contato',
     name: 'Contato',
     component: Contato,
+  },
+  {
+    path: '/adm',
+    name: 'Adm',
+    component: Adm,
   },
   {
     path: '/home',

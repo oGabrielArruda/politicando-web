@@ -30,7 +30,7 @@ export default {
     return {
       texto: '',
       email: '',
-      tipo: '',
+      tipo: 0,
       options: ['Sugestão', 'Dúvidas', 'Problemas encontrados', 'Outro'],
     };
   },
@@ -59,12 +59,8 @@ export default {
       return obj;
     },
     generateDate() {
-      let today = new Date();
-      const dd = String(today.getDate()).padStart(2, '0');
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const yyyy = today.getFullYear();
-      today = `${dd}/${mm}/${yyyy}`;
-      return today;
+      const date = new Date();
+      return date.toJSON();
     },
     async sendMessage(messageObj) {
       try {
