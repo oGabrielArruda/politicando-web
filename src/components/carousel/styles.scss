@@ -53,10 +53,11 @@
         }*/
   
         .changeColor {
-          background-color: #2578d885;
-          color: rgb(252, 255, 74);
+          background-color: #0bbb7257;
+          font-weight: bold;
+          /*color: rgb(252, 255, 74);
           font-weight: bolder;
-          text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+          text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;*/
         }
       }
   
@@ -75,13 +76,13 @@
           border: none;
           display: block;
           font-size: 55px;
-          background: #05a46f4d;
+          background: #041e3ba9;
           color: #fff;
-          transition: background .2s;
+          transition: background .2s;         
           cursor: pointer;
 
           &:hover {
-            background: #05a46f71;
+            background: #041e3bc5;            
           }
         }
       }

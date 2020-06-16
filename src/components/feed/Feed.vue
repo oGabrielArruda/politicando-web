@@ -141,6 +141,7 @@ export default {
   watch: {
     politicoSelected() {
       this.loadingPartido = true;
+      console.log(this.politicoSelected);
       this.searchPartido(this.politicoSelected);
     },
   },

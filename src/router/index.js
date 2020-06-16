@@ -12,6 +12,7 @@ import Statistics from '../components/statistics/Statistics.vue';
 import Profile from '../components/profile/Profile.vue';
 import Contato from '../views/contato/Contato.vue';
 
+import Recents from '../components/feed/recents/Recents.vue';
 import News from '../components/feed/news/News.vue';
 import Events from '../components/feed/events/Events.vue';
 import Voting from '../components/feed/voting/Voting.vue';
@@ -55,10 +56,14 @@ const routes = [
         component: Feed,
         children: [
           {
+            path: 'recentes',
+            name: 'Recentes',
+            component: Recents,
+          },
+          {
             path: 'noticias',
             name: 'Noticias',
             component: News,
-            props: true,
           },
           {
             path: 'eventos',
