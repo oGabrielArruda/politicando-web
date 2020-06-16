@@ -91,6 +91,13 @@
         }
     }
 
+    .tab-contents{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+    }
+
     .selected{
         background-color: #13B423;
         height: 0.3vh;
