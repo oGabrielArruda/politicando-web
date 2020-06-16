@@ -17,10 +17,7 @@
       </div>
     </div>
     <Loading v-if="loading"/>
-
   </div>
-
-
 </template>
 
 <script>

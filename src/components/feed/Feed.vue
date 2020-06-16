@@ -1,31 +1,6 @@
 <template>
   <div class="container">
-    <!--<button :class="{ 'show': !mobileView }" @click="showSidebar">
-      <i class="fas fa-bars"></i>
-    </button>-->
     <div class="content" :class="{ 'expand': closeSidebarComputer }">
-      <!--<div class="container-nav" :class="{ 'move-navbar': isOpenNavbar }">
-        <nav>
-          <div>
-            <button
-              v-for="(button, index) in buttons"
-              :key="index"
-              v-bind="button"
-              :class="{ 'selected': button.isActive }"
-              @click="enableButton(index)"
-            >
-              <p>{{ button.text }}</p>
-              <img
-                :src="require(`../../assets/sidebar/${button.srcName}.svg`)"
-                :class="{ 'size-image': isOpenNavbar }"
-              />
-            </button>
-          </div>
-          <button @click="showNavbar">
-            <img src="../../assets/sidebar/arrow.svg" :class="{ 'rotate-arrow': isOpenNavbar }" />
-          </button>
-        </nav>
-      </div>-->
       <Carousel />
       <router-view></router-view>
     </div>
@@ -43,28 +18,7 @@ export default {
   name: 'Feed',
   data() {
     return {
-      mobileView: false,
-      isOpenSidebar: false,
-      // isOpenNavbar: false,
       isOpenInfo: false,
-      /* buttons: [
-        {
-          text: 'Notícias',
-          srcName: 'news',
-          isActive: true,
-        },
-        {
-          text: 'Eventos',
-          srcName: 'event',
-          isActive: false,
-        },
-        {
-          text: 'Votações',
-          srcName: 'voting',
-          isActive: false,
-        },
-      ],
-      buttonSelected: 0, */
       partido: {},
       loadingPartido: false,
       firstTime: true,
@@ -79,15 +33,6 @@ export default {
       changeSelectedSide: 'navigation/changeSelectedSide',
       changeNamesNav: 'navigation/changeNamesNav',
     }),
-    handleView() {
-      this.mobileView = window.innerWidth <= 1230;
-    },
-    /* showSidebar() {
-      this.isOpenSidebar = !this.isOpenSidebar;
-    },
-    showNavbar() {
-      this.isOpenNavbar = !this.isOpenNavbar;
-    }, */
     showInfo() {
       this.isOpenInfo = !this.isOpenInfo;
     },
@@ -104,13 +49,6 @@ export default {
           break;
       }
     },
-    /* enableButton(i) {
-      this.buttons[this.buttonSelected].isActive = false;
-      this.buttons[i].isActive = true;
-      this.buttonSelected = i;
-
-      this.pushRouter(i);
-    }, */
     async searchPartido({ partido }) {
       try {
         const response = await api.get(`/Partidos/${partido}`);
@@ -154,11 +92,6 @@ export default {
         { name: 'Votações', route: '/home/feed/votacoes' },
       ],
     );
-  },
-  mounted() {
-    this.handleView();
-    window.addEventListener('resize', this.handleView);
-    // this.$router.push({ name: 'Noticias' });
   },
 };
 </script>

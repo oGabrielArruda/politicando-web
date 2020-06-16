@@ -5,9 +5,7 @@
       <button type="button" class="button-signIn" @click="showModal">Minha Conta</button>
       <button type="button" class="button-signUp" @click="signUp">Criar Conta</button>
     </div>
-
     <Modal id="modal" ref="modal" />
-
     <Loading v-if="loading" />
   </nav>
 </template>

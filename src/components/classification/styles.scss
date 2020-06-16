@@ -20,56 +20,21 @@
 .container {
     width: calc(100vw - 200px);
     height: 100%;
-    // min-height: 90vh;
     padding: 50px 10px;
     transition: transform 0.5s;
     overflow-x: hidden;
     overflow-y: scroll;
     z-index: 9;
-    // border: 1px solid red;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 
-    /* @include table-computer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    } */
-
     @include table-mobile {
         width: 100vw;
         padding: 10px;
-        // z-index: 999;
     }
-
-    /* &.move {
-        transform: translate(200px);
-    } */
-
-    /* & > button {
-        position: absolute;
-        left: 4px;
-        top: 4px;
-        border: none;
-        background: transparent;
-        padding: 4px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: transform 0.2s;
-        z-index: 9999;
-
-        &.show {
-            display: none;
-        }
-
-        &:active {
-            transform: scale(0.9);
-        }
-    }*/ 
 }
 
 .expand {

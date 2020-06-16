@@ -29,12 +29,7 @@
               @click="pushRouter(index)"
               :class="{ 'selected': buttonSelectedNav === index }"
             >{{ nameNavigation.name }}</li>
-            <!--<li>Eventos</li>
-            <li>Votações</li>-->
           </ul>
-          <!--<button>
-            <i class="fas fa-angle-double-down"></i>
-          </button>-->
         </div>
         <div class="content-right">
           <p> {{ user.nome }}</p>

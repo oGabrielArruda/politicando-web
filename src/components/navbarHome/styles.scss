@@ -26,9 +26,7 @@
     -webkit-box-shadow: -1px 7px 11px -6px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: -1px 7px 11px -6px rgba(0, 0, 0, 0.05);
     box-shadow: -1px 7px 11px -6px rgba(0, 0, 0, 0.05);
-    // border-bottom: 2px solid rgba(17, 198, 104, 0.212);
     z-index: 999;
-    // padding: 0 10px;
 
     nav {
         width: 100%;
@@ -38,21 +36,13 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        // border: 1px solid red;
-        // border: 1px solid red;
-
-        //border: 1px solid red;
-        //padding: 25px;
 
         .content-left {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            // width: 15vw;
-            // border: 1px solid red;
             position: relative;
-            // border: 1px solid red;
             height: 100%;
 
             @include nav-computer {
@@ -70,9 +60,6 @@
             overflow: hidden;
             position: absolute;
             left: 20px;
-            /*padding-right: 15px;
-                border-right: 1px solid black;*/
-            // border: 1px solid red;
 
             &:hover {
                 color: #2b2b2b;
@@ -112,21 +99,13 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                // border: 1px solid red;
                 height: 100%;
                 position: relative;
-
-                // border: 1px solid red;
-                // width: 60vw;
-                // margin-right: 10px;
                 justify-self: center;
                 padding: 5px 0;
 
                 & > img {
                     width: 20px;
-                    // margin-right: 10px;
-                    /*position: absolute;
-                    left: 0;*/
 
                     @include nav-mobile-2 {
                         width: 28px;
@@ -139,9 +118,7 @@
                 }
 
                 .resize {
-                    // padding: 90px 0;
                     width: 28px;
-                    // border: 1px solid red;
                 }
 
                 & > ul {
@@ -150,7 +127,6 @@
                     flex-direction: row;
                     align-items: center;
                     justify-content: space-between;
-                    //border: 1px solid red;
 
                     @include nav-mobile-2 {
                         display: none;
@@ -158,9 +134,7 @@
 
                     & > li {
                         font-size: 18px;
-                        // font-weight: bold;
                         color: #8d8d8d;
-                        // margin-left: 15px;
                         transition: color 0.1s;
                         cursor: pointer;
 
@@ -181,31 +155,6 @@
                         color: rgb(15, 196, 99);
                     }
                 }
-
-                /*& > button {
-                    border: none;
-                    height: 15px;
-                    background: transparent;
-                    font-size: 25px;
-                    transition: color .2s, transform .2s;
-                    color: #585858;
-                    // outline: ;
-                    display: none;
-    
-                    &:active {
-                        color: #2b2b2b;
-                        transform: scale(0.95);
-                    }
-    
-
-                    @include nav-computer {
-                        display: none;
-                    }
-
-                    @include nav-mobile {
-                        display: none;
-                    }
-                }*/
             }
 
             .content-right {
@@ -215,7 +164,6 @@
                 justify-content: flex-end;
                 position: absolute;
                 right: 20px;
-                // border: 1px solid red;
 
                 & > p {
                     margin-right: 5px;

@@ -9,13 +9,11 @@
       placeholder="Digite o nome do político..."
       v-model="nameFilter"
     />
-    <!--<button type="button">Pesquisar</button>-->
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-// import Table from '../table/Table.vue';
 
 export default {
   name: 'Search',
@@ -24,9 +22,6 @@ export default {
     return {
       nameFilter: '',
     };
-  },
-  components: {
-    // Table,
   },
   methods: {
     ...mapActions({

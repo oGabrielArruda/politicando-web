@@ -209,7 +209,6 @@ main {
 
             & > p {
                 font-weight: 400;
-                //font-size: calc(0.4em + 0.4vw);
                 color: rgb(69, 92, 112);
 
                 @include event-computer-1 {

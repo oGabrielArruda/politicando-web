@@ -1,19 +1,7 @@
 <template>
   <div class="container">
-    <!--<button :class="{ 'show': !mobileView }" @click="showNav">
-      <i class="fas fa-bars"></i>
-    </button>-->
     <div class="content" :class="{ 'expand': closeSidebarComputer }">
       <Carousel />
-      <!--<button @click="updateRouter('Gastos')">
-        Gastos
-      </button>
-      <button @click="updateRouter('Presencas')">
-        Presenças
-      </button>
-      <button @click="updateRouter('Propostas')">
-        Propostas
-      </button>-->
       <div class="select-group">
         <SelectPolitico
         @onChange="handlePolitico"
@@ -35,8 +23,6 @@ export default {
   data() {
     return {
       politicos: [],
-      // mobileView: false,
-      // isOpen: false,
     };
   },
   components: {
@@ -49,12 +35,6 @@ export default {
       changeSelectedSide: 'navigation/changeSelectedSide',
       changeNamesNav: 'navigation/changeNamesNav',
     }),
-    /* handleView() {
-      this.mobileView = window.innerWidth <= 1230;
-    },*-/
-    /* showNav() {
-      this.isOpen = !this.isOpen;
-    }, */
     updateRouter(routeName) {
       this.$router.push({ name: routeName });
     },
@@ -66,10 +46,6 @@ export default {
     ...mapGetters({
       closeSidebarComputer: 'navigation/closeSidebarComputer',
     }),
-  },
-  created() {
-    // this.handleView();
-    // window.addEventListener('resize', this.handleView);
   },
   beforeRouteLeave(to, from, next) {
     this.changeSelects([]);

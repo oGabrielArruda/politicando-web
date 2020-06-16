@@ -77,8 +77,6 @@ export default {
         // this.totalPages = response.data.totalPages;
       }
 
-      const approved = 'APROVADA';
-      const disapproved = 'REJEITADA';
       const data = response.data.map((voting) => ({
         ...voting,
         dateFormatted: format(
@@ -86,7 +84,7 @@ export default {
           "d 'de' MMMM 'de' yyyy",
           { locale: pt },
         ),
-        situation: voting.valorVoto === 'Sim' ? approved : disapproved,
+        situation: voting.valorVoto === 'Sim' ? 'APROVADA' : 'REJEITADA',
         isApproved: voting.valorVoto === 'Sim' || false,
       }));
 

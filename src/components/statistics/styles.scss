@@ -23,42 +23,8 @@
     height: 100%;
     z-index: 9;
 
-    /* @include statistics-mobile {
-    }
-
-    @include statistics-mobile-2 {
-        flex-direction: column;
-        height: 100vh;
-    }
-
-    &.move {
-        transform: translate(200px);
-    } */
-
-    /*b& > button {
-        position: absolute;
-        left: 4px;
-        top: 4px;
-        border: none;
-        background: transparent;
-        padding: 4px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: transform 0.2s;
-        z-index: 99999999;
-
-        &.show {
-            display: none;
-        }
-
-        &:active {
-            transform: scale(0.9);
-        }
-    }*/
-
     .content {
         width: calc(100vw - 200px);
-        // border: 1px solid red;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -72,7 +38,6 @@
 
         @include statistics-mobile-2 {
             width: 100vw;
-            // min-height: 100vh;
         }
 
         .select-group {

@@ -8,12 +8,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    //border: 1px solid red;
     width: 100%;
-    // padding: 0 15px;
 
     .main-graph {
-        //border: 1px solid red;
         width: 100%;
         max-width: 940px;
         background: #fff;
@@ -59,7 +56,6 @@
     }
 
     .donut-sequence {
-        //border: 1px solid red;
         width: 100%;
         display: flex;
         align-items: center;

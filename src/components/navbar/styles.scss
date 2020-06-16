@@ -32,10 +32,6 @@ nav {
   display: flex;
   background: transparent;
 
-  #modal{
-    //  display: none;
-  }
-
   @include default {
     height: 10vh;
     flex-direction: row;
@@ -188,12 +184,6 @@ nav {
     -webkit-animation: fadeIn 0.3s;
     animation: fadeIn 0.3s;
 
-    /*&:target {
-      visibility: visible;
-      opacity: 1;
-      pointer-events: auto;
-    }*/
-
     & > div {
       width: 100%;
       max-width: 400px;
@@ -299,9 +289,6 @@ nav {
   }
 
   .close {
-    /*-webkit-animation: fadeOut 0.2s;
-    animation: fadeOut 0.2s;
-    animation-fill-mode: both;*/
     display: none;
     pointer-events: none;
   }

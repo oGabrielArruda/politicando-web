@@ -13,9 +13,6 @@
           />
           <p>Início</p>
           <span class="tooltip-text">Home</span>
-          <!--<span class="tooltip">
-            <span class="tooltip-text">TESTEEE</span>
-          </span>-->
         </button>
         <button
           :class="{ 'selected': buttonSelectedSide === 1 }"
