@@ -1,6 +1,21 @@
 <template>
     <div class="container">
-        <div v-> </div>
+        <h1> Mensagens de usuários </h1>
+        <div>
+          <table border="1px" cellpadding="5px" cellspacing="0" ID="alter">
+              <tr :key="msg.id" v-for="msg in msgs">
+                  <td> {{msg.id}} </td>
+                  <td> {{msg.mensagem}} </td>
+                  <td> {{msg.email}} </td>
+                  <td> {{msg.data}} </td>
+                  <td> {{msg.statusF}} </td>
+                  <td> {{msg.tipo}} </td>
+                  <td>
+                      <button @click="handleSolveClick(msg.id)"> Resolver </button>
+                  </td>
+              </tr>
+          </table>
+        </div>
     </div>
 </template>
 
@@ -22,6 +37,16 @@ export default {
     } catch (erro) {
       console.log(erro);
     }
+  },
+  methods: {
+    async handleSolveClick(id) {
+      try {
+        await api.post(`/Faq/solve/${id}`);
+        this.msgs = this.msgs.filter((t) => t.id !== id);
+      } catch (erro) {
+        console.log(erro);
+      }
+    },
   },
 };
 </script>
