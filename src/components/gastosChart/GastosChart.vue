@@ -339,6 +339,7 @@ export default {
           gastosArr.push(objGastos);
         }
         this.gastosArr = gastosArr;
+        ApexCharts.exec('chartGastos', 'updateSeries', this.gastosArr, true);
       } catch (erro) {
         console.log(erro);
       }
