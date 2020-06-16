@@ -97,12 +97,6 @@
             </div>
           </td>
         </tr>
-        <half-circle-spinner
-        class="spinner"
-        v-show="loading"
-        :size="100"
-        :color="'#5de63e'"
-        />
       </tbody>
     </table>
     <center>
@@ -129,7 +123,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { HalfCircleSpinner } from 'epic-spinners';
 import api from '../../config/api';
 
 export default {
@@ -160,9 +153,6 @@ export default {
     };
   },
   props: ['size', 'showBorder'],
-  components: {
-    HalfCircleSpinner,
-  },
   async mounted() {
     try {
       const responsePartidos = await api.get('/Partidos');

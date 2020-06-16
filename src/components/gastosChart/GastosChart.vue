@@ -223,6 +223,22 @@ export default {
     apexChart: VueApexCharts,
     Loading,
   },
+  async mounted() {
+    this.i = 0;
+    try {
+      this.isLoading = true;
+
+      await this.addPolitico(this.politicoPrincipal);
+      const promises = this.politicos.map((t) => this.addPolitico(t));
+      await Promise.all(promises);
+      this.lastSave = this.clone(this.politicos);
+      ApexCharts.exec('chartGastos', 'updateSeries', this.gastosArr, true);
+
+      this.isLoading = false;
+    } catch (erro) {
+      console.log(erro);
+    }
+  },
   methods: {
     async addPolitico(politico) {
       try {
@@ -294,13 +310,6 @@ export default {
       }
       return arrAntigo[arrAntigo.length - 1];
     },
-    abriuComponente() {
-      if (this.i === 0) {
-        this.i += 1;
-        return true;
-      }
-      return false;
-    },
   },
   computed: {
     politicoPrincipal() {
@@ -335,6 +344,9 @@ export default {
       }
     },
     politicoPrincipal: async function a(politico) {
+      if (this.i === 0) {
+        this.i += 1; // se for a primeira vez nao entra aqui, pra forçar o mounted
+      }
       try {
         const responseGastos = await this.getGastosAPI(politico.id);
         const objGasto = this.getObjGastos(responseGastos, politico.nome);
@@ -345,14 +357,12 @@ export default {
         console.log(erro);
       }
     },
-    gastosArr: function a(gastosArr) {
-      ApexCharts.exec('chartGastos', 'updateSeries', gastosArr, true);
-    },
-    politicos: function a(politicos) {
+    politicos: async function a(politicos) {
       // Primeira inserção
       if (this.lastSave.length === 0) {
-        this.addPolitico(politicos[0]);
+        await this.addPolitico(politicos[0]);
         this.lastSave = this.clone(politicos);
+        ApexCharts.exec('chartGastos', 'updateSeries', this.gastosArr, true);
         return;
       }
 
@@ -361,17 +371,19 @@ export default {
         const removido = this.acharRemovido(politicos, this.lastSave);
         this.removePolitico(removido);
         this.lastSave = this.clone(politicos);
+        ApexCharts.exec('chartGastos', 'updateSeries', this.gastosArr, true);
         return;
       }
 
       for (let i = 0; i < politicos.length; i += 1) {
         if (this.lastSave[i] === undefined) {
-          this.addPolitico(politicos[i]);
+          await this.addPolitico(politicos[i]); // eslint-disable-line no-await-in-loop
         } else if (politicos[i].id !== this.lastSave[i].id) {
-          this.addPolitico(politicos[i]);
+          await this.addPolitico(politicos[i]); // eslint-disable-line no-await-in-loop
           this.removePolitico(this.lastSave[i]);
         }
       }
+      ApexCharts.exec('chartGastos', 'updateSeries', this.gastosArr, true);
       this.lastSave = this.clone(politicos);
     },
   },

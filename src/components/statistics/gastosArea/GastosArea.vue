@@ -72,7 +72,6 @@ export default {
       if (this.politicosSelects) {
         arr = arr.concat(this.politicosSelects);
       }
-
       return arr;
     },
     anoTipoGastosComp() {
@@ -81,13 +80,6 @@ export default {
   },
   beforeMount() {
     this.changeSelectedNav(0);
-  },
-  mounted() {
-    const mainSave = this.politicoSelected;
-    const arrPoliticos = this.politicosSelects;
-
-    this.changeSelect(JSON.parse(JSON.stringify(mainSave)));
-    this.changeSelects(JSON.parse(JSON.stringify(arrPoliticos)));
   },
 };
 </script>
