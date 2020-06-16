@@ -25,7 +25,7 @@
           Numero de Processos: <span> {{ politicoSelected.processos }} </span>
         </p>
         <p>
-          Cidade de Origem: <span> {{ }} </span>
+          Cidade de Origem: <span> {{ politico.municipioNasc }} </span>
         </p>
       </div>
     </div>
@@ -46,10 +46,11 @@
 
       </div>
 
-      <table-propostas :politico="politicoSelected" id="propostas"/>
-      <Table :size="8" :showBorder="false" class="out" id="table"/>
-
-      <GastosArea/>
+      <div class="tab-contents">
+        <table-propostas :politico="politicoSelected" id="propostas"/>
+        <Table :size="8" :showBorder="false" class="out" id="table"/>
+        <GastosChart :politico="getObj" :politicos="politicosComp" id="graphs" class="out"/>
+      </div>
 
 
     </div>
@@ -60,16 +61,15 @@
 import { mapGetters } from 'vuex';
 import TablePropostas from '../../components/tablePropostas/TablePropostas.vue';
 import Table from '../../components/table/Table.vue';
-import GastosArea from '../../components/statistics/gastosArea/GastosArea.vue';
 import api from '../../config/api';
-
+import GastosChart from '../../components/gastosChart/GastosChart.vue';
 
 export default {
   name: 'PerfilPolitico',
   components: {
     TablePropostas,
     Table,
-    GastosArea,
+    GastosChart,
   },
   methods: {
     changeTab(tab) {
@@ -103,7 +103,9 @@ export default {
             const selected = document.querySelector('.mandato');
             selected.classList.add('selected-color');
             const div = document.getElementById('3');
+            const graphs = document.getElementById('graphs');
             div.classList.add('selected');
+            graphs.classList.remove('out');
             this.removeColor(this.anterior);
             this.anterior = 3;
           }
@@ -138,6 +140,8 @@ export default {
         case 3: {
           const selected = document.querySelector('.mandato');
           selected.classList.remove('selected-color');
+          const graphs = document.getElementById('graphs');
+          graphs.classList.add('out');
           const div = document.getElementById('3');
           div.classList.remove('selected');
         }
@@ -168,17 +172,33 @@ export default {
       }
     },
   },
+  async mounted() {
+    try {
+      const dadosPolitico = await api.get(`/PoliticoItems/${this.politicoSelected.id}/detalhes`);
+      this.politico = dadosPolitico.data;
+    } catch (err) {
+      console.log(err);
+    }
+  },
   data() {
     return {
       anterior: 1,
       divAnterior: 1,
+      politico: 1,
     };
   },
   computed: {
     ...mapGetters({
       user: 'auth/user',
       politicoSelected: 'profile/politicoSelected',
+      politicosSelects: 'carousel/politicosSelects',
     }),
+    getObj() {
+      return this.politicoSelected;
+    },
+    politicosComp() {
+      return this.politicosSelects;
+    },
   },
 };
 </script>

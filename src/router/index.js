@@ -36,7 +36,7 @@ const routes = [
     component: Signup,
   },
   {
-    path: '/teste',
+    path: '/perfilPolitico',
     name: 'PerfilPolitico',
     component: PerfilPolitico,
   },
