@@ -43,6 +43,7 @@ export default {
       e.preventDefault();
       const messageObj = this.getMessageObject();
       await this.sendMessage(messageObj);
+      this.$toast.success('Mensagem enviada! Cheque a resposa em seu e-mail!');
       this.texto = '';
       this.email = '';
     },

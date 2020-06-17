@@ -43,6 +43,7 @@ export default {
       try {
         await api.post(`/Faq/solve/${id}`);
         this.msgs = this.msgs.filter((t) => t.id !== id);
+        this.$toast.success('Resolvido!');
       } catch (erro) {
         console.log(erro);
       }
