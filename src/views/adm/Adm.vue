@@ -3,6 +3,16 @@
         <h1> Mensagens de usuários </h1>
         <div>
           <table border="1px" cellpadding="5px" cellspacing="0" ID="alter">
+              <thead>
+              <tr>
+                  <td> Id </td>
+                  <td> Mensagem </td>
+                  <td> Email </td>
+                  <td> Data </td>
+                  <td> Status </td>
+                  <td> Tipo </td>
+              </tr>
+              </thead>
               <tr :key="msg.id" v-for="msg in msgs">
                   <td> {{msg.id}} </td>
                   <td> {{msg.mensagem}} </td>

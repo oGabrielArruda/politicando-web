@@ -4,7 +4,15 @@
         padding: 20px;
     }
     & > div {
-        & > table {            
+        & > table {
+            thead {
+                tr {
+                    td {
+                        padding: 5px;
+                        font-weight: bold;
+                    }
+                }
+            }            
             tr {
                 td {
                     padding: 50px;
