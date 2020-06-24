@@ -19,40 +19,66 @@
           Partido: <span> {{ politicoSelected.partido }} </span>
         </p>
         <p>
-          Estado de Origem: <span> {{ politicoSelected.estado }} </span>
+          Estado: <span> {{ politicoSelected.estado }} </span>
         </p>
         <p>
           Numero de Processos: <span> {{ politicoSelected.processos }} </span>
-        </p>
-        <p>
-          Cidade de Origem: <span> {{ politico.municipioNasc }} </span>
         </p>
       </div>
     </div>
     <div class="tabs">
       <div class="options">
         <div>
-          <p class="infos selected-color" @click="changeTab()">Propostas</p>
+          <p class="infos selected-color" @click="changeTab()">Informações</p>
           <div id="1" class="selected"></div>
         </div>
         <div>
-           <p class="classificacao" @click="changeTab(1)">Classificação</p>
-           <div id="2"></div>
+          <p class="classificacao" @click="changeTab(1)">Propostas</p>
+          <div id="2"></div>
         </div>
-       <div>
-         <p class="mandato" @click="changeTab(2)">Estatísticas</p>
-         <div id="3"></div>
-       </div>
-
+        <div>
+          <p class="mandato" @click="changeTab(2)">Estatísticas</p>
+          <div id="3"></div>
+        </div>
       </div>
 
       <div class="tab-contents">
-        <table-propostas :politico="politicoSelected" id="propostas"/>
-        <Table :size="8" :showBorder="false" class="out" id="table"/>
-        <GastosChart :politico="getObj" :politicos="politicosComp" id="graphs" class="out"/>
+        <!-- ABA 1 -->
+        <div class="infoPolitico" v-if="anterior === 1">
+          <p>
+            Nome completo: <span> {{ politico.nomeCompleto }} </span>
+          </p>
+          <p>
+            Telefone: <span> {{ politico.telefone }} </span>
+          </p>
+          <p>
+            Estado de origem: <span> {{ politico.ufNasc }} </span>
+          </p>
+          <p>
+            Email: <span> {{ politico.email }} </span>
+          </p>
+          <p>
+            Cidade de origem: <span> {{ politico.municipioNasc }} </span>
+          </p>
+          <p>
+            Endereço gabinete: <span> {{ politico.enderecoGabinete }} </span>
+          </p>
+          <p>
+            Data de nascimento: <span> {{ politico.dataNasc }} </span>
+          </p>
+        </div>
+
+        <!-- ABA 2 -->
+        <table-propostas :politico="politicoSelected" id="propostas" v-if="anterior === 2" />
+
+        <!-- ABA 3 -->
+        <GastosChart
+          :politico="getObj"
+          :politicos="politicosComp"
+          id="graphs"
+          v-if="anterior === 3"
+        />
       </div>
-
-
     </div>
   </div>
 </template>
@@ -60,7 +86,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import TablePropostas from '../../components/tablePropostas/TablePropostas.vue';
-import Table from '../../components/table/Table.vue';
 import api from '../../config/api';
 import GastosChart from '../../components/gastosChart/GastosChart.vue';
 
@@ -68,7 +93,6 @@ export default {
   name: 'PerfilPolitico',
   components: {
     TablePropostas,
-    Table,
     GastosChart,
   },
   methods: {
@@ -78,9 +102,7 @@ export default {
           {
             const selected = document.querySelector('.infos');
             const div = document.getElementById('1');
-            const props = document.getElementById('propostas');
             selected.classList.add('selected-color');
-            props.classList.remove('out');
             div.classList.add('selected');
             this.removeColor(this.anterior);
             this.anterior = 1;
@@ -91,8 +113,6 @@ export default {
             const selected = document.querySelector('.classificacao');
             selected.classList.add('selected-color');
             const div = document.getElementById('2');
-            const table = document.getElementById('table');
-            table.classList.remove('out');
             div.classList.add('selected');
             this.removeColor(this.anterior);
             this.anterior = 2;
@@ -103,9 +123,7 @@ export default {
             const selected = document.querySelector('.mandato');
             selected.classList.add('selected-color');
             const div = document.getElementById('3');
-            const graphs = document.getElementById('graphs');
             div.classList.add('selected');
-            graphs.classList.remove('out');
             this.removeColor(this.anterior);
             this.anterior = 3;
           }
@@ -120,8 +138,6 @@ export default {
           {
             const selected = document.querySelector('.infos');
             const div = document.getElementById('1');
-            const propostas = document.getElementById('propostas');
-            propostas.classList.add('out');
             selected.classList.remove('selected-color');
             div.classList.remove('selected');
           }
@@ -130,8 +146,6 @@ export default {
           {
             const selected = document.querySelector('.classificacao');
             selected.classList.remove('selected-color');
-            const table = document.getElementById('table');
-            table.classList.add('out');
             const div = document.getElementById('2');
             div.classList.remove('selected');
           }
@@ -140,8 +154,6 @@ export default {
         case 3: {
           const selected = document.querySelector('.mandato');
           selected.classList.remove('selected-color');
-          const graphs = document.getElementById('graphs');
-          graphs.classList.add('out');
           const div = document.getElementById('3');
           div.classList.remove('selected');
         }

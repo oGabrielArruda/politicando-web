@@ -96,6 +96,24 @@
       align-items: center;
       flex-direction: column;
       width: 100%;
+
+
+      .infoPolitico{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 80%;
+        font-size: 20px;
+
+        & > p{
+          font-weight: bold;
+          margin-top: 5vw;
+
+
+          & > span{
+            font-weight: normal;
+          }
+        }
+      }
     }
 
     .selected{
