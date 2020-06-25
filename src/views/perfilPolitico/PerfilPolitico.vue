@@ -24,6 +24,9 @@
         <p>
           Numero de Processos: <span> {{ politicoSelected.processos }} </span>
         </p>
+        <p>
+          Cargo: <span> {{ this.getCargoPolitico() }} </span>
+        </p>
       </div>
     </div>
     <div class="tabs">
@@ -46,25 +49,32 @@
         <!-- ABA 1 -->
         <div class="infoPolitico" v-if="anterior === 1">
           <p>
-            Nome completo: <span> {{ politico.nomeCompleto }} </span>
+            Nome completo: <br /><br />
+            <span> {{ politico.nomeCompleto }} </span>
           </p>
           <p>
-            Telefone: <span> {{ politico.telefone }} </span>
+            Telefone: <br /><br />
+            <span> {{ politico.telefone }} </span>
           </p>
           <p>
-            Estado de origem: <span> {{ politico.ufNasc }} </span>
+            Estado de origem: <br /><br />
+            <span> {{ politico.ufNasc }} </span>
           </p>
           <p>
-            Email: <span> {{ politico.email }} </span>
+            Email: <br /><br />
+            <span> {{ politico.email }} </span>
           </p>
           <p>
-            Cidade de origem: <span> {{ politico.municipioNasc }} </span>
+            Cidade de origem: <br /><br />
+            <span> {{ politico.municipioNasc }} </span>
           </p>
           <p>
-            Endereço gabinete: <span> {{ politico.enderecoGabinete }} </span>
+            Endereço gabinete: <br /><br />
+            <span> {{ politico.enderecoGabinete }} </span>
           </p>
           <p>
-            Data de nascimento: <span> {{ politico.dataNasc }} </span>
+            Data de nascimento: <br /><br />
+            <span> {{ this.getDataPolitico() }} </span>
           </p>
         </div>
 
@@ -104,7 +114,9 @@ export default {
             const div = document.getElementById('1');
             selected.classList.add('selected-color');
             div.classList.add('selected');
-            this.removeColor(this.anterior);
+            if (this.anterior !== 1) {
+              this.removeColor(this.anterior);
+            }
             this.anterior = 1;
           }
           break;
@@ -114,7 +126,9 @@ export default {
             selected.classList.add('selected-color');
             const div = document.getElementById('2');
             div.classList.add('selected');
-            this.removeColor(this.anterior);
+            if (this.anterior !== 2) {
+              this.removeColor(this.anterior);
+            }
             this.anterior = 2;
           }
           break;
@@ -124,11 +138,23 @@ export default {
             selected.classList.add('selected-color');
             const div = document.getElementById('3');
             div.classList.add('selected');
-            this.removeColor(this.anterior);
+            if (this.anterior !== 3) {
+              this.removeColor(this.anterior);
+            }
             this.anterior = 3;
           }
           break;
       }
+    },
+    getDataPolitico() {
+      const dia = this.politico.dataNasc.substring(8, 10);
+      const mes = this.politico.dataNasc.substring(5, 7);
+      const ano = this.politico.dataNasc.substring(0, 4);
+      return (`${dia}/${mes}/${ano}`);
+    },
+    getCargoPolitico() {
+      if (this.politicoSelected.tipo === 1) return 'Deputado Federal';
+      return 'Senador';
     },
     removeColor(tab) {
       switch (tab) {

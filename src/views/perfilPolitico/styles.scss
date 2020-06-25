@@ -100,17 +100,19 @@
 
       .infoPolitico{
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 2fr 1fr;
         width: 80%;
         font-size: 20px;
 
         & > p{
           font-weight: bold;
-          margin-top: 5vw;
+          margin-top: 3vw;
+          
 
 
           & > span{
             font-weight: normal;
+           
           }
         }
       }
@@ -129,10 +131,12 @@
 
     .selected-color{
       color: #13B423;
-      background-color: #D9D9D9;
+      background-color: #e2e0e0;
       padding-top: 1vh;
       padding-bottom: 1vh;
       transition: 0.5s;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
     }
 
     .out{
