@@ -4,7 +4,7 @@
       <div class="items">
         <button
           :class="{ 'selected': buttonSelectedSide === 0 }"
-          @click="pushRouter(0, 'Você já está no início', '/home/feed/recentes')"
+          @click="pushRouter(0, 'Você já está no início', '/home/feed/noticias')"
         >
           <img
             :src="buttonSelectedSide === 0
