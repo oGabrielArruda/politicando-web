@@ -111,19 +111,51 @@
         }
       }
 
+      .classification-title{
+        font-size: 30pt;
+        color: #606266;
+      }
       .classificacao {
+        color: #606266;
+        margin-top: 30px;
+        
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         width: 100%;
 
-        .presencas{
+        .cards{
+          border: 1px solid lightgrey;
+          margin-right: 10px;
+          border-radius: 10px;
+          text-align: center;
           
+
+          .card-title {
+            
+            font-size: 30px;
+            margin-bottom: 100px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          }
+
+          .dados{
+            text-align: center;
+            border-radius: 50%;
+            border: solid 5px lightgrey;
+            font-size: 60px;
+            width: 252px;
+            height: 252px;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 60px;
+          }
         }
 
-        .card-title {
-          text-align: center;
-          font-size: 30px;
-        }
+        
+
+
       }
     }
 

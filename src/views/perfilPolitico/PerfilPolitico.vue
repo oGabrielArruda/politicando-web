@@ -82,41 +82,36 @@
         <table-propostas :politico="politicoSelected" v-if="anterior === 2" />
 
         <!-- ABA 3 -->
+
+        <p class="classification-title" v-if="anterior === 3">
+          As classificações de {{ politicoSelected.nome }} são as seguintes:
+        </p>
         <div class="classificacao" v-if="anterior === 3">
-          <div class="gastos">
-            <p class="card-title">Gastos</p>
-            <h4 class="dados">
-              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político com mais gastos
-            </h4>
+          <div class="cards">
+            <p class="card-title">Mais Gastos</p>
+            <div class="dados">
+              {{ listaPorGasto }}
+            </div>
           </div>
 
-          <div class="faltas">
-            <p class="card-title">Faltas</p>
-            <h4 class="dados">
-              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político que mais faltou em sessões
-            </h4>
+          <div class="cards">
+            <p class="card-title">Mais Faltas</p>
+            <div class="dados"> 254º</div>
           </div>
 
-          <div class="presencas">
-            <p class="card-title">Presenças</p>
-            <h4 class="dados">
-              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político que mais se apresentou em
-              sessões
-            </h4>
+          <div class="cards">
+            <p class="card-title">Mais Presenças</p>
+            <div class="dados"> 18º</div>
           </div>
 
-          <div class="propostas">
-            <p class="card-title">Propostas</p>
-            <h4 class="dados">
-              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político que mais apresentou propostas
-            </h4>
+          <div class="cards">
+            <p class="card-title">Mais Propostas</p>
+            <div class="dados"> 1308º</div>
           </div>
 
-          <div class="processos">
-            <p class="card-title">Processos</p>
-            <h4 class="dados">
-              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político que sofreu mais processos
-            </h4>
+          <div class="cards">
+            <p class="card-title">Mais Processos</p>
+            <div class="dados"> 812º</div>
           </div>
         </div>
       </div>
@@ -252,6 +247,8 @@ export default {
       anterior: 1,
       divAnterior: 1,
       politico: 1,
+      url: '/PoliticoItems/filtrado',
+      listaPorGasto: [],
     };
   },
   computed: {
@@ -265,6 +262,48 @@ export default {
     },
     politicosComp() {
       return this.politicosSelects;
+    },
+    queryParams(filtroDaVez) {
+      let objQry = {
+        page: 1,
+        size: 600,
+        clasf: filtroDaVez,
+      };
+
+      if (this.user) {
+        objQry = {
+          ...objQry,
+          idUser: this.user.id,
+        };
+      }
+      return objQry;
+    },
+  },
+  asyncComputed: {
+    async filtroPoliticos() {
+      this.loading = true;
+      try {
+        const response = await api.get(this.url, {
+          params: this.queryParams('Mais gastos'.normalize('NFD').replace(/[\u0300-\u036f]/g, '')),
+        });
+        this.totalPages = response.data.totalPages;
+        const data = response.data.politicos.map((t) => ({
+          ...t,
+          text: t.seguindo ? 'Seguindo' : 'Seguir',
+        }));
+        // console.log(data);
+        this.listaPorGasto = data;
+        return data;
+      } catch (erro) {
+        this.page = 1;
+        this.loading = false;
+        return null;
+      }
+    },
+  },
+  watch: {
+    filtroPoliticos: function a() {
+      this.loading = false;
     },
   },
 };
