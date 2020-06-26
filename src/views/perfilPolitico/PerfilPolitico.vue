@@ -238,6 +238,24 @@ export default {
     try {
       const dadosPolitico = await api.get(`/PoliticoItems/${this.politicoSelected.id}/detalhes`);
       this.politico = dadosPolitico.data;
+
+      const promisesArrClasf = [];
+      this.classificativos.forEach((t) => {
+        const formattedName = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        promisesArrClasf.push(api.get('/PoliticoItems/filtrado', {
+          params: {
+            size: 700,
+            page: 1,
+            clasf: formattedName,
+          },
+        }));
+      });
+      const arrClasfBruto = await Promise.all(promisesArrClasf);
+      const arrClasf = [];
+      arrClasfBruto.forEach((t) => {
+        arrClasf.push(t.data);
+      });
+      this.matrizClassificacoes = arrClasf;
     } catch (err) {
       console.log(err);
     }
@@ -249,6 +267,16 @@ export default {
       politico: 1,
       url: '/PoliticoItems/filtrado',
       listaPorGasto: [],
+      matrizClassificacoes: [],
+      classificativos: [
+        'Alfabeto',
+        'Mais Gastos',
+        'Menos Gastos',
+        'Faltas',
+        'Presenças',
+        'Propostas',
+        'Processos',
+      ],
     };
   },
   computed: {
@@ -277,28 +305,6 @@ export default {
         };
       }
       return objQry;
-    },
-  },
-  asyncComputed: {
-    async filtroPoliticos() {
-      this.loading = true;
-      try {
-        const response = await api.get(this.url, {
-          params: this.queryParams('Mais gastos'.normalize('NFD').replace(/[\u0300-\u036f]/g, '')),
-        });
-        this.totalPages = response.data.totalPages;
-        const data = response.data.politicos.map((t) => ({
-          ...t,
-          text: t.seguindo ? 'Seguindo' : 'Seguir',
-        }));
-        // console.log(data);
-        this.listaPorGasto = data;
-        return data;
-      } catch (erro) {
-        this.page = 1;
-        this.loading = false;
-        return null;
-      }
     },
   },
   watch: {
