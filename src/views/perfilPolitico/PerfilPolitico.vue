@@ -40,7 +40,7 @@
           <div id="2"></div>
         </div>
         <div>
-          <p class="mandato" @click="changeTab(2)">Estatísticas</p>
+          <p class="mandato" @click="changeTab(2)">Classificações</p>
           <div id="3"></div>
         </div>
       </div>
@@ -79,15 +79,46 @@
         </div>
 
         <!-- ABA 2 -->
-        <table-propostas :politico="politicoSelected" id="propostas" v-if="anterior === 2" />
+        <table-propostas :politico="politicoSelected" v-if="anterior === 2" />
 
         <!-- ABA 3 -->
-        <GastosChart
-          :politico="getObj"
-          :politicos="politicosComp"
-          id="graphs"
-          v-if="anterior === 3"
-        />
+        <div class="classificacao" v-if="anterior === 3">
+          <div class="gastos">
+            <p class="card-title">Gastos</p>
+            <h4 class="dados">
+              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político com mais gastos
+            </h4>
+          </div>
+
+          <div class="faltas">
+            <p class="card-title">Faltas</p>
+            <h4 class="dados">
+              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político que mais faltou em sessões
+            </h4>
+          </div>
+
+          <div class="presencas">
+            <p class="card-title">Presenças</p>
+            <h4 class="dados">
+              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político que mais se apresentou em
+              sessões
+            </h4>
+          </div>
+
+          <div class="propostas">
+            <p class="card-title">Propostas</p>
+            <h4 class="dados">
+              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político que mais apresentou propostas
+            </h4>
+          </div>
+
+          <div class="processos">
+            <p class="card-title">Processos</p>
+            <h4 class="dados">
+              {{ politicoSelected.nome }} é o {{ "POSIÇÃO" }} político que sofreu mais processos
+            </h4>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -97,13 +128,11 @@
 import { mapGetters } from 'vuex';
 import TablePropostas from '../../components/tablePropostas/TablePropostas.vue';
 import api from '../../config/api';
-import GastosChart from '../../components/gastosChart/GastosChart.vue';
 
 export default {
   name: 'PerfilPolitico',
   components: {
     TablePropostas,
-    GastosChart,
   },
   methods: {
     changeTab(tab) {
@@ -150,7 +179,7 @@ export default {
       const dia = this.politico.dataNasc.substring(8, 10);
       const mes = this.politico.dataNasc.substring(5, 7);
       const ano = this.politico.dataNasc.substring(0, 4);
-      return (`${dia}/${mes}/${ano}`);
+      return `${dia}/${mes}/${ano}`;
     },
     getCargoPolitico() {
       if (this.politicoSelected.tipo === 1) return 'Deputado Federal';
