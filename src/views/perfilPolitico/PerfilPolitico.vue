@@ -90,28 +90,28 @@
           <div class="cards">
             <p class="card-title">Mais Gastos</p>
             <div class="dados">
-              {{ listaPorGasto }}
+              {{ this.getPosition(this.politico.idPolitico, 1) }}
             </div>
           </div>
 
           <div class="cards">
             <p class="card-title">Mais Faltas</p>
-            <div class="dados"> 254º</div>
+            <div class="dados">{{ this.getPosition(this.politico.idPolitico, 3) }}</div>
           </div>
 
           <div class="cards">
             <p class="card-title">Mais Presenças</p>
-            <div class="dados"> 18º</div>
+            <div class="dados">{{ this.getPosition(this.politico.idPolitico, 4) }} </div>
           </div>
 
           <div class="cards">
             <p class="card-title">Mais Propostas</p>
-            <div class="dados"> 1308º</div>
+            <div class="dados">{{ this.getPosition(this.politico.idPolitico, 5) }}</div>
           </div>
 
           <div class="cards">
             <p class="card-title">Mais Processos</p>
-            <div class="dados"> 812º</div>
+            <div class="dados">{{ this.getPosition(this.politico.idPolitico, 6) }}</div>
           </div>
         </div>
       </div>
@@ -209,6 +209,41 @@ export default {
         }
       }
     },
+    // metodo para pegar a posicao do politico de acordo com o filtro
+    getPosition(idPolitico, classificativo) {
+      // variavel pra usar no while
+      let i = 0;
+      // variavel para sair do while
+      let achou = false;
+
+      // enquanto nao achou o politico ou nao acabou o vetor
+      while (i < 600 && achou === false) {
+        // seleciona o vetor com o classificativo de acordo com o parametro,
+        // pega o vetor de politicos desse outro vetor e verifica se o id correspondente ao
+        // politico referente ao i é igual ao do politoco do perfil
+        if (this.matrizClassificacoes[classificativo].politicos[i].id === idPolitico) {
+          // indica que achou
+          achou = true;
+
+          // seleciona o tipo do classificativo passado por parametro
+          switch (classificativo) {
+            // se for 1, pega o resultado do i (posição do politico), e coloca nos gastos
+            case 1: return i;
+            // se for 1, pega o resultado do i (posição do politico), e coloca nas faltas
+            case 3: return i;
+            // se for 1, pega o resultado do i (posição do politico), e coloca nas presenças
+            case 4: return i;
+            // se for 1, pega o resultado do i (posição do politico), e coloca nas propostas
+            case 5: return i;
+            // se for 1, pega o resultado do i (posição do politico), e coloca nos processos
+            default: return i;
+          }
+        }
+        i += 1;
+      }
+      // se nao achar e o i passar de 600 retorna que é maior que 600
+      return 'Maior que 600';
+    },
     async follow() {
       try {
         await api.post('/Users/follow', {
@@ -242,13 +277,15 @@ export default {
       const promisesArrClasf = [];
       this.classificativos.forEach((t) => {
         const formattedName = t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        promisesArrClasf.push(api.get('/PoliticoItems/filtrado', {
-          params: {
-            size: 700,
-            page: 1,
-            clasf: formattedName,
-          },
-        }));
+        promisesArrClasf.push(
+          api.get('/PoliticoItems/filtrado', {
+            params: {
+              size: 700,
+              page: 1,
+              clasf: formattedName,
+            },
+          }),
+        );
       });
       const arrClasfBruto = await Promise.all(promisesArrClasf);
       const arrClasf = [];
@@ -256,6 +293,7 @@ export default {
         arrClasf.push(t.data);
       });
       this.matrizClassificacoes = arrClasf;
+      // console.log(this.matrizClassificacoes);
     } catch (err) {
       console.log(err);
     }
@@ -277,6 +315,11 @@ export default {
         'Propostas',
         'Processos',
       ],
+      posicaoPropostas: 'Maior que 600',
+      posicaoGastos: 'Maior que 600',
+      posicaoProcessos: 'Maior que 600',
+      posicaoFaltas: 'Maior que 600',
+      posicaoPresencas: 'Maior que 600',
     };
   },
   computed: {
