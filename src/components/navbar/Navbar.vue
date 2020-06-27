@@ -39,7 +39,7 @@ export default {
     },
     showModal() {
       if (this.authenticated) {
-        this.$router.push({ path: 'home/feed' });
+        this.$router.push({ path: 'home/feed/noticias' });
       }
       this.$refs.modal.showModal();
     },
