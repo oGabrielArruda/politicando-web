@@ -37,6 +37,7 @@
 
 ## 🏆 Achievements
 
+<p flot="left">
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl6ON-hm62le3c3lz5dkqKVSTOARuIllfnN2gdnvtfbEbQKiy21h-rUgtHvYV2cVDvKTw&usqp=CAU" width="180px" />
 
 <img src="https://user-images.githubusercontent.com/49238044/130156989-d651dc5e-f07d-493f-bf93-f971b8551187.png" width="60px" />
@@ -44,19 +45,24 @@
 <img src="https://user-images.githubusercontent.com/49238044/130156848-992f370a-857a-4e3c-b704-7691ec12b249.png" width="150px" />
 
 <img src="https://user-images.githubusercontent.com/49238044/130156107-00c95b8a-4928-4a1a-97f2-757185162fc1.jpeg" width="77px" />
-<br />
+</p>
 
 - XIX Brazilian Science and Engineering Fair (FEBRACE)
+  <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🥉 in Exact Sciences category
 
 - X Bragantec Science and Technology Fair
+  <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🥇 in Computing category
+  <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🥉 in general ranking
 
 - VIII Science and Technology Exhibition of 3M Institute
+  <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🥉 in Exact Sciences category
 
 - Brazilian Young Scientists Fair (FBJC)
+  <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🥉 Innovalab Excellence in Innovation Award
 
 ## 👨‍💻 Developers
