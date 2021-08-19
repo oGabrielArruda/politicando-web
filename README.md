@@ -8,10 +8,6 @@
 
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/oGabrielArruda/politicando-web.svg">
 
-  <a href="https://www.codacy.com/app/oGabrielArruda/politicando-web?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=oGabrielArruda/politicando-web&amp;utm_campaign=Badge_Grade">
-    <img alt="Codacy grade" src="https://img.shields.io/codacy/grade/1b577a07dda843aba09f4bc55d1af8fc.svg">
-  </a>
-
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/oGabrielArruda/politicando-web.svg">
   <a href="https://github.com/oGabrielArruda/politicando-web/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/oGabrielArruda/politicando-web.svg">
@@ -22,23 +18,14 @@
   </a>
 
   <img alt="GitHub" src="https://img.shields.io/github/license/oGabrielArruda/politicando-web.svg">
-</p>
-
-<p align="center">
-<a href="#page_with_curl-About">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#rocket-Technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#👨‍💻_Developers">Developers</a>
-</p>
 
 ## :page_with_curl: About
 
+**<span>**Politicando**</span>** is a scientific project with the objective of allowing political supervision and participation in Brazil through digital tools. Based on our research, we built an application using the concept of Reactive Programming, which handles the government's official raw data and makes them available in an intuitive and analytical way, individually for each Brazilian deputy and senator.
+
 ## :rocket: Technologies
 
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 
 ## 👨‍💻 Developers
 
