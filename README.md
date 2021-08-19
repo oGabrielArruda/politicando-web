@@ -35,6 +35,12 @@
   <img class="gif" src="https://user-images.githubusercontent.com/49238044/130137575-5e91fa32-b32a-4931-98d6-cb9e0baa37b4.gif" />
 </div>
 
+## 🏆 Achievements
+
+<img src="https://user-images.githubusercontent.com/49238044/130156107-00c95b8a-4928-4a1a-97f2-757185162fc1.jpeg" width="60px" />
+<br />
+<img src="https://user-images.githubusercontent.com/49238044/130156107-00c95b8a-4928-4a1a-97f2-757185162fc1.jpeg" width="60px" />
+
 ## 👨‍💻 Developers
 
 [Gabriel Arruda](https://github.com/oGabrielArruda), [Nouani Sanches](https://github.com/nouani) e [Guilherme Augusto](https://github.com/GuilhermeAugustoFT).
